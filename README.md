@@ -25,7 +25,7 @@ ClassPath dependencies
     * Java 1.7.0 is needed, upper version should be compatible
 	* Project uses [Gson API](https://github.com/google/gson)
 
-	Notes
+Notes
 -----
 
 * The classpath file is called "project.classpath" and has to ne rename in ".classpath" for compilation.
