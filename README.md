@@ -77,6 +77,24 @@ The package `object.formatters` is helpful to test the good work of Formatters J
 
 ## Versions
 
+### 1.0
+Based on functions contained in MultiChain Alpha 24
+
+Integrated functions about :
+* Block
+* Address
+* Grant
+* Balance
+* Wallet
+* Issue/Assets
+* Transaction
+* Transaction	RAW
+
+Todo :
+* integrate new functions (actually MultiChain Alpha 28)
+* integrate Stream functions
+
+
 ## License
 
 MultiChainJAVAAPI is released under the [GNU General Public License version 3] (LICENSE).
