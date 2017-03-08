@@ -67,18 +67,20 @@ The package `multichain.object` contains Java objects which can be used to call 
 
 The package contains `formatters` with technical classes used to format Json to Java using [Gson API](https://github.com/google/gson).
 
-## Versions
-
-## License
-
-MultiChainJAVAAPI is released under the [GNU General Public License version 3] (LICENSE).
-
 #### multichain.test.object.formatters
 The package `multichain.test` contains Java unit test.
 Test are written with `main()` function to be executed whatever IDE or system used.
 
 The package `command` has to contain unit tests for each command.
 The package `object.formatters` is helpful to test the good work of Formatters Json<->Java.
+
+
+## Versions
+
+## License
+
+MultiChainJAVAAPI is released under the [GNU General Public License version 3] (LICENSE).
+
 
 ```
 Copyright (c) 2017 Worldline.
