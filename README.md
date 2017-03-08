@@ -30,7 +30,7 @@ These compilation instructions have been tested on Ubuntu 12.4 x64 only with Jav
 ### Global Architecture
 The goal of the API is to directly integrate calls to command system and Json Formating to make Java developing easier :
 
-<img src="https://github.com/SimplyUb/MultiChainJavaAPI/Archi.png" alt="Global Architecture"/>
+![alt tag](Archi.png)
 
 The initial mind of the project is to manage Wallet.
 There's no command to manage the BlockChain like : create a blockChain, join a blockChain, ...
