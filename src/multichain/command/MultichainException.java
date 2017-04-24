@@ -19,6 +19,6 @@ public class MultichainException extends Exception {
 	private static final long serialVersionUID = 2412952380749244614L;
 
 	public MultichainException(String object, String reason){
-		System.out.println("Error "+ object +" "+reason);
+		System.out.println("Error "+ object +" \nReason: "+reason);
 	}
 }

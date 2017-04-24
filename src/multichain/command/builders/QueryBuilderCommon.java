@@ -34,6 +34,8 @@ abstract class QueryBuilderCommon {
 		APPENDROWMETADA,
 		CLEARMEMPOOL,
 		COMBINEUNPSENT,
+		CREATE,
+		CREATEFROM,
 		CREATEMULTISIG,
 		CREATERAWEXCHANGE,
 		CREATERAWTRANSACTION,
@@ -56,9 +58,11 @@ abstract class QueryBuilderCommon {
 		GETRAWCHANGEADDRESS,
 		GETPEERINFO,
 		GETRAWTRANSACTION,
+		GETSTREAMITEM,
 		GETTOTALBALANCES,
 		GETTRANSACTION,
 		GETTXOUT,
+		GETTXOUTDATA,
 		GETUNCONFIRMEDBALANCE,
 		GETWALLETTRANSACTION,
 		GRANT,
@@ -76,6 +80,10 @@ abstract class QueryBuilderCommon {
 		LISTASSETS,
 		LISTLOCKUNPSENT,
 		LISTPERMISSIONS,
+		LISTSTREAMITEMS,
+		LISTSTREAMPUBLISHERS,
+		LISTSTREAMPUBLISHERITEMS,
+		LISTSTREAMS,
 		LISTUNSPENT,
 		LISTWALLETTRANSACTIONS,
 		LOCKUNSPENT,
@@ -98,6 +106,8 @@ abstract class QueryBuilderCommon {
 		SIGNMESSAGE,
 		SIGNTAWTRANSACTION,
 		STOP,
+		SUBSCRIBE,
+		UNSUBSCRIBE,
 		VALIDATEADDRESS,
 		VERIFYMESSAGE
 	}
@@ -114,7 +124,7 @@ abstract class QueryBuilderCommon {
 	/**
 	 *
 	 * @param command
-	 * @param parameter
+	 * @param parameters
 	 *
 	 * @return
 	 *
@@ -124,12 +134,11 @@ abstract class QueryBuilderCommon {
 	 * @throws MultichainException
 	 */
 	protected static String execute(CommandEnum command, String... parameters) throws MultichainException {
-
+        BufferedReader stdError = null;
 		if (!CHAIN.equals("")) {
 			Runtime rt = Runtime.getRuntime();
 			Process pr;
 			String result = "";
-			boolean error = false;
 			try {
 				if (parameters.length > 0) {
 					String params = "";
@@ -143,36 +152,35 @@ abstract class QueryBuilderCommon {
 
 				BufferedReader stdInput = new BufferedReader(new InputStreamReader(pr.getInputStream()));
 
-				BufferedReader stdError = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
+				stdError = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
 
 				// read the output from the command
-				String s = null;
+				String s;
 				while ((s = stdInput.readLine()) != null) {
 					result = result.concat(s + "\n");
 				}
-
-				// read any errors from the attempted command
-				while ((s = stdError.readLine()) != null) {
-					error = true;
-					result = result.concat(s + "\n");
-				}
-
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-			if (!header && !error) {
-				return removeHeader(result);
-			} else if (!error) {
-				return result;
-			} else {
-				throw new MultichainException(null, result);
-			}
+            if (!result.isEmpty() && !result.equalsIgnoreCase("")) {
+                return result;
+            } else {
+                // read any errors from the attempted command
+                String s;
+                try {
+                    while ((s = stdError.readLine()) != null) {
+                        result = result.concat(s + "\n");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                throw new MultichainException(null, result);
+            }
 		} else {
 			return "ERROR, CHAIN NAME ARE EMPTY !";
 		}
-
 	}
 
 
