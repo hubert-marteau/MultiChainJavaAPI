@@ -84,6 +84,22 @@ public class CommandTest {
 		}
 	}
 
+	private static void testSubscribe() {
+		try {
+			StreamCommand.subscribeAssetsOrStreams("teststream, teststream1");
+		} catch (MultichainException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void testUnsubscribe() {
+		try {
+			StreamCommand.unsubscribeAssetsOrStreams("teststream");
+		} catch (MultichainException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * @param args
 	 */
@@ -95,7 +111,9 @@ public class CommandTest {
 		//testgetAddresses();
 		//testCreateStream();
 		//testListStreams();
-		testPublishStream();
+		//testPublishStream();
+		//testSubscribe();
+		testUnsubscribe();
 		System.out.println("--- End of CommandTest ---");
 	}
 

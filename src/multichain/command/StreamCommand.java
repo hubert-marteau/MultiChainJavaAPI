@@ -4,7 +4,6 @@ import multichain.command.builders.QueryBuilderStream;
 import multichain.object.Stream;
 import multichain.object.formatters.StreamFormatter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -127,5 +126,36 @@ public class StreamCommand extends QueryBuilderStream {
     public static String publishFromStream(String fromAddress, String streamName, String key, String hexData)
         throws MultichainException {
         return executePublishFrom(fromAddress, streamName, key, hexData);
+    }
+
+    /**
+     * Executed as: multichain-cli chainname subscribe asset(s)|stream(s) (rescan=true)
+     *
+     * Arguments:
+     * 1. asset(s)|stream(s): required; the names of assets or streams to subscribe to
+     * 2. rescan: optional; to reindex all streams and assets or not. (default: true)
+     *
+     * Subscribe to the specified asset or stream to read or write from these streams or assets
+     * @param assetOrStreamNames the names of assets or streams in single comma separated string
+     * @param rescan (optional) to reindex all items or not
+     * @throws MultichainException
+     */
+    public static void subscribeAssetsOrStreams(String assetOrStreamNames, String... rescan) throws MultichainException {
+        executeSubscribe(assetOrStreamNames, rescan);
+    }
+
+    /**
+     * Executed as: multichain-cli chainname unsubscribe asset(s)|stream(s)
+     *
+     * Arguments:
+     * 1. asset(s)|stream(s): required; the names of asset or stream to unsubscribe to and stop tracking
+     *
+     * Unsubscribe and stop tracking the specified assets or streams
+     *
+     * @param assetOrStreamNames the names of assets or streams in single comma separated string
+     * @throws MultichainException
+     */
+    public static void unsubscribeAssetsOrStreams(String assetOrStreamNames) throws MultichainException {
+        executeUnsubscribe(assetOrStreamNames);
     }
 }

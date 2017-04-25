@@ -108,4 +108,34 @@ public class QueryBuilderStream extends QueryBuilderCommon {
         MultichainTestParameter.isNotNullOrEmpty("hexData", hexData);
         return execute(CommandEnum.PUBLISHFROM, fromAddress, streamName, key, hexData);
     }
+
+    /**
+     * Subscribe to the specified asset or stream to read or write from these streams or assets
+     *
+     * @param assetOrStreamNames the names of assets or streams in single comma separated string
+     * @param rescan (optional) to reindex all items or not
+     * @throws MultichainException
+     */
+    protected static void executeSubscribe(String assetOrStreamNames, String... rescan) throws MultichainException {
+        MultichainTestParameter.isNotNullOrEmpty("assetOrStreamNames", assetOrStreamNames);
+        assetOrStreamNames = assetOrStreamNames.replaceAll(" ", "");
+        assetOrStreamNames = formatStringArrayOS(assetOrStreamNames.split(","));
+        if(rescan.length > 0)
+            execute(CommandEnum.SUBSCRIBE, assetOrStreamNames, rescan[0]);
+        else
+            execute(CommandEnum.SUBSCRIBE, assetOrStreamNames, "true");
+    }
+
+    /**
+     * Unsubscribe and stop tracking the specified assets or streams
+     *
+     * @param assetOrStreamNames the names of assets or streams in single comma separated string
+     * @throws MultichainException
+     */
+    protected static void executeUnsubscribe(String assetOrStreamNames) throws MultichainException {
+        MultichainTestParameter.isNotNullOrEmpty("assetOrStreamNames", assetOrStreamNames);
+        assetOrStreamNames = assetOrStreamNames.replaceAll(" ", "");
+        assetOrStreamNames = formatStringArrayOS(assetOrStreamNames.split(","));
+        execute(CommandEnum.UNSUBSCRIBE, assetOrStreamNames);
+    }
 }
