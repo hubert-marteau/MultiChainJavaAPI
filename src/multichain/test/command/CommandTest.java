@@ -11,17 +11,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import multichain.command.*;
+import multichain.object.Stream;
 
 /**
  * @author Ub - H. MARTEAU
  * @version 1.0
  */
-public class AddressCommandTest {
+public class CommandTest {
 
 	/**
 	 *
 	 */
-	public AddressCommandTest() {
+	public CommandTest() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -60,17 +61,31 @@ public class AddressCommandTest {
 		System.out.println(transactionId);
 	}
 
+	private static void testListStreams() {
+		List<Stream> allAvailableStreams = null;
+		String streamNames = "unpublishedwork";
+		try {
+			allAvailableStreams = StreamCommand.listStream(streamNames);
+			for (Stream stream : allAvailableStreams) {
+				System.out.println(stream.toString());
+			}
+		} catch (MultichainException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("--- Start of AddressCommandTest ---");
+		System.out.println("--- Start of CommandTest ---");
 
 		//BlockChain TestCommand has to be created and started before
 		ChainCommand.initializeChain("plagchain");
-		testCreateStream();
 		//testgetAddresses();
-		System.out.println("--- End of AddressCommandTest ---");
+		//testCreateStream();
+		testListStreams();
+		System.out.println("--- End of CommandTest ---");
 	}
 
 }
