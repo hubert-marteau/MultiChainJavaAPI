@@ -65,10 +65,20 @@ public class CommandTest {
 		List<Stream> allAvailableStreams = null;
 		String streamNames = "unpublishedwork";
 		try {
-			allAvailableStreams = StreamCommand.listStream(streamNames);
+			allAvailableStreams = StreamCommand.listStreams(streamNames);
 			for (Stream stream : allAvailableStreams) {
 				System.out.println(stream.toString());
 			}
+		} catch (MultichainException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void testPublishStream() {
+		String transactionId = null;
+		try {
+			transactionId = StreamCommand.publishStream("unpublishedwork", "doc1", "5361792048656c6c6f20746f204d79204c6974746c6520467269656e64");
+			System.out.println(transactionId);
 		} catch (MultichainException e) {
 			e.printStackTrace();
 		}
@@ -84,7 +94,8 @@ public class CommandTest {
 		ChainCommand.initializeChain("plagchain");
 		//testgetAddresses();
 		//testCreateStream();
-		testListStreams();
+		//testListStreams();
+		testPublishStream();
 		System.out.println("--- End of CommandTest ---");
 	}
 

@@ -91,6 +91,8 @@ abstract class QueryBuilderCommon {
 		PING,
 		PREPARELOCKUNSPENT,
 		PREPARELOCKUNSPENTFROM,
+		PUBLISH,
+		PUBLISHFROM,
 		RESUME,
 		REVOKE,
 		REVOKEFROM,
@@ -134,7 +136,7 @@ abstract class QueryBuilderCommon {
 	 * @throws MultichainException
 	 */
 	protected static String execute(CommandEnum command, String... parameters) throws MultichainException {
-        BufferedReader stdError = null;
+		BufferedReader stdError = null;
 		if (!CHAIN.equals("")) {
 			Runtime rt = Runtime.getRuntime();
 			Process pr;
@@ -164,20 +166,20 @@ abstract class QueryBuilderCommon {
 				e.printStackTrace();
 			}
 
-            if (!result.isEmpty() && !result.equalsIgnoreCase("")) {
-                return result;
-            } else {
-                // read any errors from the attempted command
-                String s;
-                try {
-                    while ((s = stdError.readLine()) != null) {
-                        result = result.concat(s + "\n");
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                throw new MultichainException(null, result);
-            }
+			if (!result.isEmpty() && !result.equalsIgnoreCase("")) {
+				return result;
+			} else {
+				// read any errors from the attempted command
+				String s;
+				try {
+					while ((s = stdError.readLine()) != null) {
+						result = result.concat(s + "\n");
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				throw new MultichainException(null, result);
+			}
 		} else {
 			return "ERROR, CHAIN NAME ARE EMPTY !";
 		}
@@ -245,6 +247,27 @@ abstract class QueryBuilderCommon {
 		final Gson gson = builder.create();
 
 		return gson.toJson(values);
+	}
+
+	protected static String formatStringArrayOS(String[] values){
+		String OS = System.getProperty("os.name").toLowerCase();
+		if(OS.contains("win")) {
+			String valuesParam = "[";
+			for(int j = 0; j < values.length; j++) {
+				valuesParam += (j != values.length - 1) ?  ("\"\"\"" + values[j] + "\"\"\",") :
+						("\"\"\"" + values[j] + "\"\"\"");
+			}
+			valuesParam += "]";
+			return valuesParam;
+		} else {
+			String valuesParam = "'[";
+			for(int j = 0; j < values.length; j++) {
+				valuesParam += (j != values.length - 1) ?  ("\"" + values[j] + "\",") :
+						("\"" + values[j] + "\"");
+			}
+			valuesParam += "]'";
+			return valuesParam;
+		}
 	}
 
 	/**

@@ -22,8 +22,7 @@ public class QueryBuilderStream extends QueryBuilderCommon {
     protected static String executeCreate(String streamName, boolean openOrClose) throws MultichainException {
         MultichainTestParameter.isNotNullOrEmpty("streamName", streamName);
         streamName = streamName.replaceAll("\\s", "");
-        String params = "stream " + streamName + " " + String.valueOf(openOrClose);
-        return execute(CommandEnum.CREATE, params);
+        return execute(CommandEnum.CREATE, "stream", streamName, String.valueOf(openOrClose));
     }
 
     /**
@@ -43,8 +42,7 @@ public class QueryBuilderStream extends QueryBuilderCommon {
         MultichainTestParameter.isNotNullOrEmpty("streamName", streamName);
         MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
         streamName = streamName.replaceAll("\\s", "");
-        String params = fromAddress + " stream " + streamName + " " + String.valueOf(openOrClose);;
-        return execute(CommandEnum.CREATEFROM, params);
+        return execute(CommandEnum.CREATEFROM, fromAddress, "stream", streamName, String.valueOf(openOrClose));
     }
 
     /**
@@ -61,33 +59,53 @@ public class QueryBuilderStream extends QueryBuilderCommon {
      * @throws MultichainException
      */
     protected static String executeListStreams(String... allParams) throws MultichainException {
+        String formatStreamNames = "";
         String params = "";
         for(int i = 0; i < allParams.length; i++){
             if(i == 0) {
                 allParams[i] = allParams[i].replaceAll(" ", "");
                 String streamNames[] = allParams[i].split(",");
-                String OS = System.getProperty("os.name").toLowerCase();
-                if(OS.contains("win")) {
-                    String streamNamesParam = "[";
-                    for(int j = 0; j < streamNames.length; j++) {
-                        streamNamesParam += (j != streamNames.length - 1) ?  ("\"\"\"" + streamNames[j] + "\"\"\",") :
-                                ("\"\"\"" + streamNames[j] + "\"\"\"");
-                    }
-                    streamNamesParam += "]";
-                    params += streamNamesParam;
-                } else {
-                    String streamNamesParam = "'[";
-                    for(int j = 0; j < streamNames.length; j++) {
-                        streamNamesParam += (j != streamNames.length - 1) ?  ("\"" + streamNames[j] + "\",") :
-                                ("\"" + streamNames[j] + "\"");
-                    }
-                    streamNamesParam += "]'";
-                    params += streamNamesParam;
-                }
+                formatStreamNames = formatStringArrayOS(streamNames);
             } else {
                 params += " " + allParams[i];
             }
         }
-        return execute(CommandEnum.LISTSTREAMS, params);
+        return execute(CommandEnum.LISTSTREAMS, formatStreamNames, params);
+    }
+
+    /**
+     * Publish the given data to the specified stream. This works if the node has only one wallet address associated
+     * with it and assumes that it has the write permission
+     *
+     * @param streamName the name of the stream where you want to publish the data
+     * @param key the key associated with the data
+     * @param hexData the data to be embedded into the blockchain in hexadecimal string without spaces or tabs
+     * @return  {transactionId} he transaction ID of the transaction made to make this change in the block chain
+     * @throws MultichainException
+     */
+    protected static String executePublish(String streamName, String key, String hexData) throws MultichainException {
+        MultichainTestParameter.isNotNullOrEmpty("streamName", streamName);
+        MultichainTestParameter.isNotNullOrEmpty("key", key);
+        MultichainTestParameter.isNotNullOrEmpty("hexData", hexData);
+        return execute(CommandEnum.PUBLISH, streamName, key, hexData);
+    }
+
+    /**
+     * Publish the given data to the specified stream. This requires the addresses that wants to publish the data in
+     * the stream and assuming that address has the write permission to write in the specified stream.
+     *
+     * @param fromAddress the wallet address that should publish the data
+     * @param streamName the name of the stream where you want to publish the data
+     * @param key the key associated with the data
+     * @param hexData the data to be embedded into the blockchain in hexadecimal string without spaces or tabs
+     * @return  {transactionId} he transaction ID of the transaction made to make this change in the block chain
+     * @throws MultichainException
+     */
+    protected static String executePublishFrom(String fromAddress, String streamName, String key, String hexData) throws MultichainException {
+        MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
+        MultichainTestParameter.isNotNullOrEmpty("streamName", streamName);
+        MultichainTestParameter.isNotNullOrEmpty("key", key);
+        MultichainTestParameter.isNotNullOrEmpty("hexData", hexData);
+        return execute(CommandEnum.PUBLISHFROM, fromAddress, streamName, key, hexData);
     }
 }
