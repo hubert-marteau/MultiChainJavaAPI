@@ -7,18 +7,24 @@
  */
 package multichain.command;
 
+import java.util.logging.Logger;
+
 /**
  * @author Ub - H. MARTEAU
  * @version 1.0
  */
 public class MultichainException extends Exception {
-
+	private final Logger log = Logger.getAnonymousLogger();
 	/**
 	 * Serial
 	 */
 	private static final long serialVersionUID = 2412952380749244614L;
 
+	/**
+	 * @param object the object that caused this exception
+	 * @param reason the reason for this exception
+	 */
 	public MultichainException(String object, String reason){
-		System.out.println("Error "+ object +" "+reason);
+		log.info(object +" : "+reason);
 	}
 }
