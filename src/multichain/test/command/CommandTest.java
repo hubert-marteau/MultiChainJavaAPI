@@ -7,11 +7,12 @@
  */
 package multichain.test.command;
 
-import java.util.Arrays;
 import java.util.List;
 
 import multichain.command.*;
 import multichain.object.Stream;
+import multichain.object.StreamItem;
+import multichain.object.StreamKeyPublisherInfo;
 
 /**
  * @author Ub - H. MARTEAU
@@ -63,7 +64,7 @@ public class CommandTest {
 
 	private static void testListStreams() {
 		List<Stream> allAvailableStreams = null;
-		String streamNames = "unpublishedwork";
+		String streamNames = "unpublishedwork,teststream";
 		try {
 			allAvailableStreams = StreamCommand.listStreams(streamNames);
 			for (Stream stream : allAvailableStreams) {
@@ -100,6 +101,64 @@ public class CommandTest {
 		}
 	}
 
+	private static void testGetStreamItem() {
+		try {
+			StreamItem result = StreamCommand.getStreamItem("unpublishedwork", "ca3607812837fd68bc6e094f5715b03a721636fe85e711a0ab565c9ba5f2f93c", "true");
+			System.out.println(result.toString());
+		} catch (MultichainException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void testListStreamKeyItems() {
+		try {
+			List<StreamItem> result = StreamCommand.listStreamKeyItems("unpublishedwork", "doc1");
+			for(StreamItem i : result)
+				System.out.println(i.toString());
+		} catch (MultichainException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void testListStreamKeys() {
+		try {
+			List<StreamKeyPublisherInfo> result = StreamCommand.listStreamKeys("unpublishedwork");
+			for(StreamKeyPublisherInfo i : result)
+				System.out.println(i.toString());
+		} catch (MultichainException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void testListStreamItems() {
+		try {
+			List<StreamItem> result = StreamCommand.listStreamItems("unpublishedwork", "true");
+			for(StreamItem i : result)
+				System.out.println(i.toString());
+		} catch (MultichainException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void testListStreamPublisherItems() {
+		try {
+			List<StreamItem> result = StreamCommand.listStreamPublisherItems("unpublishedwork", "1TyYAuoJkowfZgM5cP6Y7U2HP43oevJYYNjYfd", "true");
+			for(StreamItem i : result)
+				System.out.println(i.toString());
+		} catch (MultichainException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void testListStreamPublishers() {
+		try {
+			List<StreamKeyPublisherInfo> result = StreamCommand.listStreamPublishers("unpublishedwork");
+			for(StreamKeyPublisherInfo i : result)
+				System.out.println(i.toString());
+		} catch (MultichainException e) {
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * @param args
 	 */
@@ -113,7 +172,13 @@ public class CommandTest {
 		//testListStreams();
 		//testPublishStream();
 		//testSubscribe();
-		testUnsubscribe();
+		//testUnsubscribe();
+		//testGetStreamItem();
+		//testListStreamKeyItems();
+		//testListStreamKeys();
+		//testListStreamItems();
+		//testListStreamPublisherItems();
+		testListStreamPublishers();
 		System.out.println("--- End of CommandTest ---");
 	}
 

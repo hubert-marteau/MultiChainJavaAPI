@@ -1,9 +1,12 @@
 package multichain.object;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 /**
- * Created by Jagrut on 24-04-2017.
+ * @author Jagrut Kosti on 24-04-2017.
  *
- * Contains the structure exactly as the multichain output.
+ * Contains the structure of stream related data exactly as the multichain output.
  * Excluded: synchronized: It is a Java keyword and clashes with multichain stream field)
  *           details: Need more information about its structure
  */
@@ -92,9 +95,7 @@ public class Stream {
 
     @Override
     public String toString() {
-        return "Stream Information: [name: " + name + ", createtxid: " + createtxid +", streamref: " + streamref +
-                ", open: " + open + ", subscribed: " + subscribed + ", items: " + items + ", confirmed: " + confirmed +
-                ", keys: " + keys + ", publishers:" + publishers + "]";
-
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.toJson(this, this.getClass());
     }
 }

@@ -2,12 +2,14 @@ package multichain.command;
 
 import multichain.command.builders.QueryBuilderStream;
 import multichain.object.Stream;
+import multichain.object.StreamItem;
+import multichain.object.StreamKeyPublisherInfo;
 import multichain.object.formatters.StreamFormatter;
 
 import java.util.List;
 
 /**
- * Created by Jagrut on 24-04-2017.
+ * @author Jagrut Kosti on 24-04-2017.
  */
 public class StreamCommand extends QueryBuilderStream {
 
@@ -157,5 +159,183 @@ public class StreamCommand extends QueryBuilderStream {
      */
     public static void unsubscribeAssetsOrStreams(String assetOrStreamNames) throws MultichainException {
         executeUnsubscribe(assetOrStreamNames);
+    }
+
+    /**
+     * Executed as: multichain-cli chainname getstreamitem stream txid (verbose=false)
+     *
+     * Arguments:
+     * 1. stream: required; the name of the stream
+     * 2. txid: required; the transaction id of the item whose data is to be retrieved
+     * 3. verbose: optional; set to true for detailed information. (default: false)
+     *
+     * Returns the specific stream item of given stream, identified with given txid.
+     *
+     * @param streamName the name of the stream to search for
+     * @param txId the transaction id of the item to retrieve
+     * @param verbose (optional) If true, returns additional information about the item. Pass as string. Eg. "true"
+     * @return {StreamItem} Object with all the data about the item
+     * @throws MultichainException
+     */
+    public static StreamItem getStreamItem(String streamName, String txId, String... verbose) throws MultichainException {
+        return StreamFormatter.formatStreamItem(executeGetStreamItem(streamName, txId, verbose));
+    }
+
+    /**
+     * Executed as: multichain-cli chainname liststreamkeyitems stream key (verbose=false) (count=10) (start=-count) (local-ordering=false)
+     *
+     * Arguments:
+     * 1. stream: required; the name of the stream
+     * 2. key: required; the value of the key for fetching the items
+     * 3. verbose: optional; set to true for detailed information. (default: false)
+     * 4. count: optional; number of items to retrieve. (default: 10)
+     * 5. start: optional; start from the nth item. (default: most recent)
+     * 6. local-ordering: optional; true-> to order the items as seen by local node. false-> chain ordering. (default: false)
+     *
+     * Returns all items in the specified stream that has the given key value.
+     *
+     * @param streamName the name of the stream to search into
+     * @param key the key of the item to retrieve
+     * @param formatParams (optional) FormatParams in exact order; each represented as individual string (You cannot
+     *                     skip any parameters. But passing first 1 or 2 or 3 or none is allowed. Pass default value
+     *                     instead of skipping):
+     *                     1) verbose: {true/false} -> pass boolean "true" or "false" as string (default: false)
+     *                     2) count: {any integer} Limit number of entries -> pass an integer as string (default: 10)
+     *                     3) start: {any integer} Start from a certain entry after skipping start entries
+     *                                  -> pass integer as string(default: most recent)
+     *                     4)local-ordering: {true/false} If true, order items based on when this local node has seen
+     *                                      the item rather than chain ordering (default: false)
+     * @return {List<StreamItem>} List of Object with all items that has the given key
+     * @throws MultichainException
+     */
+    public static List<StreamItem> listStreamKeyItems(String streamName, String key, String... formatParams)
+            throws MultichainException {
+        return StreamFormatter.formatStreamItemList(executeListStreamKeyItems(streamName, key, formatParams));
+    }
+
+    /**
+     * Executed as: multichain-cli chainname liststreamkeys stream (keys=*) (verbose=false) (count=MAX) (start=-count) (local-ordering=false)
+     *
+     * Arguments:
+     * 1. stream: required; the name of the stream
+     * 2. keys: optional; array of keys to search for and retrieve the metadata; otherwise metadata of all keys
+     * 3. verbose: optional; set to true for detailed information. (default: false)
+     * 4. count: optional; number of items to retrieve. (default: MAX)
+     * 5. start: optional; start from the nth item. (default: most recent)
+     * 6. local-ordering: optional; true-> to order the items as seen by local node. false-> chain ordering. (default: false)
+     *
+     * Returns all the keys that exists in the mentioned stream. Can also pass specific key to search for or list of
+     * keys to search for.
+     *
+     * @param streamName the name of the stream to search into
+     * @param allParams (optional) Keys + Format params in exact order; each represented as individual string (you cannot
+     *                     skip any parameters. But passing first 1 or 2 or 3 or none is allowed. Pass default value
+     *                     instead of skipping:
+     *                     1) keys: {comma separated list of keys to search as single string} (default: *)
+     *                     2) verbose: {true/false} -> pass boolean "true" or "false" as string (default: false)
+     *                     3) count: {any integer} Limit number of entries -> pass an integer as string (default: 10)
+     *                     4) start: {any integer} Start from a certain entry after skipping start entries
+     *                                  -> pass integer as string(default: most recent)
+     *                     5)local-ordering: {true/false} If true, order items based on when this local node has seen
+     *                                      the item rather than chain ordering (default: false)
+     * @return {List<StreamKeyPublisherInfo>} List of Object with all keys found with their metadata
+     * @throws MultichainException
+     */
+    public static List<StreamKeyPublisherInfo> listStreamKeys(String streamName, String... allParams)
+            throws MultichainException {
+        return StreamFormatter.formatStreamKeyPublisherInfoList(executeListStreamKeys(streamName, allParams));
+    }
+
+    /**
+     * Executed as: multichain-cli chainname liststreamitems stream (verbose=false) (count=10) (start=-count) (local-ordering=false)
+     *
+     * Arguments:
+     * 1. stream: required; the name of the stream
+     * 2. verbose: optional; set to true for detailed information. (default: false)
+     * 3. count: optional; number of items to retrieve. (default: 10)
+     * 4. start: optional; start from the nth item. (default: most recent)
+     * 5. local-ordering: optional; true-> to order the items as seen by local node. false-> chain ordering. (default: false)
+     *
+     * Returns all the items present in the mentioned stream, including unconfirmed items.
+     *
+     * @param streamName the name of the stream to get items from
+     * @param formatParams (optional) FormatParams in exact order; each represented as individual string (you cannot
+     *                     skip any parameters. But passing first 1 or 2 or 3 or none is allowed. Pass default value
+     *                     instead of skipping:
+     *                     1) verbose: {true/false} -> pass boolean "true" or "false" as string (default: false)
+     *                     2) count: {any integer} Limit number of entries -> pass an integer as string (default: 10)
+     *                     3) start: {any integer} Start from a certain entry after skipping start entries
+     *                                  -> pass integer as string(default: most recent)
+     *                     4)local-ordering: {true/false} If true, order items based on when this local node has seen
+     *                                      the item rather than chain ordering (default: false)
+     * @return {List<StreamItem>} List of Objects with all the items present in the stream
+     * @throws MultichainException
+     */
+    public static List<StreamItem> listStreamItems(String streamName, String... formatParams) throws MultichainException {
+        return StreamFormatter.formatStreamItemList(executeListStreamItems(streamName, formatParams));
+    }
+
+    /**
+     * Executed as: multichain-cli chainname liststreampublisheritems stream address (verbose=false) (count=10) (start=-count) (local-ordering=false)
+     *
+     * Arguments:
+     * 1. stream: required; the name of the stream
+     * 2. address: required; the wallet address for fetching the items
+     * 3. verbose: optional; set to true for detailed information. (default: false)
+     * 4. count: optional; number of items to retrieve. (default: 10)
+     * 5. start: optional; start from the nth item. (default: most recent)
+     * 6. local-ordering: optional; true-> to order the items as seen by local node. false-> chain ordering. (default: false)
+     *
+     * Returns all the items that were published in the specified stream by the specified publisher address.
+     *
+     * @param streamName the name of the stream to get the items of the publisher
+     * @param address to get the items published by this address
+     * @param formatParams (optional) FormatParams in exact order; each represented as individual string (you cannot
+     *                     skip any parameters. But passing first 1 or 2 or 3 or none is allowed. Pass default value
+     *                     instead of skipping:
+     *                     1) verbose: {true/false} -> pass boolean "true" or "false" as string (default: false)
+     *                     2) count: {any integer} Limit number of entries -> pass an integer as string (default: 10)
+     *                     3) start: {any integer} Start from a certain entry after skipping start entries
+     *                                  -> pass integer as string(default: most recent)
+     *                     4)local-ordering: {true/false} If true, order items based on when this local node has seen
+     *                                      the item rather than chain ordering (default: false)
+     * @return {List<StreamItem>} List of Objects with all the items published by the specified publisher
+     * @throws MultichainException
+     */
+    public static List<StreamItem> listStreamPublisherItems(String streamName, String address, String... formatParams)
+            throws MultichainException {
+        return StreamFormatter.formatStreamItemList(executeListStreamPublisherItems(streamName, address, formatParams));
+    }
+
+    /**
+     * Executed as: multichain-cli chainname liststreampublishers stream (addresses=*) (verbose=false) (count=MAX) (start=-count) (local-ordering=false)
+     *
+     * Arguments:
+     * 1. stream: required; the name of the stream
+     * 2. addresses: optional; array of addresses to search for and retrieve the metadata; otherwise metadata of all addresses
+     * 3. verbose: optional; set to true for detailed information. (default: false)
+     * 4. count: optional; number of items to retrieve. (default: MAX)
+     * 5. start: optional; start from the nth item. (default: most recent)
+     * 6. local-ordering: optional; true-> to order the items as seen by local node. false-> chain ordering. (default: false)
+     *
+     * Returns all or specified publishers' metadata who published in this stream
+     *
+     * @param streamName the name of the stream to fetch all publishers from
+     * @param allParams (optional) Addresses + Format params in exact order; each represented as individual string (you cannot
+     *                     skip any parameters. But passing first 1 or 2 or 3 or none is allowed. Pass default value
+     *                     instead of skipping:
+     *                     1) addresses: {comma separated list of addresses to search as single string} (default: *)
+     *                     2) verbose: {true/false} -> pass boolean "true" or "false" as string (default: false)
+     *                     3) count: {any integer} Limit number of entries -> pass an integer as string (default: 10)
+     *                     4) start: {any integer} Start from a certain entry after skipping start entries
+     *                                  -> pass integer as string(default: most recent)
+     *                     5)local-ordering: {true/false} If true, order items based on when this local node has seen
+     *                                      the item rather than chain ordering (default: false)
+     * @return {String} String in JSON format with metadata of all or specified publishers
+     * @throws MultichainException
+     */
+    public static List<StreamKeyPublisherInfo> listStreamPublishers(String streamName, String... allParams)
+            throws MultichainException {
+        return StreamFormatter.formatStreamKeyPublisherInfoList(executeListStreamPublishers(streamName, allParams));
     }
 }

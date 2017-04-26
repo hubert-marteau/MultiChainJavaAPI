@@ -81,6 +81,8 @@ abstract class QueryBuilderCommon {
 		LISTLOCKUNPSENT,
 		LISTPERMISSIONS,
 		LISTSTREAMITEMS,
+		LISTSTREAMKEYITEMS,
+		LISTSTREAMKEYS,
 		LISTSTREAMPUBLISHERS,
 		LISTSTREAMPUBLISHERITEMS,
 		LISTSTREAMS,
@@ -249,6 +251,11 @@ abstract class QueryBuilderCommon {
 		return gson.toJson(values);
 	}
 
+	/**
+	 * Based on the OS, it formats the list of values into string of array.
+	 * @param values the values to be formatted
+	 * @return {String} Formatted array of string based on OS
+	 */
 	protected static String formatStringArrayOS(String[] values){
 		String OS = System.getProperty("os.name").toLowerCase();
 		if(OS.contains("win")) {

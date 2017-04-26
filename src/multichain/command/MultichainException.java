@@ -20,7 +20,11 @@ public class MultichainException extends Exception {
 	 */
 	private static final long serialVersionUID = 2412952380749244614L;
 
+	/**
+	 * @param object the object that caused this exception
+	 * @param reason the reason for this exception
+	 */
 	public MultichainException(String object, String reason){
-		log.info(object +" \nReason: "+reason);
+		log.info(object +" : "+reason);
 	}
 }
