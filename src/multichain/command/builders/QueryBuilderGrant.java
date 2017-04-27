@@ -23,6 +23,7 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	protected static byte MINE=(byte)0b0010000;
 	protected static byte ACTIVATE=(byte)0b0100000;
 	protected static byte ADMIN=(byte)0b1000000;
+	protected static byte CREATE=(byte)0b0000000;
 
 	protected static int WALLET = CONNECT | SEND | RECEIVE;
 	protected static int WALLET_ISSUE = WALLET | ISSUE;
@@ -35,49 +36,56 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	private static String MINE_STR="mine";
 	private static String ACTIVATE_STR="activate";
 	private static String ADMIN_STR="admin";
+	private static String CREATE_STR="create";
 
 
 	private static String formatPermissionsList(int permissions) {
 		String permissionsFormated = "";
 
-		if ((permissions & CONNECT) > 0) {
+		if ((permissions ^ CONNECT) == 0) {
 			permissionsFormated = permissionsFormated.concat(CONNECT_STR);
 		}
-		if ((permissions & SEND) > 0) {
+		if ((permissions ^ SEND) == 0) {
 			if (permissionsFormated.length() > 0) {
 				permissionsFormated = permissionsFormated.concat(",");
 			}
 			permissionsFormated = permissionsFormated.concat(SEND_STR);
 		}
-		if ((permissions & RECEIVE) > 0) {
+		if ((permissions ^ RECEIVE) == 0) {
 			if (permissionsFormated.length() > 0) {
 				permissionsFormated = permissionsFormated.concat(",");
 			}
 			permissionsFormated = permissionsFormated.concat(RECEIVE_STR);
 		}
-		if ((permissions & ISSUE) > 0) {
+		if ((permissions ^ ISSUE) == 0) {
 			if (permissionsFormated.length() > 0) {
 				permissionsFormated = permissionsFormated.concat(",");
 			}
 			permissionsFormated = permissionsFormated.concat(ISSUE_STR);
 		}
-		if ((permissions & MINE) > 0) {
+		if ((permissions ^ MINE) == 0) {
 			if (permissionsFormated.length() > 0) {
 				permissionsFormated = permissionsFormated.concat(",");
 			}
 			permissionsFormated = permissionsFormated.concat(MINE_STR);
 		}
-		if ((permissions & ACTIVATE) > 0) {
+		if ((permissions ^ ACTIVATE) == 0) {
 			if (permissionsFormated.length() > 0) {
 				permissionsFormated = permissionsFormated.concat(",");
 			}
 			permissionsFormated = permissionsFormated.concat(ACTIVATE_STR);
 		}
-		if ((permissions & ADMIN) > 0) {
+		if ((permissions ^ ADMIN) == 0) {
 			if (permissionsFormated.length() > 0) {
 				permissionsFormated = permissionsFormated.concat(",");
 			}
 			permissionsFormated = permissionsFormated.concat(ADMIN_STR);
+		}
+		if ((permissions ^ CREATE) == 0) {
+			if (permissionsFormated.length() > 0) {
+				permissionsFormated = permissionsFormated.concat(",");
+			}
+			permissionsFormated = permissionsFormated.concat(CREATE_STR);
 		}
 		return permissionsFormated;
 	}
