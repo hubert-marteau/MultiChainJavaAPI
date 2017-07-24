@@ -7,6 +7,7 @@
  */
 package multichain.object.formatters;
 
+import multichain.object.SignedTransactionRAW;
 import multichain.object.TransactionRAW;
 
 import com.google.gson.Gson;
@@ -14,7 +15,7 @@ import com.google.gson.GsonBuilder;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 1.1
  */
 public class RAWTransactionFormatter {
 	public final static TransactionRAW formatTransactionRAW(String stringTransactionRAW) {
@@ -24,4 +25,14 @@ public class RAWTransactionFormatter {
 
 		return transactionRAW;
 	}
+
+	public final static SignedTransactionRAW formatSignedTransactionRAW(String stringSignedTransactionRAW) {
+		final Gson gson = new GsonBuilder().create();
+
+		final SignedTransactionRAW signedTransactionRAW = gson.fromJson(stringSignedTransactionRAW,
+				SignedTransactionRAW.class);
+
+		return signedTransactionRAW;
+	}
+
 }
