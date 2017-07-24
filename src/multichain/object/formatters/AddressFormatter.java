@@ -28,11 +28,11 @@ public class AddressFormatter {
 		return address;
 	}
 
-
 	public final static List<String> formatAddressesStringList(String stringAddresses) {
 		final Gson gson = new GsonBuilder().create();
 
-		Type listType = new TypeToken<List<String>>(){}.getType();
+		Type listType = new TypeToken<List<String>>() {
+		}.getType();
 		final List<String> addresses = gson.fromJson(stringAddresses, listType);
 
 		return addresses;
@@ -41,7 +41,8 @@ public class AddressFormatter {
 	public final static List<Address> formatAddressesList(String stringAddresses) {
 		final Gson gson = new GsonBuilder().create();
 
-		Type listType = new TypeToken<List<Address>>(){}.getType();
+		Type listType = new TypeToken<List<Address>>() {
+		}.getType();
 		final List<Address> addresses = gson.fromJson(stringAddresses, listType);
 
 		return addresses;

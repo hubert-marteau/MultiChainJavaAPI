@@ -10,23 +10,20 @@ package multichain.command.builders;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import multichain.command.MultichainException;
+import multichain.object.formatters.GsonFormatters;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 2.1
  */
-abstract class QueryBuilderCommon {
+abstract class QueryBuilderCommon extends GsonFormatters {
 
-	private static String CHAIN = "";
-	private static boolean header = false;
+	private String CHAIN = "";
 
-	protected enum CommandEnum {
+	protected enum CommandEnum
+	{
 		ADDMULTISIGADDRESS,
 		ADDNODE,
 		APPENDRAWCHANGE,
@@ -34,8 +31,10 @@ abstract class QueryBuilderCommon {
 		APPENDROWMETADA,
 		CLEARMEMPOOL,
 		COMBINEUNPSENT,
+		CREATE,
 		CREATEMULTISIG,
 		CREATERAWEXCHANGE,
+		CREATERAWSENDFROM,
 		CREATERAWTRANSACTION,
 		DECODERAWEXCHANGE,
 		DECODERAWTRANSACTION,
@@ -76,6 +75,7 @@ abstract class QueryBuilderCommon {
 		LISTASSETS,
 		LISTLOCKUNPSENT,
 		LISTPERMISSIONS,
+		LISTSTREAMKEYITEMS,
 		LISTUNSPENT,
 		LISTWALLETTRANSACTIONS,
 		LOCKUNSPENT,
@@ -83,6 +83,7 @@ abstract class QueryBuilderCommon {
 		PING,
 		PREPARELOCKUNSPENT,
 		PREPARELOCKUNSPENTFROM,
+		PUBLISH,
 		RESUME,
 		REVOKE,
 		REVOKEFROM,
@@ -96,13 +97,14 @@ abstract class QueryBuilderCommon {
 		SENDWITHMETADATAFROM,
 		SETLASTBLOCK,
 		SIGNMESSAGE,
-		SIGNTAWTRANSACTION,
+		SIGNRAWTRANSACTION,
 		STOP,
+		SUBSCRIBE,
 		VALIDATEADDRESS,
 		VERIFYMESSAGE
 	}
 
-	private static String removeHeader(String result) {
+	private String removeHeader(String result) {
 		String resultWithoutHeader = "";
 		int size = 16 + CHAIN.length();
 		int index = 0;
@@ -112,34 +114,39 @@ abstract class QueryBuilderCommon {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param command
 	 * @param parameter
-	 *
+	 * 
 	 * @return
-	 *
-	 * 		example :
-	 *         MultichainQueryBuidlder.executeProcess(MultichainCommand.SENDTOADDRESS,"1EyXuq2JVrj4E3CpM9iNGNSqBpZ2iTPdwGKgvf
+	 * 
+	 *         example :
+	 *         MultichainQueryBuidlder.executeProcess(MultichainCommand
+	 *         .SENDTOADDRESS,"1EyXuq2JVrj4E3CpM9iNGNSqBpZ2iTPdwGKgvf
 	 *         {\"rdcoin\":0.01}"
 	 * @throws MultichainException
 	 */
-	protected static String execute(CommandEnum command, String... parameters) throws MultichainException {
+	protected String execute(CommandEnum command, String... parameters) throws MultichainException {
 
 		if (!CHAIN.equals("")) {
 			Runtime rt = Runtime.getRuntime();
 			Process pr;
 			String result = "";
+			String errorResult = "";
+			String errorBody = "";
 			boolean error = false;
 			try {
+				String commandToCall = "C:\\multichain\\multichain-cli.exe " + CHAIN + " "
+						+ command.toString().toLowerCase();
+				String params = "";
 				if (parameters.length > 0) {
-					String params = "";
 					for (String parameter : parameters) {
-						params = params.concat(parameter + " ");
+						params = params.concat(" " + parameter);
 					}
-					pr = rt.exec("multichain-cli " + CHAIN + " " + command.toString().toLowerCase() + " " + params);
-				} else {
-					pr = rt.exec("multichain-cli " + CHAIN + " " + command.toString().toLowerCase());
 				}
+				commandToCall = commandToCall.concat(params);
+				System.out.println(commandToCall);
+				pr = rt.exec(commandToCall);
 
 				BufferedReader stdInput = new BufferedReader(new InputStreamReader(pr.getInputStream()));
 
@@ -153,8 +160,13 @@ abstract class QueryBuilderCommon {
 
 				// read any errors from the attempted command
 				while ((s = stdError.readLine()) != null) {
+					errorResult = errorResult.concat(s + "\n");
+				}
+				errorBody = removeHeader(errorResult);
+
+				if (errorBody != null && !"".equals(errorBody.replace("\n", ""))) {
 					error = true;
-					result = result.concat(s + "\n");
+					result = result.concat(errorBody + "\n");
 				}
 
 			} catch (IOException e) {
@@ -162,12 +174,10 @@ abstract class QueryBuilderCommon {
 				e.printStackTrace();
 			}
 
-			if (!header && !error) {
-				return removeHeader(result);
-			} else if (!error) {
-				return result;
-			} else {
+			if (error) {
 				throw new MultichainException(null, result);
+			} else {
+				return result;
 			}
 		} else {
 			return "ERROR, CHAIN NAME ARE EMPTY !";
@@ -175,83 +185,19 @@ abstract class QueryBuilderCommon {
 
 	}
 
-
-	protected static String formatJson(String value) {
-		final GsonBuilder builder = new GsonBuilder();
-		final Gson gson = builder.create();
-
-		return gson.toJson(value);
-	}
-
-	protected static String formatJson(boolean value) {
-		final GsonBuilder builder = new GsonBuilder();
-		final Gson gson = builder.create();
-
-		return gson.toJson(value);
-	}
-
-	protected static String formatJson(int value) {
-		final GsonBuilder builder = new GsonBuilder();
-		final Gson gson = builder.create();
-
-		return gson.toJson(value);
-	}
-
-	protected static String formatJson(long value) {
-		final GsonBuilder builder = new GsonBuilder();
-		final Gson gson = builder.create();
-
-		return gson.toJson(value);
-	}
-
-	protected static String formatJson(float value) {
-		final GsonBuilder builder = new GsonBuilder();
-		final Gson gson = builder.create();
-
-		return gson.toJson(value);
-	}
-
-	protected static String formatJson(double value) {
-		final GsonBuilder builder = new GsonBuilder();
-		final Gson gson = builder.create();
-
-		return gson.toJson(value);
-	}
-
-	protected static String formatJson(Object value) {
-		final GsonBuilder builder = new GsonBuilder();
-		final Gson gson = builder.create();
-
-		return gson.toJson(value);
-	}
-
-	protected static String formatJson(String[] values) {
-		final GsonBuilder builder = new GsonBuilder();
-		final Gson gson = builder.create();
-
-		return gson.toJson(values);
-	}
-
-	protected static String formatJson(List<Object> values) {
-		final GsonBuilder builder = new GsonBuilder();
-		final Gson gson = builder.create();
-
-		return gson.toJson(values);
-	}
-
 	/**
 	 * @return the cHAIN
 	 */
-	protected static String getCHAIN() {
+	protected String getCHAIN() {
 		return CHAIN;
 	}
 
 	/**
-	 * @param cHAIN the cHAIN to set
+	 * @param cHAIN
+	 *            the cHAIN to set
 	 */
-	protected static void setCHAIN(String cHAIN) {
+	protected void setCHAIN(String cHAIN) {
 		CHAIN = cHAIN;
 	}
-
 
 }
