@@ -11,19 +11,13 @@ https://github.com/SimplyUb/MultiChainJavaAPI
 	
 ### System requirements
 
-These compilation instructions have been tested on Ubuntu 12.4 x64 only with Java 1.7.0_80
+These compilation instructions have been tested on Windows 7.0 and Ubuntu 12.4 x64 only with Java 1.7.0_80
 
 
-## Linux Build Notes (on Ubuntu 12.4 x64 only with Java 1.7.0_80)
-
-### ClassPath dependencies
+## Dependecies
 
     * Java 1.7.0 is needed, upper version should be compatible
-	* Project uses [Gson API](https://github.com/google/gson)
-
-### Notes
-
-* The classpath file is called "project.classpath" and has to ne rename in ".classpath" for compilation.
+	* All other depencies are managed by Maven.
 
 ## Architecture
 
@@ -39,20 +33,23 @@ Next versions will decide to integrate (or not) theses commands.
 
 ### Project Architecture
 
-#### multichain.command
-The package `multichain.command` is the essential of the project.
-The package contains Java commands to call.
+#### multichain.command and MultiChainCommand
+The package multichain.command and the Class `MultiChainCommand` are the essential of the project.
+They contain Java commands to call.
 
 Examples of command calls can be found in `multichain.test.command`.
 
 A simple example to get addresses :
 ```
-//BlockChain TestCommand has to be created and started before
-ChainCommand.initializeChain("TestCommand");
+//BlockChain has to be created and started before
+multiChainCommand = new MultiChainCommand("localhost", "6824", "multichainrpc","73oYQWzx45hossFPPWUgicpLvHhsD8PempYxnSF6bnY9");
+// localhost is the IP used by Multichain
+// 6824 is, here, the port used by the BlockChain, corresponding of the value of default-rpc-port in the file params.dat 
+// multichainrpc and 73oYQWzx45h... are login and password to access to RPC commands, values can be found in the file multichain.conf
 
 List<String> result = null;
 try {
-	result = AddressCommand.getAddresses();
+	result = multiChainCommand.getAddressCommand().getAddresses();
 } catch (MultichainException e) {
 	// TODO Auto-generated catch block
 	e.printStackTrace();
@@ -90,9 +87,20 @@ Integrated functions about :
 * Transaction
 * Transaction	RAW
 
+### 2.0
+Based on functions contained in MultiChain 1.0 Beta 1
+
+Integrated functions about :
+* Streams
+
+
+### 3.0
+* Direct RPC Server calls
+* Dependencies under Maven
+
+
 Todo :
-* integrate new functions (actually MultiChain Alpha 28)
-* integrate Stream functions
+* integrate new functions
 
 
 ## License
