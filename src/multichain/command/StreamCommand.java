@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import multichain.command.builders.QueryBuilderStream;
+import multichain.object.Stream;
+import multichain.object.StreamKey;
 import multichain.object.StreamKeyItem;
 import multichain.object.formatters.StreamFormatter;
 
@@ -78,6 +80,217 @@ public class StreamCommand extends QueryBuilderStream {
 	 */
 	public String create(String streamName) throws MultichainException {
 		return create(streamName, false);
+	}
+
+	/**
+	 * liststreams (stream-identifier(s) verbose count start )
+	 * 1. "stream-identifier(s)" (string, optional, default=*, all streams) Stream identifier - one of the following:
+	 * issue txid, stream reference, stream name.
+	 * or
+	 * 1. stream-identifier(s) (array, optional) A json array of stream identifiers
+	 * 2. verbose (boolean, optional, default=false) If true, returns stream list of creators
+	 * 3. count (number, optional, default=INT_MAX - all) The number of streams to display
+	 * 4. start (number, optional, default=-count - last) Start from specific stream, 0 based, if negative - from the
+	 * end
+	 * 
+	 * Returns list of defined streams
+	 * 
+	 * @param streamName
+	 * @param verbose
+	 * @param count
+	 * @param start
+	 * @return
+	 * @throws MultichainException
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Stream> listStreams(String streamName, boolean verbose, int count, int start)
+			throws MultichainException {
+		List<Stream> streams = new ArrayList<Stream>();
+
+		Object objectStreams = executeListStreams(streamName, verbose, count, start);
+		if (verifyInstance(objectStreams, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectStreams, Stream.class)) {
+			streams = StreamFormatter.formatStreams((ArrayList<Object>) objectStreams);
+		}
+
+		return streams;
+	}
+
+	/**
+	 * {@link #listStreams(String, boolean, int, int)} without start
+	 * 
+	 * @param streamName
+	 * @param verbose
+	 * @param count
+	 * @return
+	 * @throws MultichainException
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Stream> listStreams(String streamName, boolean verbose, int count) throws MultichainException {
+		List<Stream> streams = new ArrayList<Stream>();
+
+		Object objectStreams = executeListStreams(streamName, verbose, count);
+		if (verifyInstance(objectStreams, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectStreams, Stream.class)) {
+			streams = StreamFormatter.formatStreams((ArrayList<Object>) objectStreams);
+		}
+
+		return streams;
+
+	}
+
+	/**
+	 * {@link #listStreams(String, boolean, int, int)} without start and default count = 10
+	 * 
+	 * @param streamName
+	 * @param verbose
+	 * @return
+	 * @throws MultichainException
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Stream> listStreams(String streamName, boolean verbose) throws MultichainException {
+		List<Stream> streams = new ArrayList<Stream>();
+
+		Object objectStreams = executeListStreams(streamName, verbose, 10);
+		if (verifyInstance(objectStreams, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectStreams, Stream.class)) {
+			streams = StreamFormatter.formatStreams((ArrayList<Object>) objectStreams);
+		}
+
+		return streams;
+
+	}
+
+	/**
+	 * {@link #listStreams(String, boolean, int, int)} without start and default count = 10 and defautl verbose = false
+	 * 
+	 * @param streamName
+	 * @return
+	 * @throws MultichainException
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Stream> listStreams(String streamName) throws MultichainException {
+		List<Stream> streams = new ArrayList<Stream>();
+
+		Object objectStreams = executeListStreams(streamName, false, 10);
+		if (verifyInstance(objectStreams, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectStreams, Stream.class)) {
+			streams = StreamFormatter.formatStreams((ArrayList<Object>) objectStreams);
+		}
+
+		return streams;
+
+	}
+
+	/**
+	 * liststreamkeys "stream-identifier" ( key(s) verbose count start local-ordering )
+	 * 
+	 * Returns stream keys.
+	 * 
+	 * Arguments:
+	 * 1. "stream-identifier"(string, required) Stream identifier - one of the following: stream txid, stream reference,
+	 * stream name.
+	 * 2. "key" (string, optional, default=*) Stream key
+	 * or
+	 * 2. key(s) (array, optional) A json array of stream keys
+	 * 3. verbose (boolean, optional, default=false) If true, returns extended information about key
+	 * 4. count (number, optional, default=INT_MAX - all) The number of items to display
+	 * 5. start (number, optional, default=-count - last) Start from specific item, 0 based, if negative - from the end
+	 * 6. local-ordering (boolean, optional, default=false) If true, items appear in the order they were processed by
+	 * the wallet, if false - in the order they apppear in blockchain
+	 * 
+	 * Result:
+	 * "stream-keys" (array) List of stream keys.
+	 * 
+	 * @param streamName
+	 * @param key
+	 * @param verbose
+	 * @param count
+	 * @param start
+	 * @return
+	 * @throws MultichainException
+	 */
+	@SuppressWarnings("unchecked")
+	public List<StreamKey> listStreamKeys(String streamName, String key, boolean verbose, int count, int start)
+			throws MultichainException {
+		List<StreamKey> streamKeys = new ArrayList<StreamKey>();
+
+		Object objectStreamKeys = executeListStreamKeys(streamName, key, verbose, count, start);
+		if (verifyInstance(objectStreamKeys, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectStreamKeys, StreamKey.class)) {
+			streamKeys = StreamFormatter.formatStreamKeys((ArrayList<Object>) objectStreamKeys);
+		}
+
+		return streamKeys;
+	}
+
+	/**
+	 * {@link listStreamKeys(String streamName, String key, boolean verbose, int count, int start)} without start
+	 * 
+	 * @param streamName
+	 * @param key
+	 * @param verbose
+	 * @param count
+	 * @return
+	 * @throws MultichainException
+	 */
+	@SuppressWarnings("unchecked")
+	public List<StreamKey> listStreamKeys(String streamName, String key, boolean verbose, int count)
+			throws MultichainException {
+		List<StreamKey> streamKeys = new ArrayList<StreamKey>();
+
+		Object objectStreamKeys = executeListStreamKeys(streamName, key, verbose, count);
+		if (verifyInstance(objectStreamKeys, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectStreamKeys, StreamKey.class)) {
+			streamKeys = StreamFormatter.formatStreamKeys((ArrayList<Object>) objectStreamKeys);
+		}
+
+		return streamKeys;
+	}
+
+	/**
+	 * {@link listStreamKeys(String streamName, String key, boolean verbose, int count, int start)} without start, with
+	 * count = 10
+	 * 
+	 * @param streamName
+	 * @param key
+	 * @param verbose
+	 * @param count
+	 * @return
+	 * @throws MultichainException
+	 */
+	public List<StreamKey> listStreamKeys(String streamName, String key, boolean verbose) throws MultichainException {
+		return listStreamKeys(streamName, key, verbose, 10);
+	}
+
+	/**
+	 * {@link listStreamKeys(String streamName, String key, boolean verbose, int count, int start)} without start, with
+	 * count = 10, verbse = false
+	 * 
+	 * @param streamName
+	 * @param key
+	 * @param verbose
+	 * @param count
+	 * @return
+	 * @throws MultichainException
+	 */
+	public List<StreamKey> listStreamKeys(String streamName, String key) throws MultichainException {
+		return listStreamKeys(streamName, key, false, 10);
+	}
+
+	/**
+	 * {@link listStreamKeys(String streamName, String key, boolean verbose, int count, int start)} without start, with
+	 * count = 10, verbse = false, keys = "*"
+	 * 
+	 * @param streamName
+	 * @param key
+	 * @param verbose
+	 * @param count
+	 * @return
+	 * @throws MultichainException
+	 */
+	public List<StreamKey> listStreamKeys(String streamName) throws MultichainException {
+		return listStreamKeys(streamName, "*", false, 10);
 	}
 
 	/**
@@ -270,6 +483,27 @@ public class StreamCommand extends QueryBuilderStream {
 	 */
 	public void subscribe(String streamName) throws MultichainException {
 		executeSubscribe(streamName);
+	}
+
+	/**
+	 * unsubscribe entity-identifier(s)
+	 * 
+	 * Unsubscribes from the stream.
+	 * 
+	 * Arguments:
+	 * 1. "stream-identifier" (string, required) Stream identifier - one of the following: stream txid, stream
+	 * reference, stream name.
+	 * or
+	 * 1. "asset-identifier" (string, required) Asset identifier - one of the following: asset txid, asset reference,
+	 * asset name.
+	 * or
+	 * 1. entity-identifier(s) (array, optional) A json array of stream or asset identifiers
+	 * 
+	 * @param streamName
+	 * @throws MultichainException
+	 */
+	public void unsubscribe(String streamName) throws MultichainException {
+		executeUnsubscribe(streamName);
 	}
 
 }
