@@ -7,6 +7,7 @@
  */
 package multichain.command;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import multichain.command.builders.QueryBuilderWalletTransaction;
@@ -24,8 +25,9 @@ import multichain.object.formatters.WalletTransactionFormatter;
  * @version 2.0
  */
 public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
-	public WalletTransactionCommand(String chainName) {
-		setCHAIN(chainName);
+
+	public WalletTransactionCommand(String ip, String port, String login, String password) {
+		initialize(ip, port, login, password);
 	}
 
 	/**
@@ -82,10 +84,12 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 */
 	public TransactionWallet getAddressTransaction(String address, String txid, boolean verbose)
 			throws MultichainException {
-		String stringGetAddressTransactions = executeGetAddressTransaction(address, txid, verbose);
+		TransactionWallet transactionWallet = new TransactionWallet();
 
-		return WalletTransactionFormatter.formatTransactionWallet(stringGetAddressTransactions);
+		Object objectTransactionWallet = executeGetAddressTransaction(address, txid, verbose);
+		transactionWallet = WalletTransactionFormatter.formatTransactionWallet(objectTransactionWallet);
 
+		return transactionWallet;
 	}
 
 	/**
@@ -141,9 +145,12 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @throws MultichainException
 	 */
 	public Transaction getTransaction(String txid, boolean includeWatchonly) throws MultichainException {
-		String stringTransaction = executeGetTransaction(txid, includeWatchonly);
+		Transaction transaction = new Transaction();
 
-		return TransactionFormatter.formatTransaction(stringTransaction);
+		Object objectTransaction = executeGetTransaction(txid, includeWatchonly);
+		transaction = TransactionFormatter.formatTransaction(objectTransaction);
+
+		return transaction;
 	}
 
 	/**
@@ -195,9 +202,12 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @throws MultichainException
 	 */
 	public TxOut getTxOut(String txid, int vout, boolean includemempool) throws MultichainException {
-		String stringTxOut = executeGetTxOut(txid, vout, includemempool);
+		TxOut txOut = new TxOut();
 
-		return TxOutFormatter.formatTxOut(stringTxOut);
+		Object objectTxOut = executeGetTxOut(txid, vout, includemempool);
+		txOut = TxOutFormatter.formatTxOut(objectTxOut);
+
+		return txOut;
 	}
 
 	/**
@@ -268,9 +278,13 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 */
 	public TransactionWalletDetailed getWalletTransaction(String txid, boolean includeWatchOnly, boolean verbose)
 			throws MultichainException {
-		String stringTransactionWalletDetailed = executeGetWalletTransaction(txid, includeWatchOnly, verbose);
+		TransactionWalletDetailed transactionWalletDetailed = new TransactionWalletDetailed();
 
-		return WalletTransactionFormatter.formatTransactionWalletDetailed(stringTransactionWalletDetailed);
+		Object objectTransactionWalletDetailed = executeGetWalletTransaction(txid, includeWatchOnly, verbose);
+		transactionWalletDetailed = WalletTransactionFormatter
+				.formatTransactionWalletDetailed(objectTransactionWalletDetailed);
+
+		return transactionWalletDetailed;
 	}
 
 	/**
@@ -351,11 +365,16 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @return
 	 * @throws MultichainException
 	 */
+	@SuppressWarnings("unchecked")
 	public List<TransactionWallet> listAddressTransactions(String address, long count, long skip, boolean verbose)
 			throws MultichainException {
-		String stringListAddressTransactions = executeListAddressTransactions(address, count, skip, verbose);
+		List<TransactionWallet> listTransactionWallet = new ArrayList<TransactionWallet>();
 
-		return WalletTransactionFormatter.formatListTransactionWallet(stringListAddressTransactions);
+		Object objectTransactionWallet = executeListAddressTransactions(address, count, skip, verbose);
+		listTransactionWallet = WalletTransactionFormatter
+				.formatListTransactionWallet((List<Object>) objectTransactionWallet);
+
+		return listTransactionWallet;
 	}
 
 	/**
@@ -448,11 +467,17 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @return
 	 * @throws MultichainException
 	 */
+	@SuppressWarnings("unchecked")
 	public List<TransactionWallet> listWalletTransaction(long count, long skip, boolean includeWatchonly,
 			boolean verbose) throws MultichainException {
-		String stringlistWalletTransaction = executeListWalletTransaction(count, skip, includeWatchonly, verbose);
 
-		return WalletTransactionFormatter.formatListTransactionWallet(stringlistWalletTransaction);
+		List<TransactionWallet> listTransactionWallet = new ArrayList<TransactionWallet>();
+
+		Object objectTransactionWallet = executeListWalletTransaction(count, skip, includeWatchonly, verbose);
+		listTransactionWallet = WalletTransactionFormatter
+				.formatListTransactionWallet((List<Object>) objectTransactionWallet);
+
+		return listTransactionWallet;
 	}
 
 	/**
@@ -537,7 +562,14 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 */
 	public String sendFromAddress(String fromAddress, String toAddress, List<BalanceAssetBase> assets)
 			throws MultichainException {
-		return executeSendFromAddress(fromAddress, toAddress, assets);
+		String stringSendFromAddress = "";
+
+		Object objectSendFromAddress = executeSendFromAddress(fromAddress, toAddress, assets);
+		if (verifyInstance(objectSendFromAddress, String.class)) {
+			stringSendFromAddress = (String) objectSendFromAddress;
+		}
+
+		return stringSendFromAddress;
 	}
 
 	/**
@@ -574,7 +606,14 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @throws MultichainException
 	 */
 	public String sendToAddress(String address, List<BalanceAssetBase> assets) throws MultichainException {
-		return executeSendToAddress(address, assets);
+		String stringSendToAddress = "";
+
+		Object objectSendToAddress = executeSendToAddress(address, assets);
+		if (verifyInstance(objectSendToAddress, String.class)) {
+			stringSendToAddress = (String) objectSendToAddress;
+		}
+
+		return stringSendToAddress;
 	}
 
 	/**
@@ -610,7 +649,14 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @throws MultichainException
 	 */
 	public String SendToAddress(String address, double amount) throws MultichainException {
-		return executeSendToAddress(address, amount);
+		String stringSendToAddress = "";
+
+		Object objectSendToAddress = executeSendToAddress(address, amount);
+		if (verifyInstance(objectSendToAddress, String.class)) {
+			stringSendToAddress = (String) objectSendToAddress;
+		}
+
+		return stringSendToAddress;
 	}
 
 	/**
@@ -643,7 +689,14 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 */
 	public String SendWithMetaData(String address, List<BalanceAssetBase> assets, String hexMetaData)
 			throws MultichainException {
-		return executeSendWithMetaData(address, assets, hexMetaData);
+		String stringSendWithMetaData = "";
+
+		Object objectSendWithMetaData = executeSendWithMetaData(address, assets, hexMetaData);
+		if (verifyInstance(objectSendWithMetaData, String.class)) {
+			stringSendWithMetaData = (String) objectSendWithMetaData;
+		}
+
+		return stringSendWithMetaData;
 	}
 
 	/**
@@ -675,7 +728,14 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @throws MultichainException
 	 */
 	public String SendWithMetaData(String address, double amount, String hexMetaData) throws MultichainException {
-		return executeSendWithMetaData(address, amount, hexMetaData);
+		String stringSendWithMetaData = "";
+
+		Object objectSendWithMetaData = executeSendWithMetaData(address, amount, hexMetaData);
+		if (verifyInstance(objectSendWithMetaData, String.class)) {
+			stringSendWithMetaData = (String) objectSendWithMetaData;
+		}
+
+		return stringSendWithMetaData;
 	}
 
 	/**
@@ -711,7 +771,14 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 */
 	public String SendWithMetaDataFrom(String fromAddress, String toAddress, List<BalanceAssetBase> assets,
 			String hexMetaData) throws MultichainException {
-		return executeSendWithMetaDataFrom(fromAddress, toAddress, assets, hexMetaData);
+		String stringSendWithMetaDatarom = "";
+
+		Object objectSendWithMetaDataFrom = executeSendWithMetaDataFrom(fromAddress, toAddress, assets, hexMetaData);
+		if (verifyInstance(objectSendWithMetaDataFrom, String.class)) {
+			stringSendWithMetaDatarom = (String) objectSendWithMetaDataFrom;
+		}
+
+		return stringSendWithMetaDatarom;
 	}
 
 	/**
@@ -747,7 +814,14 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 */
 	public String SendWithMetaDataFrom(String fromAddress, String toAddress, double amount, String hexMetaData)
 			throws MultichainException {
-		return executeSendWithMetaDataFrom(fromAddress, toAddress, amount, hexMetaData);
+		String stringSendWithMetaDatarom = "";
+
+		Object objectSendWithMetaDataFrom = executeSendWithMetaDataFrom(fromAddress, toAddress, amount, hexMetaData);
+		if (verifyInstance(objectSendWithMetaDataFrom, String.class)) {
+			stringSendWithMetaDatarom = (String) objectSendWithMetaDataFrom;
+		}
+
+		return stringSendWithMetaDatarom;
 	}
 
 }

@@ -7,27 +7,43 @@
  */
 package multichain.object.formatters;
 
-import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import multichain.object.StreamKeyItem;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.internal.LinkedTreeMap;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.1
+ * @version 3.0
  */
 public class StreamFormatter {
-	public final static List<StreamKeyItem> formatStreamKeyItem(String stringStreamKeyItem) {
-		final Gson gson = new GsonBuilder().create();
+	public final static StreamKeyItem formatStreamKeyItem(Object objectStreamKeyItem) {
+		StreamKeyItem streamKeyItem = new StreamKeyItem();
 
-		Type listType = new TypeToken<List<StreamKeyItem>>() {
-		}.getType();
-		final List<StreamKeyItem> listStreamKeyItem = gson.fromJson(stringStreamKeyItem, listType);
+		if (objectStreamKeyItem != null && LinkedTreeMap.class.isInstance(objectStreamKeyItem)) {
+			GsonBuilder builder = new GsonBuilder();
+			Gson gson = builder.create();
 
-		return listStreamKeyItem;
+			String jsonValue = gson.toJson(objectStreamKeyItem);
+			streamKeyItem = gson.fromJson(jsonValue, StreamKeyItem.class);
+		}
+
+		return streamKeyItem;
+	}
+
+	public final static List<StreamKeyItem> formatStreamKeyItems(List<Object> objectStreamKeyItems) {
+		List<StreamKeyItem> streamKeyItems = new ArrayList<StreamKeyItem>();
+
+		if (objectStreamKeyItems != null) {
+			for (Object objectStreamKeyItem : objectStreamKeyItems) {
+				streamKeyItems.add(formatStreamKeyItem(objectStreamKeyItem));
+			}
+		}
+
+		return streamKeyItems;
 	}
 }

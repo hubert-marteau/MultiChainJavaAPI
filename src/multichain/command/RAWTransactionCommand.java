@@ -20,12 +20,12 @@ import multichain.object.queryobjects.TxIdVout;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 2.1
+ * @version 3.0
  */
 public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 
-	public RAWTransactionCommand(String chainName) {
-		setCHAIN(chainName);
+	public RAWTransactionCommand(String ip, String port, String login, String password) {
+		initialize(ip, port, login, password);
 	}
 
 	/**
@@ -51,7 +51,14 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @throws MultichainException
 	 */
 	public String appendRawChange(String hexString, String address) throws MultichainException {
-		return executeAppendRawChange(hexString, address);
+		String stringAppendRawChange = "";
+
+		Object objectAppendRawChange = executeAppendRawChange(hexString, address);
+		if (verifyInstance(objectAppendRawChange, String.class)) {
+			stringAppendRawChange = (String) objectAppendRawChange;
+		}
+
+		return stringAppendRawChange;
 	}
 
 	public String appendRawChange(String hexString, Address address) throws MultichainException {
@@ -59,7 +66,7 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 			throw new MultichainException("address", "is null");
 		}
 
-		return executeAppendRawChange(hexString, address.getAddress());
+		return appendRawChange(hexString, address.getAddress());
 	}
 
 	/**
@@ -107,7 +114,14 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @throws MultichainException
 	 */
 	public String appendRawMetaData(String txHex, String dataHex) throws MultichainException {
-		return executeAppendRawMetaData(txHex, dataHex);
+		String stringAppendRawMetaData = "";
+
+		Object objectAppendRawMetaData = executeAppendRawMetaData(txHex, dataHex);
+		if (verifyInstance(objectAppendRawMetaData, String.class)) {
+			stringAppendRawMetaData = (String) objectAppendRawMetaData;
+		}
+
+		return stringAppendRawMetaData;
 	}
 
 	/**
@@ -177,8 +191,12 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 */
 	public SignedTransactionRAW createRawSendFrom(String address, List<RawParam> rawParams, String[] data, String action)
 			throws MultichainException {
-		String stringCreateRawSendFrom = executeCreateRawSendFrom(address, rawParams, data, action);
-		return RAWTransactionFormatter.formatSignedTransactionRAW(stringCreateRawSendFrom);
+		SignedTransactionRAW signedTransactionRAW = new SignedTransactionRAW();
+
+		Object objectTransactionRAW = executeCreateRawSendFrom(address, rawParams, data, action);
+		signedTransactionRAW = RAWTransactionFormatter.formatSignedTransactionRAW(objectTransactionRAW);
+
+		return signedTransactionRAW;
 	}
 
 	/**
@@ -247,7 +265,14 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * "hex" (string) The transaction hash in hex (if action= "send")
 	 */
 	public String createRawSendFrom(String address, List<RawParam> rawParams, String[] data) throws MultichainException {
-		return executeCreateRawSendFrom(address, rawParams, data, null);
+		String transactionRAW = new String();
+
+		Object objectTransactionRAW = executeCreateRawSendFrom(address, rawParams, data, null);
+		if (verifyInstance(objectTransactionRAW, String.class)) {
+			transactionRAW = (String) objectTransactionRAW;
+		}
+
+		return transactionRAW;
 	}
 
 	/**
@@ -316,7 +341,7 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * "hex" (string) The transaction hash in hex (if action= "send")
 	 */
 	public String createRawSendFrom(String address, List<RawParam> rawParams) throws MultichainException {
-		return executeCreateRawSendFrom(address, rawParams, null, null);
+		return createRawSendFrom(address, rawParams, null);
 	}
 
 	/**
@@ -396,7 +421,14 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 */
 	public String createRawTransaction(List<TxIdVout> inputs, List<AddressBalanceAsset> addessAssets)
 			throws MultichainException {
-		return executeCreateRawTransaction(inputs, addessAssets);
+		String createTransactionRAW = new String();
+
+		Object objectTransactionRAW = executeCreateRawTransaction(inputs, addessAssets);
+		if (verifyInstance(objectTransactionRAW, String.class)) {
+			createTransactionRAW = (String) objectTransactionRAW;
+		}
+
+		return createTransactionRAW;
 	}
 
 	/**
@@ -451,8 +483,8 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	public TransactionRAW decodeRawTransaction(String hex) throws MultichainException {
 		TransactionRAW transactionRAW = new TransactionRAW();
 
-		String stringTransactionRAW = executeDecodeRawTransaction(hex);
-		transactionRAW = RAWTransactionFormatter.formatTransactionRAW(stringTransactionRAW);
+		Object objectTransactionRAW = executeDecodeRawTransaction(hex);
+		transactionRAW = RAWTransactionFormatter.formatTransactionRAW(objectTransactionRAW);
 
 		return transactionRAW;
 	}
@@ -470,7 +502,14 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @throws MultichainException
 	 */
 	public String getRawChangeAddress() throws MultichainException {
-		return executeGetRawChangeAddress();
+		String rawChangeAddress = new String();
+
+		Object objectRawChangeAddress = executeGetRawChangeAddress();
+		if (verifyInstance(objectRawChangeAddress, String.class)) {
+			rawChangeAddress = (String) objectRawChangeAddress;
+		}
+
+		return rawChangeAddress;
 	}
 
 	/**
@@ -540,10 +579,12 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @throws MultichainException
 	 */
 	public TransactionRAW getRawTransaction(String txid, int verbose) throws MultichainException {
-		String stringTransactionRAW = executeGetRawTransaction(txid, verbose);
+		TransactionRAW transactionRAW = new TransactionRAW();
 
-		return RAWTransactionFormatter.formatTransactionRAW(stringTransactionRAW);
+		Object objectTransactionRAW = executeGetRawTransaction(txid, verbose);
+		transactionRAW = RAWTransactionFormatter.formatTransactionRAW(objectTransactionRAW);
 
+		return transactionRAW;
 	}
 
 	/**
@@ -554,9 +595,7 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @throws MultichainException
 	 */
 	public TransactionRAW getRAWTransactionWithDetail(String txid) throws MultichainException {
-		String stringTransactionRAW = executeGetRawTransaction(txid, 1);
-
-		return RAWTransactionFormatter.formatTransactionRAW(stringTransactionRAW);
+		return getRawTransaction(txid, 1);
 	}
 
 	/**
@@ -567,9 +606,7 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @throws MultichainException
 	 */
 	public TransactionRAW getRAWTransactionWithoutDetail(String txid) throws MultichainException {
-		String stringTransactionRAW = executeGetRawTransaction(txid, 1);
-
-		return RAWTransactionFormatter.formatTransactionRAW(stringTransactionRAW);
+		return getRawTransaction(txid, 0);
 	}
 
 	/**
@@ -594,7 +631,7 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @throws MultichainException
 	 */
 	public String sendRawTransaction(String hexString) throws MultichainException {
-		return executeSendRawTransaction(hexString);
+		return sendRawTransaction(hexString);
 	}
 
 	/**
@@ -647,7 +684,11 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @throws MultichainException
 	 */
 	public SignedTransactionRAW signRawTransaction(String hexString) throws MultichainException {
-		String signedTransactionRAW = executeSignRawTransaction(hexString);
-		return RAWTransactionFormatter.formatSignedTransactionRAW(signedTransactionRAW);
+		SignedTransactionRAW signedTransactionRAW = new SignedTransactionRAW();
+
+		Object objectTransactionRAW = executeSignRawTransaction(hexString);
+		signedTransactionRAW = RAWTransactionFormatter.formatSignedTransactionRAW(objectTransactionRAW);
+
+		return signedTransactionRAW;
 	}
 }

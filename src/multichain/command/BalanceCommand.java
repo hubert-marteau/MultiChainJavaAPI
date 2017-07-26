@@ -16,11 +16,11 @@ import multichain.object.formatters.BalanceFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 2.0
+ * @version 3.0
  */
 public class BalanceCommand extends QueryBuilderBalance {
-	public BalanceCommand(String chainName) {
-		setCHAIN(chainName);
+	public BalanceCommand(String ip, String port, String login, String password) {
+		initialize(ip, port, login, password);
 	}
 
 	/**
@@ -43,11 +43,16 @@ public class BalanceCommand extends QueryBuilderBalance {
 	 * @return a list of all the asset balances in this node’s wallet
 	 * @throws MultichainException
 	 */
+	@SuppressWarnings("unchecked")
 	public List<BalanceAsset> getTotalBalances() throws MultichainException {
 		List<BalanceAsset> listBalanceAsset = new ArrayList<BalanceAsset>();
 
-		String stringBalanceAsset = executeGetTotalBalances();
-		listBalanceAsset = BalanceFormatter.formatBalanceAssets(stringBalanceAsset);
+		Object objectBalanceAsset = executeGetTotalBalances();
+
+		if (verifyInstance(objectBalanceAsset, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectBalanceAsset, BalanceAsset.class)) {
+			listBalanceAsset = BalanceFormatter.formatBalanceAssets((ArrayList<Object>) objectBalanceAsset);
+		}
 
 		return listBalanceAsset;
 	}
@@ -60,7 +65,14 @@ public class BalanceCommand extends QueryBuilderBalance {
 	 * @throws MultichainException
 	 */
 	public String getUnconfirmedBalance() throws MultichainException {
-		return executeGetUnconfirmedBalance();
+		String stringUnconfirmedBalance = "";
+
+		Object objectUnconfirmedBalance = executeGetUnconfirmedBalance();
+		if (verifyInstance(objectUnconfirmedBalance, String.class)) {
+			stringUnconfirmedBalance = (String) objectUnconfirmedBalance;
+		}
+
+		return stringUnconfirmedBalance;
 	}
 
 }

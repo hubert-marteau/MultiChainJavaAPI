@@ -19,12 +19,12 @@ import multichain.object.formatters.BalanceFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 2.0
+ * @version 3.0
  */
 public class AddressCommand extends QueryBuilderAddress {
 
-	public AddressCommand(String chainName) {
-		setCHAIN(chainName);
+	public AddressCommand(String ip, String port, String login, String password) {
+		initialize(ip, port, login, password);
 	}
 
 	/**
@@ -55,8 +55,10 @@ public class AddressCommand extends QueryBuilderAddress {
 	public final Address addMultiSigAddress(int numberOfSigRequired, String[] publicKeys) throws MultichainException {
 		Address address = new Address();
 
-		String stringAddress = executeAddMultiSigAddress(numberOfSigRequired, publicKeys);
-		address = validateAddress(stringAddress);
+		Object objectAddress = executeAddMultiSigAddress(numberOfSigRequired, publicKeys);
+		if (verifyInstance(objectAddress, String.class)) {
+			address = validateAddress((String) objectAddress);
+		}
 
 		return address;
 	}
@@ -90,8 +92,10 @@ public class AddressCommand extends QueryBuilderAddress {
 	public Address createMultiSig(int numberOfSigRequired, String[] publicKeys) throws MultichainException {
 		Address address = new Address();
 
-		String stringAddress = executeCreateMultiSig(numberOfSigRequired, publicKeys);
-		address = validateAddress(stringAddress);
+		Object objectAddress = executeCreateMultiSig(numberOfSigRequired, publicKeys);
+		if (verifyInstance(objectAddress, String.class)) {
+			address = validateAddress((String) objectAddress);
+		}
 
 		return address;
 	}
@@ -115,11 +119,15 @@ public class AddressCommand extends QueryBuilderAddress {
 	 * @return Addresses of the Wallet
 	 * @throws MultichainException
 	 */
+	@SuppressWarnings("unchecked")
 	public final List<String> getAddressesStringList() throws MultichainException {
 		List<String> addresses = new ArrayList<String>();
 
-		String stringAddresses = executeGetAddresses(false);
-		addresses = AddressFormatter.formatAddressesStringList(stringAddresses);
+		Object objectAddresses = executeGetAddresses(false);
+		if (verifyInstance(objectAddresses, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectAddresses, String.class)) {
+			addresses = (ArrayList<String>) objectAddresses;
+		}
 
 		return addresses;
 	}
@@ -161,11 +169,15 @@ public class AddressCommand extends QueryBuilderAddress {
 	 * @return Addresses of the Wallet
 	 * @throws MultichainException
 	 */
+	@SuppressWarnings("unchecked")
 	public final List<Address> getAddressesList() throws MultichainException {
 		List<Address> addresses = new ArrayList<Address>();
 
-		String stringAddresses = executeGetAddresses(true);
-		addresses = AddressFormatter.formatAddressesList(stringAddresses);
+		Object objectAddresses = executeGetAddresses(true);
+		if (verifyInstance(objectAddresses, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectAddresses, Address.class)) {
+			addresses = AddressFormatter.formatAddressesList((ArrayList<Object>) objectAddresses);
+		}
 
 		return addresses;
 	}
@@ -190,11 +202,15 @@ public class AddressCommand extends QueryBuilderAddress {
 	 * 
 	 * @return Balances
 	 */
+	@SuppressWarnings("unchecked")
 	public List<MultiBalance> getMultiBalances(String[] addresses) throws MultichainException {
 		List<MultiBalance> listMultiBalance = new ArrayList<MultiBalance>();
 
-		String stringMultiBalance = executeGetMultiBalances(addresses);
-		listMultiBalance = BalanceFormatter.formatMultiBalances(stringMultiBalance);
+		Object objectMultiBalance = executeGetMultiBalances(addresses);
+		if (verifyInstance(objectMultiBalance, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectMultiBalance, MultiBalance.class)) {
+			listMultiBalance = BalanceFormatter.formatMultiBalances((ArrayList<Object>) objectMultiBalance);
+		}
 
 		return listMultiBalance;
 	}
@@ -238,11 +254,15 @@ public class AddressCommand extends QueryBuilderAddress {
 	 * @return Balance of the address
 	 * @throws MultichainException
 	 */
+	@SuppressWarnings("unchecked")
 	public List<BalanceAsset> getAddressBalances(String address) throws MultichainException {
 		List<BalanceAsset> balance = new ArrayList<BalanceAsset>();
 
-		String stringBalances = executeGetAddressBalances(address);
-		balance = BalanceFormatter.formatBalanceAssets(stringBalances);
+		Object objectBalances = executeGetAddressBalances(address);
+		if (verifyInstance(objectBalances, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectBalances, BalanceAsset.class)) {
+			balance = BalanceFormatter.formatBalanceAssets((ArrayList<Object>) objectBalances);
+		}
 
 		return balance;
 	}
@@ -267,8 +287,14 @@ public class AddressCommand extends QueryBuilderAddress {
 	 * @throws MultichainException
 	 */
 	public final String getNewAddress() throws MultichainException {
-		String stringAddress = executeGetNewAddress();
-		return formatString(stringAddress);
+		String stringAddress = "";
+
+		Object objectAddress = executeGetNewAddress();
+		if (verifyInstance(objectAddress, String.class)) {
+			stringAddress = (String) objectAddress;
+		}
+
+		return stringAddress;
 	}
 
 	/**
@@ -293,8 +319,10 @@ public class AddressCommand extends QueryBuilderAddress {
 	public final Address getNewAddressFilled() throws MultichainException {
 		Address address = new Address();
 
-		String stringAddress = executeGetNewAddress();
-		address = validateAddress(stringAddress);
+		Object objectAddress = executeGetNewAddress();
+		if (verifyInstance(objectAddress, Address.class)) {
+			address = (Address) objectAddress;
+		}
 
 		return address;
 	}
@@ -356,8 +384,8 @@ public class AddressCommand extends QueryBuilderAddress {
 	public final Address validateAddress(String stringAddress) throws MultichainException {
 		Address address = new Address();
 
-		String stringAddressInfo = executeValidateAddress(stringAddress);
-		address = AddressFormatter.formatAddress(stringAddressInfo);
+		Object objectAddressInfo = executeValidateAddress(stringAddress);
+		address = AddressFormatter.formatAddress(objectAddressInfo);
 
 		return address;
 	}

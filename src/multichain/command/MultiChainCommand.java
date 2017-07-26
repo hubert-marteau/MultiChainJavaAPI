@@ -9,12 +9,13 @@ package multichain.command;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 3.0
  */
 public class MultiChainCommand {
 	private AddressCommand addressCommand;
 	private BalanceCommand balanceCommand;
 	private BlockCommand blockCommand;
+	private ChainCommand chainCommand;
 	private GrantCommand grantCommand;
 	private IssueCommand issueCommand;
 	private RAWTransactionCommand rawTransactionCommand;
@@ -24,16 +25,17 @@ public class MultiChainCommand {
 	/**
 	 * 
 	 */
-	public MultiChainCommand(String chainName) {
+	public MultiChainCommand(String ip, String port, String login, String password) {
 		super();
-		addressCommand = new AddressCommand(chainName);
-		balanceCommand = new BalanceCommand(chainName);
-		blockCommand = new BlockCommand(chainName);
-		grantCommand = new GrantCommand(chainName);
-		issueCommand = new IssueCommand(chainName);
-		rawTransactionCommand = new RAWTransactionCommand(chainName);
-		streamCommand = new StreamCommand(chainName);
-		walletTransactionCommand = new WalletTransactionCommand(chainName);
+		addressCommand = new AddressCommand(ip, port, login, password);
+		balanceCommand = new BalanceCommand(ip, port, login, password);
+		blockCommand = new BlockCommand(ip, port, login, password);
+		chainCommand = new ChainCommand(ip, port, login, password);
+		grantCommand = new GrantCommand(ip, port, login, password);
+		issueCommand = new IssueCommand(ip, port, login, password);
+		rawTransactionCommand = new RAWTransactionCommand(ip, port, login, password);
+		streamCommand = new StreamCommand(ip, port, login, password);
+		walletTransactionCommand = new WalletTransactionCommand(ip, port, login, password);
 	}
 
 	/**
@@ -154,6 +156,21 @@ public class MultiChainCommand {
 	 */
 	public void setWalletTransactionCommand(WalletTransactionCommand walletTransactionCommand) {
 		this.walletTransactionCommand = walletTransactionCommand;
+	}
+
+	/**
+	 * @return the chainCommand
+	 */
+	public ChainCommand getChainCommand() {
+		return chainCommand;
+	}
+
+	/**
+	 * @param chainCommand
+	 *            the chainCommand to set
+	 */
+	public void setChainCommand(ChainCommand chainCommand) {
+		this.chainCommand = chainCommand;
 	}
 
 }

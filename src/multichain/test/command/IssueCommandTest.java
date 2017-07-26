@@ -84,7 +84,8 @@ public class IssueCommandTest {
 		System.out.println("--- Start of IssueCommandTest ---");
 
 		// BlockChain TestCommand has to be created and started before
-		multiChainCommand = new MultiChainCommand("TestAPI1");
+		multiChainCommand = new MultiChainCommand("localhost", "6824", "multichainrpc",
+				"73oYQWzx45hossFPPWUgicpLvHhsD8PempYxnSF6bnY9");
 
 		SimpleDateFormat formater = new SimpleDateFormat("ddMMyyhhmmss");
 		assetName = "TestAPI1" + formater.format(new Date());

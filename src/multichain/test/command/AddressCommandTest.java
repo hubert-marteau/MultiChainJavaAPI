@@ -29,6 +29,7 @@ public class AddressCommandTest {
 
 	private static void testgetAddresses() {
 		List<String> result = null;
+		List<Address> resultAddress = null;
 		try {
 			result = multiChainCommand.getAddressCommand().getAddresses();
 		} catch (MultichainException e) {
@@ -38,11 +39,29 @@ public class AddressCommandTest {
 		if (result == null || result.size() == 0) {
 			System.err.println("testgetAddresses - result list is empty");
 		} else {
-			System.out.println("Result :");
+			System.out.println("testgetAddresses - Result :");
 			for (String ad : result) {
 				System.out.println(ad);
 			}
 		}
+		System.out.println("");
+		System.out.println("");
+		try {
+			resultAddress = multiChainCommand.getAddressCommand().getAddressesList();
+		} catch (MultichainException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (resultAddress == null || resultAddress.size() == 0) {
+			System.err.println("testgetAddressesList - result list is empty");
+		} else {
+			System.out.println("testgetAddressesList - Result :");
+			for (Address ad : resultAddress) {
+				System.out.println(ad.toString());
+			}
+		}
+		System.out.println("");
+		System.out.println("");
 	}
 
 	private static void testvalidateAddress() {
@@ -59,12 +78,11 @@ public class AddressCommandTest {
 					if (result == null || result.getAddress() == null || "".equals(result.getAddress())) {
 						System.err.println("testvalidateAddress - result is not correct");
 					}
-					;
+					System.out.println("");
 				}
 			} else {
 				System.err.println("testgetAddresses - result list is empty");
 			}
-			;
 		} catch (MultichainException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,7 +96,8 @@ public class AddressCommandTest {
 		System.out.println("--- Start of AddressCommandTest ---");
 
 		// BlockChain TestCommand has to be created and started before
-		multiChainCommand = new MultiChainCommand("TestAPI1");
+		multiChainCommand = new MultiChainCommand("localhost", "6824", "multichainrpc",
+				"73oYQWzx45hossFPPWUgicpLvHhsD8PempYxnSF6bnY9");
 
 		testgetAddresses();
 		testvalidateAddress();

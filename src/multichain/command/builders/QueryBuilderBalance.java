@@ -11,7 +11,7 @@ import multichain.command.MultichainException;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 2.0
+ * @version 3.0
  */
 public class QueryBuilderBalance extends QueryBuilderCommon {
 
@@ -34,7 +34,7 @@ public class QueryBuilderBalance extends QueryBuilderCommon {
 	 * @return a list of all the asset balances in this node’s wallet
 	 * @throws MultichainException
 	 */
-	protected String executeGetTotalBalances() throws MultichainException {
+	protected Object executeGetTotalBalances() throws MultichainException {
 		return execute(CommandEnum.GETTOTALBALANCES);
 	}
 
@@ -46,7 +46,7 @@ public class QueryBuilderBalance extends QueryBuilderCommon {
 	 * @return a list of all the asset balances in this node’s wallet
 	 * @throws MultichainException
 	 */
-	protected String executeGetUnconfirmedBalance() throws MultichainException {
+	protected Object executeGetUnconfirmedBalance() throws MultichainException {
 		return execute(CommandEnum.GETTOTALBALANCES);
 	}
 

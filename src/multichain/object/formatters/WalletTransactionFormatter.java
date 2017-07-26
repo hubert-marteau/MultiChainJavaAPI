@@ -7,7 +7,7 @@
  */
 package multichain.object.formatters;
 
-import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import multichain.object.TransactionWallet;
@@ -15,34 +15,49 @@ import multichain.object.TransactionWalletDetailed;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.internal.LinkedTreeMap;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 3.0
  */
 public class WalletTransactionFormatter {
-	public final static List<TransactionWallet> formatListTransactionWallet(String stringListWalletTransaction) {
-		final Gson gson = new GsonBuilder().create();
+	public final static List<TransactionWallet> formatListTransactionWallet(List<Object> objectWalletTransactions) {
+		List<TransactionWallet> transactionWalletList = new ArrayList<TransactionWallet>();
 
-		Type listType = new TypeToken<List<TransactionWallet>>(){}.getType();
-		final List<TransactionWallet> transactionWalletList = gson.fromJson(stringListWalletTransaction, listType);
+		if (objectWalletTransactions != null) {
+			for (Object objectWalletTransaction : objectWalletTransactions) {
+				transactionWalletList.add(formatTransactionWallet(objectWalletTransaction));
+			}
+		}
 
 		return transactionWalletList;
 	}
 
-	public final static TransactionWallet formatTransactionWallet(String stringWalletTransaction) {
-		final Gson gson = new GsonBuilder().create();
+	public final static TransactionWallet formatTransactionWallet(Object objectWalletTransaction) {
+		TransactionWallet transactionWallet = new TransactionWallet();
 
-		final TransactionWallet transactionWallet = gson.fromJson(stringWalletTransaction, TransactionWallet.class);
+		if (objectWalletTransaction != null && LinkedTreeMap.class.isInstance(objectWalletTransaction)) {
+			GsonBuilder builder = new GsonBuilder();
+			Gson gson = builder.create();
+
+			String jsonValue = gson.toJson(objectWalletTransaction);
+			transactionWallet = gson.fromJson(jsonValue, TransactionWallet.class);
+		}
 
 		return transactionWallet;
 	}
 
-	public final static TransactionWalletDetailed formatTransactionWalletDetailed(String stringTransactionWalletDetailed) {
-		final Gson gson = new GsonBuilder().create();
+	public final static TransactionWalletDetailed formatTransactionWalletDetailed(Object objectWalletTransactionDetailed) {
+		TransactionWalletDetailed transactionWalletDetailed = new TransactionWalletDetailed();
 
-		final TransactionWalletDetailed transactionWalletDetailed = gson.fromJson(stringTransactionWalletDetailed, TransactionWalletDetailed.class);
+		if (objectWalletTransactionDetailed != null && LinkedTreeMap.class.isInstance(objectWalletTransactionDetailed)) {
+			GsonBuilder builder = new GsonBuilder();
+			Gson gson = builder.create();
+
+			String jsonValue = gson.toJson(objectWalletTransactionDetailed);
+			transactionWalletDetailed = gson.fromJson(jsonValue, TransactionWalletDetailed.class);
+		}
 
 		return transactionWalletDetailed;
 	}

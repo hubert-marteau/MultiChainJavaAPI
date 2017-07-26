@@ -7,9 +7,7 @@
  */
 package multichain.object.formatters;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import multichain.object.BalanceAsset;
@@ -17,49 +15,63 @@ import multichain.object.MultiBalance;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.internal.LinkedTreeMap;
 
 /**
  * @author Ub - H. MARTEAU
  * @version 1.0
  */
 public class BalanceFormatter {
-	public final static List<BalanceAsset> formatBalanceAssets(String stringBalanceAsset) {
-		final Gson gson = new GsonBuilder().create();
+	public final static BalanceAsset formatBalanceAsset(Object objectBalanceAsset) {
+		BalanceAsset balanceAsset = new BalanceAsset();
 
-		Type listType = new TypeToken<List<BalanceAsset>>(){}.getType();
-		final List<BalanceAsset> balanceAsset = gson.fromJson(stringBalanceAsset, listType);
+		if (objectBalanceAsset != null && LinkedTreeMap.class.isInstance(objectBalanceAsset)) {
+			GsonBuilder builder = new GsonBuilder();
+			Gson gson = builder.create();
 
-		return balanceAsset;
-	}
-
-	public final static BalanceAsset formatBalanceAsset(String stringBalanceAsset) {
-		final Gson gson = new GsonBuilder().create();
-		final BalanceAsset balanceAsset = gson.fromJson(stringBalanceAsset, BalanceAsset.class);
-
-		return balanceAsset;
-	}
-
-	public final static List<MultiBalance> formatMultiBalances(String stringMultiBalance) {
-		final Gson gson = new GsonBuilder().create();
-
-		Type listType = new TypeToken<HashMap<String,List<BalanceAsset>>>(){}.getType();
-		final HashMap<String,List<BalanceAsset>> multiBalanceHash = gson.fromJson(stringMultiBalance, listType);
-
-		List<String> keys = new ArrayList<>(multiBalanceHash.keySet());
-
-		List<MultiBalance> multiBalanceList = new ArrayList<MultiBalance>();
-		for (String key : keys) {
-			MultiBalance m = new MultiBalance();
-			m.setAssets((List<BalanceAsset>)multiBalanceHash.get(key));
-			m.setLabel(key);
-
-			multiBalanceList.add(m);
+			String jsonValue = gson.toJson(objectBalanceAsset);
+			balanceAsset = gson.fromJson(jsonValue, BalanceAsset.class);
 		}
 
-		return multiBalanceList;
+		return balanceAsset;
 	}
 
+	public final static List<BalanceAsset> formatBalanceAssets(List<Object> objectBalanceAssets) {
+		List<BalanceAsset> balanceAsset = new ArrayList<BalanceAsset>();
 
+		if (objectBalanceAssets != null) {
+			for (Object objectBalanceAsset : objectBalanceAssets) {
+				balanceAsset.add(formatBalanceAsset(objectBalanceAsset));
+			}
+		}
+
+		return balanceAsset;
+	}
+
+	public final static MultiBalance formatMultiBalance(Object objectMultiBalance) {
+		MultiBalance multiBalance = new MultiBalance();
+
+		if (objectMultiBalance != null && LinkedTreeMap.class.isInstance(objectMultiBalance)) {
+			GsonBuilder builder = new GsonBuilder();
+			Gson gson = builder.create();
+
+			String jsonValue = gson.toJson(objectMultiBalance);
+			multiBalance = gson.fromJson(jsonValue, MultiBalance.class);
+		}
+
+		return multiBalance;
+	}
+
+	public final static List<MultiBalance> formatMultiBalances(List<Object> objectMultiBalances) {
+		List<MultiBalance> multiBalance = new ArrayList<MultiBalance>();
+
+		if (objectMultiBalances != null) {
+			for (Object objectMultiBalance : objectMultiBalances) {
+				multiBalance.add(formatMultiBalance(objectMultiBalance));
+			}
+		}
+
+		return multiBalance;
+	}
 
 }

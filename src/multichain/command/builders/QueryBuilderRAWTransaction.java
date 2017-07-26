@@ -19,7 +19,7 @@ import multichain.object.queryobjects.TxIdVout;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 2.1
+ * @version 3.0
  */
 public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 
@@ -45,10 +45,10 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected String executeAppendRawChange(String hexString, String address) throws MultichainException {
+	protected Object executeAppendRawChange(String hexString, String address) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("hexString", hexString);
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
-		return execute(CommandEnum.APPENDRAWCHANGE, formatJson(hexString), formatJson(address));
+		return execute(CommandEnum.APPENDRAWCHANGE, hexString, address);
 	}
 
 	/**
@@ -95,10 +95,10 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected String executeAppendRawMetaData(String txHex, String dataHex) throws MultichainException {
+	protected Object executeAppendRawMetaData(String txHex, String dataHex) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("txHex", txHex);
 		MultichainTestParameter.isNotNullOrEmpty("dataHex", dataHex);
-		return execute(CommandEnum.APPENDROWMETADA, formatJson(txHex), formatJson(dataHex));
+		return execute(CommandEnum.APPENDROWMETADA, txHex, dataHex);
 	}
 
 	/**
@@ -166,7 +166,7 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	 * or
 	 * "hex" (string) The transaction hash in hex (if action= "send")
 	 */
-	protected String executeCreateRawSendFrom(String address, List<RawParam> rawParams, String[] data, String action)
+	protected Object executeCreateRawSendFrom(String address, List<RawParam> rawParams, String[] data, String action)
 			throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 
@@ -177,7 +177,7 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 		Map<String, Object> mapParams = new HashMap<String, Object>();
 		for (RawParam param : rawParams) {
 			if (param.isFilled()) {
-				mapParams.put(formatJson(param.getAddress()), param.getValue());
+				mapParams.put(param.getAddress(), param.getValue());
 			}
 		}
 
@@ -185,18 +185,16 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 		if (data != null) {
 			dataFormated = new String[data.length];
 			for (int i = 0; i < data.length; i++) {
-				dataFormated[i] = formatJson(data[i]);
+				dataFormated[i] = data[i];
 			}
 		} else {
 			dataFormated = new String[0];
 		}
 
 		if (action == null) {
-			return execute(CommandEnum.CREATERAWSENDFROM, formatJson(address), formatJson(mapParams),
-					formatJson(dataFormated));
+			return execute(CommandEnum.CREATERAWSENDFROM, address, mapParams, dataFormated);
 		} else {
-			return execute(CommandEnum.CREATERAWSENDFROM, formatJson(address), formatJson(mapParams),
-					formatJson(dataFormated), formatJson(action));
+			return execute(CommandEnum.CREATERAWSENDFROM, address, mapParams, dataFormated, action);
 		}
 	}
 
@@ -275,7 +273,7 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected String executeCreateRawTransaction(List<TxIdVout> inputs, List<AddressBalanceAsset> addessAssets)
+	protected Object executeCreateRawTransaction(List<TxIdVout> inputs, List<AddressBalanceAsset> addessAssets)
 			throws MultichainException {
 		if (inputs == null || inputs.isEmpty()) {
 			throw new MultichainException("inputs", "inputs needed to create a RAW Transaction");
@@ -343,9 +341,9 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected String executeDecodeRawTransaction(String hex) throws MultichainException {
+	protected Object executeDecodeRawTransaction(String hex) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("hex", hex);
-		return execute(CommandEnum.DECODERAWTRANSACTION, formatJson(hex));
+		return execute(CommandEnum.DECODERAWTRANSACTION, hex);
 	}
 
 	/**
@@ -360,7 +358,7 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	 * @return String address
 	 * @throws MultichainException
 	 */
-	protected String executeGetRawChangeAddress() throws MultichainException {
+	protected Object executeGetRawChangeAddress() throws MultichainException {
 		return execute(CommandEnum.GETRAWCHANGEADDRESS);
 	}
 
@@ -430,8 +428,8 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected String executeGetRawTransaction(String txid, int verbose) throws MultichainException {
-		return execute(CommandEnum.GETRAWTRANSACTION, formatJson(txid), formatJson(verbose));
+	protected Object executeGetRawTransaction(String txid, int verbose) throws MultichainException {
+		return execute(CommandEnum.GETRAWTRANSACTION, txid, String.valueOf(verbose));
 	}
 
 	/**
@@ -455,9 +453,9 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected String executeSendRawTransaction(String hexString) throws MultichainException {
+	protected Object executeSendRawTransaction(String hexString) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("hexString", hexString);
-		return execute(CommandEnum.SENDRAWTRANSACTION, formatJson(hexString));
+		return execute(CommandEnum.SENDRAWTRANSACTION, hexString);
 	}
 
 	/**
@@ -509,9 +507,9 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected String executeSignRawTransaction(String hexString) throws MultichainException {
+	protected Object executeSignRawTransaction(String hexString) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("hexString", hexString);
-		return execute(CommandEnum.SIGNRAWTRANSACTION, formatJson(hexString));
+		return execute(CommandEnum.SIGNRAWTRANSACTION, hexString);
 	}
 
 }
