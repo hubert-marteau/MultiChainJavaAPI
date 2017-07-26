@@ -11,6 +11,7 @@ import multichain.object.Block;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.LinkedTreeMap;
 
 /**
  * @author Ub - H. MARTEAU
@@ -25,10 +26,16 @@ public class BlockFormatter {
 		return blockCount.longValue();
 	}
 
-	public final static Block formatBlock(String stringBlock) {
-		final Gson gson = new GsonBuilder().create();
+	public final static Block formatBlock(Object objectBlock) {
+		Block block = new Block();
 
-		final Block block = gson.fromJson(stringBlock, Block.class);
+		if (objectBlock != null && LinkedTreeMap.class.isInstance(objectBlock)) {
+			GsonBuilder builder = new GsonBuilder();
+			Gson gson = builder.create();
+
+			String jsonValue = gson.toJson(objectBlock);
+			block = gson.fromJson(jsonValue, Block.class);
+		}
 
 		return block;
 	}

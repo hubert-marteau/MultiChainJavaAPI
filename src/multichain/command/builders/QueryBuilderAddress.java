@@ -12,7 +12,7 @@ import multichain.command.tools.MultichainTestParameter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 2.0
+ * @version 3.0
  */
 public class QueryBuilderAddress extends QueryBuilderCommon {
 
@@ -41,12 +41,12 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 	 * @return the P2SH address
 	 * @throws MultichainException
 	 */
-	protected String executeAddMultiSigAddress(int numberOfSigRequired, String[] publicKeys) throws MultichainException {
+	protected Object executeAddMultiSigAddress(int numberOfSigRequired, String[] publicKeys) throws MultichainException {
 		MultichainTestParameter.valueIsPositive("number of signature required", numberOfSigRequired);
 		MultichainTestParameter.isNotNullOrEmpty("publicKeys", publicKeys);
 		MultichainTestParameter.arrayNotContainNullOrEmptyValues("publicKeys", publicKeys);
 		if (publicKeys.length >= numberOfSigRequired) {
-			return execute(CommandEnum.ADDMULTISIGADDRESS, formatJson(numberOfSigRequired), formatJson(publicKeys));
+			return execute(CommandEnum.ADDMULTISIGADDRESS, numberOfSigRequired, formatJson(publicKeys));
 		} else {
 			throw new MultichainException("number of signature", "is greater than the size of public keys");
 		}
@@ -78,13 +78,13 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 	 * @return The P2SH address and corresponding redeem script.
 	 * @throws MultichainException
 	 */
-	protected String executeCreateMultiSig(int numberOfSigRequired, String[] publicKeys) throws MultichainException {
+	protected Object executeCreateMultiSig(int numberOfSigRequired, String[] publicKeys) throws MultichainException {
 
 		MultichainTestParameter.valueIsPositive("number of signature required", numberOfSigRequired);
 		MultichainTestParameter.isNotNullOrEmpty("public Keys", publicKeys);
 		MultichainTestParameter.arrayNotContainNullOrEmptyValues("public Keys", publicKeys);
 		if (publicKeys.length >= numberOfSigRequired) {
-			return execute(CommandEnum.CREATEMULTISIG, formatJson(numberOfSigRequired), formatJson(publicKeys));
+			return execute(CommandEnum.CREATEMULTISIG, numberOfSigRequired, formatJson(publicKeys));
 		} else {
 			throw new MultichainException("number of signature", "is greater than the size of public keys");
 		}
@@ -107,9 +107,9 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 	 *         wallet
 	 * @throws MultichainException
 	 */
-	protected String executeGetAddressBalances(String address) throws MultichainException {
+	protected Object executeGetAddressBalances(String address) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
-		return execute(CommandEnum.GETADDRESSBALANCES, formatJson(address));
+		return execute(CommandEnum.GETADDRESSBALANCES, address);
 	}
 
 	/**
@@ -134,8 +134,8 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 	 * @return a list of addresses in this node’s wallet
 	 * @throws MultichainException
 	 */
-	protected String executeGetAddresses(boolean verbose) throws MultichainException {
-		return execute(CommandEnum.GETADDRESSES, String.valueOf(verbose));
+	protected Object executeGetAddresses(boolean verbose) throws MultichainException {
+		return execute(CommandEnum.GETADDRESSES, verbose);
 	}
 
 	/**
@@ -158,7 +158,7 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 	 * 
 	 * @return Balances
 	 */
-	protected String executeGetMultiBalances(String[] addresses) throws MultichainException {
+	protected Object executeGetMultiBalances(String[] addresses) throws MultichainException {
 		return execute(CommandEnum.GETMULTIBALANCES, formatJson(addresses));
 	}
 
@@ -180,7 +180,7 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 	 * @return a new address whose private key is added to the wallet.
 	 * @throws MultichainException
 	 */
-	protected String executeGetNewAddress() throws MultichainException {
+	protected Object executeGetNewAddress() throws MultichainException {
 		return execute(CommandEnum.GETNEWADDRESS);
 	}
 
@@ -209,9 +209,9 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 	 * @return null if successful.
 	 * @throws MultichainException
 	 */
-	protected String executeImportAddress(String address, String label, boolean rescan) throws MultichainException {
+	protected Object executeImportAddress(String address, String label, boolean rescan) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
-		return execute(CommandEnum.IMPORTADDRESS, formatJson(address), formatJson(label), formatJson(rescan));
+		return execute(CommandEnum.IMPORTADDRESS, address, label, rescan);
 	}
 
 	/**
@@ -240,9 +240,9 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 	 * @return information on address
 	 * @throws MultichainException
 	 */
-	protected String executeValidateAddress(String address) throws MultichainException, MultichainException {
+	protected Object executeValidateAddress(String address) throws MultichainException, MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
-		return execute(CommandEnum.VALIDATEADDRESS, formatJson(address));
+		return execute(CommandEnum.VALIDATEADDRESS, address);
 	}
 
 }

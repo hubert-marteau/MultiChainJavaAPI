@@ -102,7 +102,9 @@ public class StreamCommandTest {
 	public static void main(String[] args) {
 		System.out.println("--- Start of StreamCommandTest ---");
 
-		multiChainCommand = new MultiChainCommand("TestAPI1");
+		// BlockChain TestCommand has to be created and started before
+		multiChainCommand = new MultiChainCommand("localhost", "6824", "multichainrpc",
+				"73oYQWzx45hossFPPWUgicpLvHhsD8PempYxnSF6bnY9");
 
 		// BlockChain TestCommand has to be created and started before
 		// ChainCommand.initializeChain("TestAPI1");

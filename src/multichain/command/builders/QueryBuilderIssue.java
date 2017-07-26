@@ -18,7 +18,7 @@ import multichain.object.queryobjects.CustomParamString;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 2.0
+ * @version 3.0
  */
 public class QueryBuilderIssue extends QueryBuilderCommon {
 
@@ -44,7 +44,7 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 	 * @throws MultichainException
 	 * 
 	 */
-	protected String executeGetAssetBalances() throws MultichainException {
+	protected Object executeGetAssetBalances() throws MultichainException {
 		return execute(CommandEnum.GETASSETBALANCES);
 	}
 
@@ -86,7 +86,7 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected String executeIssue(String address, String assetName, float quantity, float unit, float amount,
+	protected Object executeIssue(String address, String assetName, float quantity, float unit, float amount,
 			List<CustomParamString> customFields) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		MultichainTestParameter.isNotNullOrEmpty("assetName", assetName);
@@ -97,11 +97,9 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 		Map<String, String> customParams = CustomParamFormatter.formatCustomParamString(customFields);
 
 		if (customParams == null || customParams.size() == 0) {
-			return execute(CommandEnum.ISSUE, formatJson(address), formatJson(assetName), formatJson(quantity),
-					formatJson(unit), formatJson(amount));
+			return execute(CommandEnum.ISSUE, address, assetName, quantity, unit, amount);
 		} else {
-			return execute(CommandEnum.ISSUE, formatJson(address), formatJson(assetName), formatJson(quantity),
-					formatJson(unit), formatJson(amount), formatJson(customParams));
+			return execute(CommandEnum.ISSUE, address, assetName, quantity, unit, amount, customParams);
 		}
 	}
 
@@ -143,7 +141,7 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected String executeIssue(String address, List<AssetParams> assets, float quantity, float unit, float amount,
+	protected Object executeIssue(String address, List<AssetParams> assets, float quantity, float unit, float amount,
 			List<CustomParamString> customFields) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 
@@ -161,11 +159,9 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 		Map<String, String> customParams = CustomParamFormatter.formatCustomParamString(customFields);
 
 		if (customParams == null || customParams.size() == 0) {
-			return execute(CommandEnum.ISSUE, formatJson(address), formatJson(assets), formatJson(quantity),
-					formatJson(unit), formatJson(amount));
+			return execute(CommandEnum.ISSUE, address, formatJson(assets), quantity, unit, amount);
 		} else {
-			return execute(CommandEnum.ISSUE, formatJson(address), formatJson(assets), formatJson(quantity),
-					formatJson(unit), formatJson(amount), formatJson(customParams));
+			return execute(CommandEnum.ISSUE, address, formatJson(assets), quantity, unit, amount, customParams);
 		}
 	}
 
@@ -205,7 +201,7 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected String executeIssueFrom(String fromAddress, String toAddress, String assetName, int quantity, float unit)
+	protected Object executeIssueFrom(String fromAddress, String toAddress, String assetName, int quantity, float unit)
 			throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
 		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
@@ -213,8 +209,7 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 		MultichainTestParameter.valueIsPositive("quantity", quantity);
 		MultichainTestParameter.valueIsPositive("unit", unit);
 
-		return execute(CommandEnum.ISSUE, formatJson(toAddress), formatJson(assetName), formatJson(quantity),
-				formatJson(unit));
+		return execute(CommandEnum.ISSUE, toAddress, assetName, quantity, unit);
 	}
 
 	/**
@@ -253,7 +248,7 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected String executeIssueFrom(String fromAddress, String toAddress, List<AssetParams> assets, int quantity,
+	protected Object executeIssueFrom(String fromAddress, String toAddress, List<AssetParams> assets, int quantity,
 			float unit) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
 		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
@@ -268,8 +263,7 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 		MultichainTestParameter.valueIsPositive("quantity", quantity);
 		MultichainTestParameter.valueIsPositive("unit", unit);
 
-		return execute(CommandEnum.ISSUE, formatJson(toAddress), formatJson(assets), formatJson(quantity),
-				formatJson(unit));
+		return execute(CommandEnum.ISSUE, toAddress, formatJson(assets), quantity, unit);
 	}
 
 	/**
@@ -299,11 +293,11 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected String executeIssueMore(String address, String assetName, int quantity) throws MultichainException {
+	protected Object executeIssueMore(String address, String assetName, int quantity) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		MultichainTestParameter.isNotNullOrEmpty("assetName", assetName);
 		MultichainTestParameter.valueIsPositive("quantity", quantity);
-		return execute(CommandEnum.ISSUEMORE, formatJson(address), formatJson(assetName), formatJson(quantity));
+		return execute(CommandEnum.ISSUEMORE, address, assetName, quantity);
 	}
 
 	/**
@@ -334,14 +328,13 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected String executeIssueMoreFrom(String fromAddress, String toAddress, String assetName, int quantity)
+	protected Object executeIssueMoreFrom(String fromAddress, String toAddress, String assetName, int quantity)
 			throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
 		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
 		MultichainTestParameter.isNotNullOrEmpty("assetName", assetName);
 		MultichainTestParameter.valueIsPositive("quantity", quantity);
-		return execute(CommandEnum.ISSUEMOREFROM, formatJson(fromAddress), formatJson(toAddress),
-				formatJson(assetName), formatJson(quantity));
+		return execute(CommandEnum.ISSUEMOREFROM, fromAddress, toAddress, assetName, quantity);
 	}
 
 	/**
@@ -359,10 +352,10 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 	 *         asset name, ref or issuance txid
 	 * @throws MultichainException
 	 */
-	protected String executeListAssets(String asset, boolean verbose) throws MultichainException {
+	protected Object executeListAssets(String asset, boolean verbose) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("asset", asset);
 		if (asset != null && !"".equals(asset)) {
-			return execute(CommandEnum.LISTASSETS, formatJson(asset), formatJson(verbose));
+			return execute(CommandEnum.LISTASSETS, asset, verbose);
 		} else {
 			return execute(CommandEnum.LISTASSETS);
 		}
@@ -398,14 +391,13 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected String executeSendAssetFrom(String fromAddress, String toAddress, String assetName, float quantity)
+	protected Object executeSendAssetFrom(String fromAddress, String toAddress, String assetName, float quantity)
 			throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
 		MultichainTestParameter.isNotNullOrEmpty("assetName", assetName);
 		MultichainTestParameter.valueIsPositive("quantity", quantity);
-		return execute(CommandEnum.SENDASSETFROM, formatJson(fromAddress), formatJson(toAddress),
-				formatJson(assetName), formatJson(quantity));
+		return execute(CommandEnum.SENDASSETFROM, fromAddress, toAddress, assetName, quantity);
 	}
 
 	/**
@@ -436,12 +428,12 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected String executeSendAssetToAddress(String address, String assetName, float quantity)
+	protected Object executeSendAssetToAddress(String address, String assetName, float quantity)
 			throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		MultichainTestParameter.isNotNullOrEmpty("assetName", assetName);
 		MultichainTestParameter.valueIsPositive("quantity", quantity);
-		return execute(CommandEnum.SENDASSETTOADDRESS, formatJson(address), formatJson(assetName), formatJson(quantity));
+		return execute(CommandEnum.SENDASSETTOADDRESS, address, assetName, quantity);
 	}
 
 }

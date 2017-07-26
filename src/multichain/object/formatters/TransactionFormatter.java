@@ -11,18 +11,24 @@ import multichain.object.Transaction;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.LinkedTreeMap;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 3.0
  */
 public class TransactionFormatter {
 
+	public final static Transaction formatTransaction(Object objectTransaction) {
+		Transaction transaction = new Transaction();
 
-	public final static Transaction formatTransaction(String stringTransaction) {
-		final Gson gson = new GsonBuilder().create();
+		if (objectTransaction != null && LinkedTreeMap.class.isInstance(objectTransaction)) {
+			GsonBuilder builder = new GsonBuilder();
+			Gson gson = builder.create();
 
-		final Transaction transaction = gson.fromJson(stringTransaction, Transaction.class);
+			String jsonValue = gson.toJson(objectTransaction);
+			transaction = gson.fromJson(jsonValue, Transaction.class);
+		}
 
 		return transaction;
 	}

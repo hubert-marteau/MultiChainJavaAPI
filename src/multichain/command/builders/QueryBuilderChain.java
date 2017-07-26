@@ -7,20 +7,16 @@
  */
 package multichain.command.builders;
 
+import multichain.command.MultichainException;
+
 /**
  * @author Ub - H. MARTEAU
- * @version 2.0
+ * @version 3.0
  */
 public class QueryBuilderChain extends QueryBuilderCommon {
 
-	/**
-	 * Initialze the BlockChain to use
-	 * 
-	 * @param nameChain
-	 *            name of the blockChain to use
-	 */
-	protected void initializeChain(String nameChain) {
-		setCHAIN(nameChain);
+	protected Object executeGetInfo() throws MultichainException {
+		return execute(CommandEnum.GETINFO);
 	}
 
 }

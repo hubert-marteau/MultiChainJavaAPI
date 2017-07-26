@@ -7,6 +7,9 @@
  */
 package multichain.command;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import multichain.command.builders.QueryBuilderGrant;
 import multichain.object.Address;
 import multichain.object.Permission;
@@ -14,7 +17,7 @@ import multichain.object.formatters.GrantFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 2.0
+ * @version 3.0
  */
 public class GrantCommand extends QueryBuilderGrant {
 
@@ -29,8 +32,8 @@ public class GrantCommand extends QueryBuilderGrant {
 	public static int WALLET = QueryBuilderGrant.WALLET;
 	public static int WALLET_ISSUE = QueryBuilderGrant.WALLET_ISSUE;
 
-	public GrantCommand(String chainName) {
-		setCHAIN(chainName);
+	public GrantCommand(String ip, String port, String login, String password) {
+		initialize(ip, port, login, password);
 	}
 
 	/**
@@ -115,7 +118,14 @@ public class GrantCommand extends QueryBuilderGrant {
 	 * @throws MultichainException
 	 */
 	public String grant(String address, int permissions) throws MultichainException {
-		return executeGrant(address, permissions);
+		String grant = "";
+
+		Object objectGrant = executeGrant(address, permissions);
+		if (verifyInstance(objectGrant, String.class)) {
+			grant = (String) objectGrant;
+		}
+
+		return grant;
 	}
 
 	/**
@@ -209,7 +219,14 @@ public class GrantCommand extends QueryBuilderGrant {
 	 * @throws MultichainException
 	 */
 	public String grantFrom(String addressFrom, String address, int permissions) throws MultichainException {
-		return executeGrantFrom(addressFrom, address, permissions);
+		String grant = "";
+
+		Object objectGrant = executeGrantFrom(addressFrom, address, permissions);
+		if (verifyInstance(objectGrant, String.class)) {
+			grant = (String) objectGrant;
+		}
+
+		return grant;
 	}
 
 	/**
@@ -233,10 +250,9 @@ public class GrantCommand extends QueryBuilderGrant {
 	 * @return a list of all permissions currently granted to addresses.
 	 * @throws MultichainException
 	 */
-	public Permission listPermissions(byte permissions, Address address, boolean verbose) throws MultichainException {
-		String stringPermission = executeListPermissions(permissions, address.getAddress(), verbose);
-
-		return GrantFormatter.formatPermission(stringPermission);
+	public List<Permission> listPermissions(byte permissions, Address address, boolean verbose)
+			throws MultichainException {
+		return listPermissions(permissions, address.getAddress(), verbose);
 	}
 
 	/**
@@ -251,10 +267,9 @@ public class GrantCommand extends QueryBuilderGrant {
 	 * @return a list of all permissions currently granted to addresses.
 	 * @throws MultichainException
 	 */
-	public Permission listPermissions(int permissions, Address address, boolean verbose) throws MultichainException {
-		String stringPermission = executeListPermissions(permissions, address.getAddress(), verbose);
-
-		return GrantFormatter.formatPermission(stringPermission);
+	public List<Permission> listPermissions(int permissions, Address address, boolean verbose)
+			throws MultichainException {
+		return listPermissions(permissions, address.getAddress(), verbose);
 	}
 
 	/**
@@ -270,10 +285,19 @@ public class GrantCommand extends QueryBuilderGrant {
 	 * @return a list of all permissions currently granted to addresses.
 	 * @throws MultichainException
 	 */
-	public Permission listPermissions(int permissions, String address, boolean verbose) throws MultichainException {
-		Address returnedAddress = new Address(address);
+	@SuppressWarnings("unchecked")
+	public List<Permission> listPermissions(int permissions, String address, boolean verbose)
+			throws MultichainException {
+		List<Permission> permission = new ArrayList<Permission>();
 
-		return listPermissions(permissions, returnedAddress, verbose);
+		Object objectPermission = executeListPermissions(permissions, address, verbose);
+
+		if (verifyInstance(objectPermission, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectPermission, Permission.class)) {
+			permission = GrantFormatter.formatPermissions((ArrayList<Object>) objectPermission);
+		}
+
+		return permission;
 	}
 
 	/**
@@ -289,10 +313,19 @@ public class GrantCommand extends QueryBuilderGrant {
 	 * @return a list of all permissions currently granted to addresses.
 	 * @throws MultichainException
 	 */
-	public Permission listPermissions(byte permissions, String address, boolean verbose) throws MultichainException {
-		Address returnedAddress = new Address(address);
+	@SuppressWarnings("unchecked")
+	public List<Permission> listPermissions(byte permissions, String address, boolean verbose)
+			throws MultichainException {
+		List<Permission> permission = new ArrayList<Permission>();
 
-		return listPermissions(permissions, returnedAddress, verbose);
+		Object objectPermission = executeListPermissions(permissions, address, verbose);
+
+		if (verifyInstance(objectPermission, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectPermission, Permission.class)) {
+			permission = GrantFormatter.formatPermissions((ArrayList<Object>) objectPermission);
+		}
+
+		return permission;
 	}
 
 	/**
@@ -305,10 +338,8 @@ public class GrantCommand extends QueryBuilderGrant {
 	 * @return a list of all permissions currently granted to addresses.
 	 * @throws MultichainException
 	 */
-	public Permission listPermissions(byte permissions, Address address) throws MultichainException {
-		String stringPermission = executeListPermissions(permissions, address.getAddress(), false);
-
-		return GrantFormatter.formatPermission(stringPermission);
+	public List<Permission> listPermissions(byte permissions, Address address) throws MultichainException {
+		return listPermissions(permissions, address, false);
 	}
 
 	/**
@@ -321,10 +352,8 @@ public class GrantCommand extends QueryBuilderGrant {
 	 * @return a list of all permissions currently granted to addresses.
 	 * @throws MultichainException
 	 */
-	public Permission listPermissions(int permissions, Address address) throws MultichainException {
-		String stringPermission = executeListPermissions(permissions, address.getAddress(), false);
-
-		return GrantFormatter.formatPermission(stringPermission);
+	public List<Permission> listPermissions(int permissions, Address address) throws MultichainException {
+		return listPermissions(permissions, address, false);
 	}
 
 	/**
@@ -337,7 +366,7 @@ public class GrantCommand extends QueryBuilderGrant {
 	 * @return a list of all permissions currently granted to addresses.
 	 * @throws MultichainException
 	 */
-	public Permission listPermissions(int permissions, String address) throws MultichainException {
+	public List<Permission> listPermissions(int permissions, String address) throws MultichainException {
 		Address returnedAddress = new Address(address);
 
 		return listPermissions(permissions, returnedAddress, false);
@@ -353,7 +382,7 @@ public class GrantCommand extends QueryBuilderGrant {
 	 * @return a list of all permissions currently granted to addresses.
 	 * @throws MultichainException
 	 */
-	public Permission listPermissions(byte permissions, String address) throws MultichainException {
+	public List<Permission> listPermissions(byte permissions, String address) throws MultichainException {
 		Address returnedAddress = new Address(address);
 
 		return listPermissions(permissions, returnedAddress, false);
@@ -367,10 +396,8 @@ public class GrantCommand extends QueryBuilderGrant {
 	 * @return a list of all permissions currently granted to addresses.
 	 * @throws MultichainException
 	 */
-	public Permission listPermissions(byte permissions) throws MultichainException {
-		String stringPermission = executeListPermissions(permissions, null, false);
-
-		return GrantFormatter.formatPermission(stringPermission);
+	public List<Permission> listPermissions(byte permissions) throws MultichainException {
+		return listPermissions(permissions, (String) null, false);
 	}
 
 	/**
@@ -381,10 +408,8 @@ public class GrantCommand extends QueryBuilderGrant {
 	 * @return a list of all permissions currently granted to addresses.
 	 * @throws MultichainException
 	 */
-	public Permission listPermissions(int permissions) throws MultichainException {
-		String stringPermission = executeListPermissions(permissions, null, false);
-
-		return GrantFormatter.formatPermission(stringPermission);
+	public List<Permission> listPermissions(int permissions) throws MultichainException {
+		return listPermissions(permissions, (String) null, false);
 	}
 
 	/**
@@ -393,10 +418,8 @@ public class GrantCommand extends QueryBuilderGrant {
 	 * @return a list of all permissions currently granted to addresses.
 	 * @throws MultichainException
 	 */
-	public Permission listPermissions() throws MultichainException {
-		String stringPermission = executeListPermissions(0, null, false);
-
-		return GrantFormatter.formatPermission(stringPermission);
+	public List<Permission> listPermissions() throws MultichainException {
+		return listPermissions(0, (String) null, false);
 	}
 
 	/**
@@ -476,7 +499,14 @@ public class GrantCommand extends QueryBuilderGrant {
 	 * @throws MultichainException
 	 */
 	public String revoke(String address, int permissions) throws MultichainException {
-		return executeRevoke(address, permissions);
+		String revoke = "";
+
+		Object objectRevoke = executeRevoke(address, permissions);
+		if (verifyInstance(objectRevoke, String.class)) {
+			revoke = (String) objectRevoke;
+		}
+
+		return revoke;
 	}
 
 	/**
@@ -567,7 +597,15 @@ public class GrantCommand extends QueryBuilderGrant {
 	 * @throws MultichainException
 	 */
 	public String revokeFrom(String addressFrom, String address, int permissions) throws MultichainException {
-		return executeRevokeFrom(addressFrom, address, permissions);
+		String revoke = "";
+
+		Object objectRevoke = executeRevokeFrom(addressFrom, address, permissions);
+		if (verifyInstance(objectRevoke, String.class)) {
+			revoke = (String) objectRevoke;
+		}
+
+		return revoke;
+
 	}
 
 }

@@ -22,8 +22,8 @@ import multichain.object.queryobjects.CustomParamString;
  */
 public class IssueCommand extends QueryBuilderIssue {
 
-	public IssueCommand(String chainName) {
-		setCHAIN(chainName);
+	public IssueCommand(String ip, String port, String login, String password) {
+		initialize(ip, port, login, password);
 	}
 
 	/**
@@ -48,11 +48,15 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @throws MultichainException
 	 * 
 	 */
+	@SuppressWarnings("unchecked")
 	public List<BalanceAsset> getAssetBalances() throws MultichainException {
 		List<BalanceAsset> listBalanceAsset = new ArrayList<BalanceAsset>();
 
-		String stringBalanceAsset = executeGetAssetBalances();
-		listBalanceAsset = BalanceFormatter.formatBalanceAssets(stringBalanceAsset);
+		Object objectBalanceAsset = executeGetAssetBalances();
+		if (verifyInstance(objectBalanceAsset, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectBalanceAsset, BalanceAsset.class)) {
+			listBalanceAsset = BalanceFormatter.formatBalanceAssets((ArrayList<Object>) objectBalanceAsset);
+		}
 
 		return listBalanceAsset;
 	}
@@ -93,7 +97,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @throws MultichainException
 	 */
 	public String issue(String address, String assetName, float quantity, float unit) throws MultichainException {
-		return executeIssue(address, assetName, quantity, unit, 0, null);
+		return issue(address, assetName, quantity, unit, 0, null);
 	}
 
 	/**
@@ -133,7 +137,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	 */
 	public String issue(String address, List<AssetParams> assets, float quantity, float unit)
 			throws MultichainException {
-		return executeIssue(address, assets, quantity, unit, 0, null);
+		return issue(address, assets, quantity, unit, 0, null);
 	}
 
 	/**
@@ -174,7 +178,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	 */
 	public String issue(String address, String assetName, float quantity, float unit, float amount)
 			throws MultichainException {
-		return executeIssue(address, assetName, quantity, unit, amount, null);
+		return issue(address, assetName, quantity, unit, amount, null);
 	}
 
 	/**
@@ -215,7 +219,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	 */
 	public String issue(String address, List<AssetParams> assets, float quantity, float unit, float amount)
 			throws MultichainException {
-		return executeIssue(address, assets, quantity, unit, amount, null);
+		return issue(address, assets, quantity, unit, amount, null);
 	}
 
 	/**
@@ -257,7 +261,15 @@ public class IssueCommand extends QueryBuilderIssue {
 	 */
 	public String issue(String address, String assetName, float quantity, float unit, float amount,
 			List<CustomParamString> customFields) throws MultichainException {
-		return executeIssue(address, assetName, quantity, unit, amount, customFields);
+		String issue = "";
+
+		Object objectIssue = executeIssue(address, assetName, quantity, unit, amount, customFields);
+		if (verifyInstance(objectIssue, String.class)) {
+			issue = (String) objectIssue;
+		}
+
+		return issue;
+
 	}
 
 	/**
@@ -299,7 +311,14 @@ public class IssueCommand extends QueryBuilderIssue {
 	 */
 	public String issue(String address, List<AssetParams> assets, float quantity, float unit, float amount,
 			List<CustomParamString> customFields) throws MultichainException {
-		return executeIssue(address, assets, quantity, unit, amount, customFields);
+		String issue = "";
+
+		Object objectIssue = executeIssue(address, assets, quantity, unit, amount, customFields);
+		if (verifyInstance(objectIssue, String.class)) {
+			issue = (String) objectIssue;
+		}
+
+		return issue;
 	}
 
 	/**
@@ -340,7 +359,14 @@ public class IssueCommand extends QueryBuilderIssue {
 	 */
 	public String issueFrom(String fromAddress, String toAddress, String assetName, int quantity, float unit)
 			throws MultichainException {
-		return executeIssueFrom(fromAddress, toAddress, assetName, quantity, unit);
+		String issueFrom = "";
+
+		Object objectIssueFrom = executeIssueFrom(fromAddress, toAddress, assetName, quantity, unit);
+		if (verifyInstance(objectIssueFrom, String.class)) {
+			issueFrom = (String) objectIssueFrom;
+		}
+
+		return issueFrom;
 	}
 
 	/**
@@ -381,7 +407,14 @@ public class IssueCommand extends QueryBuilderIssue {
 	 */
 	public String issueFrom(String fromAddress, String toAddress, List<AssetParams> assets, int quantity, float unit)
 			throws MultichainException {
-		return executeIssueFrom(fromAddress, toAddress, assets, quantity, unit);
+		String issueFrom = "";
+
+		Object objectIssueFrom = executeIssueFrom(fromAddress, toAddress, assets, quantity, unit);
+		if (verifyInstance(objectIssueFrom, String.class)) {
+			issueFrom = (String) objectIssueFrom;
+		}
+
+		return issueFrom;
 	}
 
 	/**
@@ -412,7 +445,14 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @throws MultichainException
 	 */
 	public String issueMore(String address, String assetName, int quantity) throws MultichainException {
-		return executeIssueMore(address, assetName, quantity);
+		String issueMore = "";
+
+		Object objectIssueMore = executeIssueMore(address, assetName, quantity);
+		if (verifyInstance(objectIssueMore, String.class)) {
+			issueMore = (String) objectIssueMore;
+		}
+
+		return issueMore;
 	}
 
 	/**
@@ -445,7 +485,14 @@ public class IssueCommand extends QueryBuilderIssue {
 	 */
 	public String issueMoreFrom(String fromAddress, String toAddress, String assetName, int quantity)
 			throws MultichainException {
-		return executeIssueMoreFrom(fromAddress, toAddress, assetName, quantity);
+		String issueMoreFrom = "";
+
+		Object objectIssueMoreFrom = executeIssueMoreFrom(fromAddress, toAddress, assetName, quantity);
+		if (verifyInstance(objectIssueMoreFrom, String.class)) {
+			issueMoreFrom = (String) objectIssueMoreFrom;
+		}
+
+		return issueMoreFrom;
 	}
 
 	/**
@@ -464,11 +511,15 @@ public class IssueCommand extends QueryBuilderIssue {
 	 *         asset name, ref or issuance txid
 	 * @throws MultichainException
 	 */
+	@SuppressWarnings("unchecked")
 	public List<BalanceAsset> listAssets(String asset, boolean verbose) throws MultichainException {
 		List<BalanceAsset> listBalanceAsset = new ArrayList<BalanceAsset>();
 
-		String stringBalanceAsset = executeListAssets(asset, verbose);
-		listBalanceAsset = BalanceFormatter.formatBalanceAssets(stringBalanceAsset);
+		Object objectBalances = executeListAssets(asset, verbose);
+		if (verifyInstance(objectBalances, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectBalances, BalanceAsset.class)) {
+			listBalanceAsset = BalanceFormatter.formatBalanceAssets((ArrayList<Object>) objectBalances);
+		}
 
 		return listBalanceAsset;
 	}
@@ -524,7 +575,15 @@ public class IssueCommand extends QueryBuilderIssue {
 	 */
 	public String sendAssetFrom(String fromAddress, String toAddress, String assetName, float quantity)
 			throws MultichainException {
-		return executeSendAssetFrom(fromAddress, toAddress, assetName, quantity);
+		String sendAssetFrom = "";
+
+		Object objectSendAssetFrom = executeSendAssetFrom(fromAddress, toAddress, assetName, quantity);
+		if (verifyInstance(objectSendAssetFrom, String.class)) {
+			sendAssetFrom = (String) objectSendAssetFrom;
+		}
+
+		return sendAssetFrom;
+
 	}
 
 	/**
@@ -556,7 +615,14 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @throws MultichainException
 	 */
 	public String sendAssetToAddress(String address, String assetName, float quantity) throws MultichainException {
-		return executeSendAssetToAddress(address, assetName, quantity);
+		String sendAssetToAddress = "";
+
+		Object objectSendAssetToAddress = executeSendAssetToAddress(address, assetName, quantity);
+		if (verifyInstance(objectSendAssetToAddress, String.class)) {
+			sendAssetToAddress = (String) objectSendAssetToAddress;
+		}
+
+		return sendAssetToAddress;
 	}
 
 }

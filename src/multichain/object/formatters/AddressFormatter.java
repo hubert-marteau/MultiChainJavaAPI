@@ -7,43 +7,42 @@
  */
 package multichain.object.formatters;
 
-import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import multichain.object.Address;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.internal.LinkedTreeMap;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 3.0
  */
 public class AddressFormatter {
-	public final static Address formatAddress(String stringAddress) {
-		final Gson gson = new GsonBuilder().create();
-		final Address address = gson.fromJson(stringAddress, Address.class);
+	public final static Address formatAddress(Object objectAddress) {
+		Address address = new Address();
+
+		if (objectAddress != null && LinkedTreeMap.class.isInstance(objectAddress)) {
+			GsonBuilder builder = new GsonBuilder();
+			Gson gson = builder.create();
+
+			String jsonValue = gson.toJson(objectAddress);
+			address = gson.fromJson(jsonValue, Address.class);
+		}
 
 		return address;
 	}
 
-	public final static List<String> formatAddressesStringList(String stringAddresses) {
-		final Gson gson = new GsonBuilder().create();
+	public final static List<Address> formatAddressesList(List<Object> objectAddresses) {
+		List<Address> addresses = new ArrayList<Address>();
 
-		Type listType = new TypeToken<List<String>>() {
-		}.getType();
-		final List<String> addresses = gson.fromJson(stringAddresses, listType);
-
-		return addresses;
-	}
-
-	public final static List<Address> formatAddressesList(String stringAddresses) {
-		final Gson gson = new GsonBuilder().create();
-
-		Type listType = new TypeToken<List<Address>>() {
-		}.getType();
-		final List<Address> addresses = gson.fromJson(stringAddresses, listType);
+		if (objectAddresses != null) {
+			for (Object objectAddress : objectAddresses) {
+				addresses.add(formatAddress(objectAddress));
+			}
+		}
 
 		return addresses;
 	}

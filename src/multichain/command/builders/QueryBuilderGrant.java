@@ -12,7 +12,7 @@ import multichain.command.tools.MultichainTestParameter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 2.0
+ * @version 3.0
  */
 public class QueryBuilderGrant extends QueryBuilderCommon {
 
@@ -112,13 +112,13 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	 * @return the txid of the transaction granting the permissions
 	 * @throws MultichainException
 	 */
-	protected String executeGrant(String address, int permissions) throws MultichainException {
+	protected Object executeGrant(String address, int permissions) throws MultichainException {
 		String permissionsFormated = formatPermissionsList(permissions);
 
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		MultichainTestParameter.isNotNullOrEmpty("permissionsFormated", permissionsFormated);
 
-		return execute(CommandEnum.GRANT, formatJson(address), formatJson(permissionsFormated));
+		return execute(CommandEnum.GRANT, address, permissionsFormated);
 	}
 
 	/**
@@ -158,15 +158,14 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	 * @return the txid of the transaction granting the permissions
 	 * @throws MultichainException
 	 */
-	protected String executeGrantFrom(String addressFrom, String address, int permissions) throws MultichainException {
+	protected Object executeGrantFrom(String addressFrom, String address, int permissions) throws MultichainException {
 		String permissionsFormated = formatPermissionsList(permissions);
 
 		MultichainTestParameter.isNotNullOrEmpty("addressFrom", addressFrom);
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		MultichainTestParameter.isNotNullOrEmpty("permissionsFormated", permissionsFormated);
 
-		return execute(CommandEnum.GRANTFROM, formatJson(addressFrom), formatJson(address),
-				formatJson(permissionsFormated));
+		return execute(CommandEnum.GRANTFROM, addressFrom, address, permissionsFormated);
 	}
 
 	/**
@@ -188,19 +187,18 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	 * @return a list of all permissions currently granted to addresses.
 	 * @throws MultichainException
 	 */
-	protected String executeListPermissions(int permissions, String address, boolean verbose)
+	protected Object executeListPermissions(int permissions, String address, boolean verbose)
 			throws MultichainException {
 		String permissionsFormated = formatPermissionsList(permissions);
-
-		String listPermissions = "";
+		System.out.println("*************************" + permissionsFormated);
+		Object listPermissions = null;
 
 		if (permissionsFormated == null || "".equals(permissionsFormated)) {
 			listPermissions = execute(CommandEnum.LISTPERMISSIONS, "all");
 		} else if (address == null || "".equals(address)) {
-			listPermissions = execute(CommandEnum.LISTPERMISSIONS, "all", formatJson(permissionsFormated));
+			listPermissions = execute(CommandEnum.LISTPERMISSIONS, permissionsFormated);
 		} else {
-			listPermissions = execute(CommandEnum.LISTPERMISSIONS, "all", formatJson(permissionsFormated),
-					formatJson(address), formatJson(verbose));
+			listPermissions = execute(CommandEnum.LISTPERMISSIONS, permissionsFormated, address, verbose);
 		}
 
 		return listPermissions;
@@ -234,13 +232,13 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	 * @return the txid of the transaction revoking the permissions
 	 * @throws MultichainException
 	 */
-	protected String executeRevoke(String address, int permissions) throws MultichainException {
+	protected Object executeRevoke(String address, int permissions) throws MultichainException {
 		String permissionsFormated = formatPermissionsList(permissions);
 
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		MultichainTestParameter.isNotNullOrEmpty("permissionsFormated", permissionsFormated);
 
-		return execute(CommandEnum.REVOKE, formatJson(address), formatJson(permissionsFormated));
+		return execute(CommandEnum.REVOKE, address, permissionsFormated);
 	}
 
 	/**
@@ -276,14 +274,13 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	 * @return the txid of the transaction revoking the permissions
 	 * @throws MultichainException
 	 */
-	protected String executeRevokeFrom(String addressFrom, String address, int permissions) throws MultichainException {
+	protected Object executeRevokeFrom(String addressFrom, String address, int permissions) throws MultichainException {
 		String permissionsFormated = formatPermissionsList(permissions);
 
 		MultichainTestParameter.isNotNullOrEmpty("addressFrom", addressFrom);
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		MultichainTestParameter.isNotNullOrEmpty("permissionsFormated", permissionsFormated);
 
-		return execute(CommandEnum.REVOKE, formatJson(addressFrom), formatJson(address),
-				formatJson(permissionsFormated));
+		return execute(CommandEnum.REVOKE, addressFrom, address, permissionsFormated);
 	}
 }

@@ -20,8 +20,8 @@ import multichain.object.formatters.StreamFormatter;
  */
 public class StreamCommand extends QueryBuilderStream {
 
-	public StreamCommand(String chainName) {
-		setCHAIN(chainName);
+	public StreamCommand(String ip, String port, String login, String password) {
+		initialize(ip, port, login, password);
 	}
 
 	/**
@@ -45,7 +45,14 @@ public class StreamCommand extends QueryBuilderStream {
 	 * @throws MultichainException
 	 */
 	public String create(String streamName, boolean open) throws MultichainException {
-		return executeCreate(streamName, open);
+		String stringCreate = "";
+
+		Object objectCreate = executeCreate(streamName, open);
+		if (verifyInstance(objectCreate, String.class)) {
+			stringCreate = (String) objectCreate;
+		}
+
+		return stringCreate;
 	}
 
 	/**
@@ -70,7 +77,7 @@ public class StreamCommand extends QueryBuilderStream {
 	 * @throws MultichainException
 	 */
 	public String create(String streamName) throws MultichainException {
-		return executeCreate(streamName, false);
+		return create(streamName, false);
 	}
 
 	/**
@@ -99,15 +106,18 @@ public class StreamCommand extends QueryBuilderStream {
 	 * @return
 	 * @throws MultichainException
 	 */
+	@SuppressWarnings("unchecked")
 	public List<StreamKeyItem> listStreamKeyItems(String streamName, String key, boolean verbose, int count, int start)
 			throws MultichainException {
-		List<StreamKeyItem> listStreamKeyItem = new ArrayList<StreamKeyItem>();
+		List<StreamKeyItem> streamKeyItems = new ArrayList<StreamKeyItem>();
 
-		String stringStreamKeyItem = execute(CommandEnum.LISTSTREAMKEYITEMS, formatJson(streamName), formatJson(key),
-				formatJson(count), formatJson(start));
-		listStreamKeyItem = StreamFormatter.formatStreamKeyItem(stringStreamKeyItem);
+		Object objectStreamKeyItems = executeListStreamKeyItems(streamName, key, verbose, count, start);
+		if (verifyInstance(objectStreamKeyItems, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectStreamKeyItems, StreamKeyItem.class)) {
+			streamKeyItems = StreamFormatter.formatStreamKeyItems((ArrayList<Object>) objectStreamKeyItems);
+		}
 
-		return listStreamKeyItem;
+		return streamKeyItems;
 	}
 
 	/**
@@ -135,15 +145,18 @@ public class StreamCommand extends QueryBuilderStream {
 	 *            * @return
 	 * @throws MultichainException
 	 */
+	@SuppressWarnings("unchecked")
 	public List<StreamKeyItem> listStreamKeyItems(String streamName, String key, boolean verbose, int count)
 			throws MultichainException {
-		List<StreamKeyItem> listStreamKeyItem = new ArrayList<StreamKeyItem>();
+		List<StreamKeyItem> streamKeyItems = new ArrayList<StreamKeyItem>();
 
-		String stringStreamKeyItem = execute(CommandEnum.LISTSTREAMKEYITEMS, formatJson(streamName), formatJson(key),
-				formatJson(count));
-		listStreamKeyItem = StreamFormatter.formatStreamKeyItem(stringStreamKeyItem);
+		Object objectStreamKeyItems = executeListStreamKeyItems(streamName, key, verbose, count);
+		if (verifyInstance(objectStreamKeyItems, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectStreamKeyItems, StreamKeyItem.class)) {
+			streamKeyItems = StreamFormatter.formatStreamKeyItems((ArrayList<Object>) objectStreamKeyItems);
+		}
 
-		return listStreamKeyItem;
+		return streamKeyItems;
 	}
 
 	/**
@@ -227,8 +240,14 @@ public class StreamCommand extends QueryBuilderStream {
 	 * @throws MultichainException
 	 */
 	public String publish(String streamName, String key, String dataHex) throws MultichainException {
+		String stringPublish = "";
 
-		return executePublish(streamName, key, dataHex);
+		Object objectPublish = executePublish(streamName, key, dataHex);
+		if (verifyInstance(objectPublish, String.class)) {
+			stringPublish = (String) objectPublish;
+		}
+
+		return stringPublish;
 	}
 
 	/**
