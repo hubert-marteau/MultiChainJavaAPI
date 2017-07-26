@@ -43,6 +43,7 @@ A simple example to get addresses :
 ```
 //BlockChain has to be created and started before
 multiChainCommand = new MultiChainCommand("localhost", "6824", "multichainrpc","73oYQWzx45hossFPPWUgicpLvHhsD8PempYxnSF6bnY9");
+
 // localhost is the IP used by Multichain
 // 6824 is, here, the port used by the BlockChain, corresponding of the value of default-rpc-port in the file params.dat 
 // multichainrpc and 73oYQWzx45h... are login and password to access to RPC commands, values can be found in the file multichain.conf
@@ -74,6 +75,19 @@ The package `object.formatters` is helpful to test the good work of Formatters J
 
 ## Versions
 
+Todo :
+* integrate new functions
+
+### 3.0
+* Direct RPC Server calls
+* Dependencies under Maven
+
+### 2.0
+Based on functions contained in MultiChain 1.0 Beta 1
+
+Integrated functions about :
+* Streams
+
 ### 1.0
 Based on functions contained in MultiChain Alpha 24
 
@@ -86,21 +100,6 @@ Integrated functions about :
 * Issue/Assets
 * Transaction
 * Transaction	RAW
-
-### 2.0
-Based on functions contained in MultiChain 1.0 Beta 1
-
-Integrated functions about :
-* Streams
-
-
-### 3.0
-* Direct RPC Server calls
-* Dependencies under Maven
-
-
-Todo :
-* integrate new functions
 
 
 ## License
