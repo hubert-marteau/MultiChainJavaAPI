@@ -11,18 +11,19 @@ import multichain.command.MultichainException;
 import multichain.command.tools.MultichainTestParameter;
 
 /**
- * @author Ub - H. MARTEAU
- * @version 3.0
+ * @author Ub - H. MARTEAU & Jagrut KOSTI
+ * @version 3.1
  */
 public class QueryBuilderGrant extends QueryBuilderCommon {
 
-	protected static byte CONNECT = (byte) 0b0000001;
-	protected static byte SEND = (byte) 0b0000010;
-	protected static byte RECEIVE = (byte) 0b0000100;
-	protected static byte ISSUE = (byte) 0b0001000;
-	protected static byte MINE = (byte) 0b0010000;
-	protected static byte ACTIVATE = (byte) 0b0100000;
-	protected static byte ADMIN = (byte) 0b1000000;
+	protected static byte CONNECT = (byte) 0b00000001;
+	protected static byte SEND = (byte) 0b00000010;
+	protected static byte RECEIVE = (byte) 0b00000100;
+	protected static byte ISSUE = (byte) 0b00001000;
+	protected static byte MINE = (byte) 0b00010000;
+	protected static byte ACTIVATE = (byte) 0b00100000;
+	protected static byte ADMIN = (byte) 0b01000000;
+	protected static byte CREATE = (byte) 0b10000000;
 
 	protected static int WALLET = CONNECT | SEND | RECEIVE;
 	protected static int WALLET_ISSUE = WALLET | ISSUE;
@@ -34,6 +35,7 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	private static String MINE_STR = "mine";
 	private static String ACTIVATE_STR = "activate";
 	private static String ADMIN_STR = "admin";
+	private static String CREATE_STR = "create";
 
 	private static String formatPermissionsList(int permissions) {
 		String permissionsFormated = "";
@@ -77,6 +79,13 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 			}
 			permissionsFormated = permissionsFormated.concat(ADMIN_STR);
 		}
+		if ((permissions & CREATE) > 0) {
+			if (permissionsFormated.length() > 0) {
+				permissionsFormated = permissionsFormated.concat(",");
+			}
+			permissionsFormated = permissionsFormated.concat(CREATE_STR);
+		}
+
 		return permissionsFormated;
 	}
 

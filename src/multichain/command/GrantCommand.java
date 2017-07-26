@@ -16,8 +16,8 @@ import multichain.object.Permission;
 import multichain.object.formatters.GrantFormatter;
 
 /**
- * @author Ub - H. MARTEAU
- * @version 3.0
+ * @author Ub - H. MARTEAU & Jagrut KOSTI
+ * @version 3.1
  */
 public class GrantCommand extends QueryBuilderGrant {
 
@@ -28,6 +28,7 @@ public class GrantCommand extends QueryBuilderGrant {
 	public static byte MINE = QueryBuilderGrant.MINE;
 	public static byte ACTIVATE = QueryBuilderGrant.ACTIVATE;
 	public static byte ADMIN = QueryBuilderGrant.ADMIN;
+	public static byte CREATE = QueryBuilderGrant.CREATE;
 
 	public static int WALLET = QueryBuilderGrant.WALLET;
 	public static int WALLET_ISSUE = QueryBuilderGrant.WALLET_ISSUE;

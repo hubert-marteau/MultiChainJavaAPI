@@ -36,8 +36,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 
 /**
- * @author Ub - H. MARTEAU
- * @version 3.0
+ * @author Ub - H. MARTEAU & Jagrut KOSTI
+ * @version 3.1
  */
 abstract class QueryBuilderCommon extends GsonFormatters {
 
@@ -54,6 +54,7 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 		CLEARMEMPOOL,
 		COMBINEUNPSENT,
 		CREATE,
+		CREATEFROM,
 		CREATEMULTISIG,
 		CREATERAWEXCHANGE,
 		CREATERAWSENDFROM,
@@ -77,9 +78,11 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 		GETRAWCHANGEADDRESS,
 		GETPEERINFO,
 		GETRAWTRANSACTION,
+		GETSTREAMITEM,
 		GETTOTALBALANCES,
 		GETTRANSACTION,
 		GETTXOUT,
+		GETTXOUTDATA,
 		GETUNCONFIRMEDBALANCE,
 		GETWALLETTRANSACTION,
 		GRANT,
@@ -97,7 +100,12 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 		LISTASSETS,
 		LISTLOCKUNPSENT,
 		LISTPERMISSIONS,
+		LISTSTREAMITEMS,
 		LISTSTREAMKEYITEMS,
+		LISTSTREAMKEYS,
+		LISTSTREAMPUBLISHERS,
+		LISTSTREAMPUBLISHERITEMS,
+		LISTSTREAMS,
 		LISTUNSPENT,
 		LISTWALLETTRANSACTIONS,
 		LOCKUNSPENT,
@@ -106,6 +114,7 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 		PREPARELOCKUNSPENT,
 		PREPARELOCKUNSPENTFROM,
 		PUBLISH,
+		PUBLISHFROM,
 		RESUME,
 		REVOKE,
 		REVOKEFROM,
@@ -122,6 +131,7 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 		SIGNRAWTRANSACTION,
 		STOP,
 		SUBSCRIBE,
+		UNSUBSCRIBE,
 		VALIDATEADDRESS,
 		VERIFYMESSAGE
 	}
@@ -140,7 +150,7 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 	/**
 	 * 
 	 * @param command
-	 * @param parameter
+	 * @param parameters
 	 * 
 	 * @return
 	 * 
