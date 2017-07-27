@@ -19,7 +19,7 @@ import multichain.object.formatters.BalanceFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 3.0
+ * @version 3.2
  */
 public class AddressCommand extends QueryBuilderAddress {
 
@@ -320,8 +320,10 @@ public class AddressCommand extends QueryBuilderAddress {
 		Address address = new Address();
 
 		Object objectAddress = executeGetNewAddress();
-		if (verifyInstance(objectAddress, Address.class)) {
-			address = (Address) objectAddress;
+		if (verifyInstance(objectAddress, String.class)) {
+			String stringAddress = (String) objectAddress;
+
+			address = validateAddress(stringAddress);
 		}
 
 		return address;

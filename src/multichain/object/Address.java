@@ -7,23 +7,32 @@
  */
 package multichain.object;
 
-
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 3.2
  */
 public class Address extends AddressInfo {
 	String address;
-//	HashMap<String, Permission> permissions;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Address [address=" + address + ", " + super.toString() + "]";
+	}
+
+	// HashMap<String, Permission> permissions;
 	/**
 	 *
 	 */
 	public Address() {
 		super();
 
-//		permissions = new HashMap<String, Permission>();
+		// permissions = new HashMap<String, Permission>();
 	}
-
 
 	/**
 	 * @param address
@@ -31,9 +40,8 @@ public class Address extends AddressInfo {
 	public Address(String address) {
 		super();
 		this.address = address;
-//		permissions = new HashMap<String, Permission>();
+		// permissions = new HashMap<String, Permission>();
 	}
-
 
 	/**
 	 * @return the address
@@ -43,37 +51,35 @@ public class Address extends AddressInfo {
 	}
 
 	/**
-	 * @param address the address to set
+	 * @param address
+	 *            the address to set
 	 */
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
+	// /**
+	// * @return the permissions
+	// */
+	// public HashMap<String, Permission> getPermissions() {
+	// return permissions;
+	// }
+	//
+	//
+	// /**
+	// * @param permissions the permissions to set
+	// */
+	// public void setPermissions(HashMap<String, Permission> permissions) {
+	// this.permissions = permissions;
+	// }
 
-//	/**
-//	 * @return the permissions
-//	 */
-//	public HashMap<String, Permission> getPermissions() {
-//		return permissions;
-//	}
-//
-//
-//	/**
-//	 * @param permissions the permissions to set
-//	 */
-//	public void setPermissions(HashMap<String, Permission> permissions) {
-//		this.permissions = permissions;
-//	}
-
-
-//	/**
-//	 * @param permissions the permissions to set
-//	 */
-//	public void addPermission(Permission permission) {
-//		if (permission != null && permission.getType() != null && !"".equals(permission.getType())) {
-//			this.permissions.put(permission.getType(), permission);
-//		}
-//	}
-
+	// /**
+	// * @param permissions the permissions to set
+	// */
+	// public void addPermission(Permission permission) {
+	// if (permission != null && permission.getType() != null && !"".equals(permission.getType())) {
+	// this.permissions.put(permission.getType(), permission);
+	// }
+	// }
 
 }

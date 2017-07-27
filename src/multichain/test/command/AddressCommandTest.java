@@ -15,7 +15,7 @@ import multichain.object.Address;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 2.0
+ * @version 3.2
  */
 public class AddressCommandTest {
 	static MultiChainCommand multiChainCommand;
@@ -89,6 +89,38 @@ public class AddressCommandTest {
 		}
 	}
 
+	private static void testgetNewAddress() {
+		String resultAddress = "";
+		Address result = null;
+
+		System.out.println("testgetNewAddress");
+		try {
+			resultAddress = multiChainCommand.getAddressCommand().getNewAddress();
+			if (resultAddress != null && !"".equals(resultAddress)) {
+				System.out.println("   getNewAddress :");
+				System.out.println(resultAddress);
+			} else {
+				System.err.println("getNewAddress - result is empty");
+			}
+			System.out.println();
+			System.out.println();
+
+			result = multiChainCommand.getAddressCommand().getNewAddressFilled();
+			if (result != null && result.getAddress() != null && !"".equals(result.getAddress())) {
+				System.out.println("   getNewAddressFilled :");
+				System.out.println(result);
+			} else {
+				System.err.println("getNewAddress - result is empty");
+			}
+			System.out.println();
+			System.out.println();
+
+		} catch (MultichainException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * @param args
 	 */
@@ -101,6 +133,11 @@ public class AddressCommandTest {
 
 		testgetAddresses();
 		testvalidateAddress();
+
+		System.out.println();
+		System.out.println();
+
+		testgetNewAddress();
 
 		System.out.println("--- End of AddressCommandTest ---");
 	}
