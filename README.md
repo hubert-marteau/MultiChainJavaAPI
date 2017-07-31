@@ -1,5 +1,7 @@
 # MultiChainJavaAPI
 
+[![](https://jitpack.io/v/maektwain/MultiChainJavaAPI.svg)](https://jitpack.io/#maektwain/MultiChainJavaAPI)
+
 MultiChainJAVAAPI is an open source Java interface [MultiChain](http://www.multichain.com/) blockchains, written in Java.
 
 https://github.com/SimplyUb/MultiChainJavaAPI
