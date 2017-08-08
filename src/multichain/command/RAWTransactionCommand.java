@@ -630,8 +630,8 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String sendRawTransaction(String hexString) throws MultichainException {
-		return sendRawTransaction(hexString);
+	public Object sendRawTransaction(String hexString) throws MultichainException {
+		return executeSendRawTransaction(hexString);
 	}
 
 	/**
