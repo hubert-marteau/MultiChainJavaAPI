@@ -21,14 +21,14 @@ import multichain.object.formatters.GrantFormatter;
  */
 public class GrantCommand extends QueryBuilderGrant {
 
-	public static byte CONNECT = QueryBuilderGrant.CONNECT;
-	public static byte SEND = QueryBuilderGrant.SEND;
-	public static byte RECEIVE = QueryBuilderGrant.RECEIVE;
-	public static byte ISSUE = QueryBuilderGrant.ISSUE;
-	public static byte MINE = QueryBuilderGrant.MINE;
-	public static byte ACTIVATE = QueryBuilderGrant.ACTIVATE;
-	public static byte ADMIN = QueryBuilderGrant.ADMIN;
-	public static byte CREATE = QueryBuilderGrant.CREATE;
+	public static int CONNECT = QueryBuilderGrant.CONNECT;
+	public static int SEND = QueryBuilderGrant.SEND;
+	public static int RECEIVE = QueryBuilderGrant.RECEIVE;
+	public static int ISSUE = QueryBuilderGrant.ISSUE;
+	public static int MINE = QueryBuilderGrant.MINE;
+	public static int ACTIVATE = QueryBuilderGrant.ACTIVATE;
+	public static int ADMIN = QueryBuilderGrant.ADMIN;
+	public static int CREATE = QueryBuilderGrant.CREATE;
 
 	public static int WALLET = QueryBuilderGrant.WALLET;
 	public static int WALLET_ISSUE = QueryBuilderGrant.WALLET_ISSUE;
@@ -69,6 +69,7 @@ public class GrantCommand extends QueryBuilderGrant {
 	 *            with | )
 	 * @return transactionId of grant action
 	 * @throws MultichainException
+	 * @Deprecated
 	 */
 	public String grant(Address address, byte permissions) throws MultichainException {
 		Byte b = new Byte(permissions);
@@ -100,6 +101,7 @@ public class GrantCommand extends QueryBuilderGrant {
 	 *            with | )
 	 * @return transactionId of grant action
 	 * @throws MultichainException
+	 * @Deprecated
 	 */
 	public String grant(String address, byte permissions) throws MultichainException {
 		Byte b = new Byte(permissions);
@@ -164,6 +166,7 @@ public class GrantCommand extends QueryBuilderGrant {
 	 *            with | )
 	 * @return transactionId of grantFrom action
 	 * @throws MultichainException
+	 * @Deprecated
 	 */
 	public String grantFrom(Address addressFrom, Address address, byte permissions) throws MultichainException {
 		Byte b = new Byte(permissions);
@@ -199,6 +202,7 @@ public class GrantCommand extends QueryBuilderGrant {
 	 *            with | )
 	 * @return transactionId of grantFrom action
 	 * @throws MultichainException
+	 * @Deprecated
 	 */
 	public String grantFrom(String addressFrom, String address, byte permissions) throws MultichainException {
 		Byte b = new Byte(permissions);

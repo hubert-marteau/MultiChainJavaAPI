@@ -56,7 +56,31 @@ public class GrantCommandTest {
 		// BlockChain TestCommand has to be created and started before
 		multiChainCommand = new MultiChainCommand("localhost", "6824", "multichainrpc",
 				"73oYQWzx45hossFPPWUgicpLvHhsD8PempYxnSF6bnY9");
-
+		
+		int value1 = multiChainCommand.getGrantCommand().CREATE;
+		int value2 = multiChainCommand.getGrantCommand().CONNECT;
+		int value3 = multiChainCommand.getGrantCommand().ADMIN;
+		
+		System.out.println("---");
+		int value = value1;
+		System.out.println(value);
+		System.out.println(value & value1);
+		System.out.println(value & value2);
+		System.out.println(value & value3);
+		value = value | value2;
+		System.out.println("---");
+		System.out.println(value);
+		System.out.println(value & value1);
+		System.out.println(value & value2);
+		System.out.println(value & value3);
+		value = value | value3;
+		System.out.println("---");
+		System.out.println(value);
+		System.out.println(value & value1);
+		System.out.println(value & value2);
+		System.out.println(value & value3);
+		System.out.println("---");
+		
 		testlistPermissions();
 
 		System.out.println("--- End of AddressCommandTest ---");
