@@ -16,6 +16,7 @@ import multichain.command.tools.MultichainTestParameter;
  */
 public class QueryBuilderGrant extends QueryBuilderCommon {
 
+	protected static byte CREATE = (byte) 0b00000000;
 	protected static byte CONNECT = (byte) 0b00000001;
 	protected static byte SEND = (byte) 0b00000010;
 	protected static byte RECEIVE = (byte) 0b00000100;
@@ -23,7 +24,6 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	protected static byte MINE = (byte) 0b00010000;
 	protected static byte ACTIVATE = (byte) 0b00100000;
 	protected static byte ADMIN = (byte) 0b01000000;
-	protected static byte CREATE = (byte) 0b10000000;
 
 	protected static int WALLET = CONNECT | SEND | RECEIVE;
 	protected static int WALLET_ISSUE = WALLET | ISSUE;
