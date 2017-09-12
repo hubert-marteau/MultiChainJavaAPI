@@ -15,8 +15,18 @@ import multichain.command.tools.MultichainTestParameter;
  * @version 1.0
  */
 public class AssetParams {
-	 String name;
-	 boolean open;
+	String name;
+	boolean open;
+
+	/**
+	 * @param name
+	 * @param open
+	 */
+	public AssetParams(String name, boolean open) {
+		super();
+		this.name = name;
+		this.open = open;
+	}
 
 	public void isFilled() throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("name", getName());
@@ -28,20 +38,25 @@ public class AssetParams {
 	public String getName() {
 		return name;
 	}
+
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	/**
 	 * @return the open
 	 */
 	public boolean isOpen() {
 		return open;
 	}
+
 	/**
-	 * @param open the open to set
+	 * @param open
+	 *            the open to set
 	 */
 	public void setOpen(boolean open) {
 		this.open = open;
