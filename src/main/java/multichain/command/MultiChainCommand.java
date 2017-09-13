@@ -18,6 +18,7 @@ public class MultiChainCommand {
 	private ChainCommand chainCommand;
 	private GrantCommand grantCommand;
 	private IssueCommand issueCommand;
+	private MessagingCommand messagingCommand;
 	private RAWTransactionCommand rawTransactionCommand;
 	private StreamCommand streamCommand;
 	private WalletTransactionCommand walletTransactionCommand;
@@ -34,6 +35,7 @@ public class MultiChainCommand {
 		chainCommand = new ChainCommand(ip, port, login, password);
 		grantCommand = new GrantCommand(ip, port, login, password);
 		issueCommand = new IssueCommand(ip, port, login, password);
+		messagingCommand = new MessagingCommand(ip, port, login, password);
 		rawTransactionCommand = new RAWTransactionCommand(ip, port, login, password);
 		streamCommand = new StreamCommand(ip, port, login, password);
 		walletTransactionCommand = new WalletTransactionCommand(ip, port, login, password);
@@ -53,6 +55,21 @@ public class MultiChainCommand {
 	 */
 	public void setIssueCommand(IssueCommand issueCommand) {
 		this.issueCommand = issueCommand;
+	}
+
+	/**
+	 * @return the messagingCommand
+	 */
+	public MessagingCommand getMessagingCommand() {
+		return messagingCommand;
+	}
+
+	/**
+	 * @param messagingCommand
+	 *            the messagingCommand to set
+	 */
+	public void setMessagingCommand(MessagingCommand messagingCommand) {
+		this.messagingCommand = messagingCommand;
 	}
 
 	/**

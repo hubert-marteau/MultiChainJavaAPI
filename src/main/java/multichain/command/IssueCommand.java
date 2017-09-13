@@ -72,18 +72,19 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * 
 	 * Issue new asset
 	 * 
-	 * Arguments:
-	 * 1. "address" (string, required) The address to send newly created asset to.
-	 * 2. "asset-name" (string, required) Asset name, if not "" should be unique.
-	 * or
-	 * 2. "asset-params" (object, required) A json object of with asset params { "name" : "asset-name" (string,
-	 * optional) Asset name "open" : true|false (boolean, optional, default false) True if follow-on issues are
-	 * allowed,... }
-	 * 3. "quantity" (numeric, required) The asset total amount in display units. eg. 1234.56
-	 * 4. "smallest-unit" (numeric, optional, default=1) Number of raw units in one displayed unit, eg 0.01 for cents
-	 * 5. "native-amount" (numeric, optional) native currency amount to send. eg 0.1, Default: minimum-per-output.
-	 * 6 "custom-fields" (object, optional) a json object with custom fields { "param-name": "param-value" (strings,
-	 * required) The key is the parameter name, the value is parameter value ,... }
+	 * Arguments: 1. "address" (string, required) The address to send newly
+	 * created asset to. 2. "asset-name" (string, required) Asset name, if not
+	 * "" should be unique. or 2. "asset-params" (object, required) A json
+	 * object of with asset params { "name" : "asset-name" (string, optional)
+	 * Asset name "open" : true|false (boolean, optional, default false) True if
+	 * follow-on issues are allowed,... } 3. "quantity" (numeric, required) The
+	 * asset total amount in display units. eg. 1234.56 4. "smallest-unit"
+	 * (numeric, optional, default=1) Number of raw units in one displayed unit,
+	 * eg 0.01 for cents 5. "native-amount" (numeric, optional) native currency
+	 * amount to send. eg 0.1, Default: minimum-per-output. 6 "custom-fields"
+	 * (object, optional) a json object with custom fields { "param-name":
+	 * "param-value" (strings, required) The key is the parameter name, the
+	 * value is parameter value ,... }
 	 * 
 	 * Result: "transactionid" (string) The transaction id.
 	 * 
@@ -111,18 +112,19 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * 
 	 * Issue new asset
 	 * 
-	 * Arguments:
-	 * 1. "address" (string, required) The address to send newly created asset to.
-	 * 2. "asset-name" (string, required) Asset name, if not "" should be unique.
-	 * or
-	 * 2. "asset-params" (object, required) A json object of with asset params { "name" : "asset-name" (string,
-	 * optional) Asset name "open" : true|false (boolean, optional, default false) True if follow-on issues are
-	 * allowed,... }
-	 * 3. "quantity" (numeric, required) The asset total amount in display units. eg. 1234.56
-	 * 4. "smallest-unit" (numeric, optional, default=1) Number of raw units in one displayed unit, eg 0.01 for cents
-	 * 5. "native-amount" (numeric, optional) native currency amount to send. eg 0.1, Default: minimum-per-output.
-	 * 6 "custom-fields" (object, optional) a json object with custom fields { "param-name": "param-value" (strings,
-	 * required) The key is the parameter name, the value is parameter value ,... }
+	 * Arguments: 1. "address" (string, required) The address to send newly
+	 * created asset to. 2. "asset-name" (string, required) Asset name, if not
+	 * "" should be unique. or 2. "asset-params" (object, required) A json
+	 * object of with asset params { "name" : "asset-name" (string, optional)
+	 * Asset name "open" : true|false (boolean, optional, default false) True if
+	 * follow-on issues are allowed,... } 3. "quantity" (numeric, required) The
+	 * asset total amount in display units. eg. 1234.56 4. "smallest-unit"
+	 * (numeric, optional, default=1) Number of raw units in one displayed unit,
+	 * eg 0.01 for cents 5. "native-amount" (numeric, optional) native currency
+	 * amount to send. eg 0.1, Default: minimum-per-output. 6 "custom-fields"
+	 * (object, optional) a json object with custom fields { "param-name":
+	 * "param-value" (strings, required) The key is the parameter name, the
+	 * value is parameter value ,... }
 	 * 
 	 * Result: "transactionid" (string) The transaction id.
 	 * 
@@ -135,8 +137,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String issue(String address, List<AssetParams> assets, float quantity, float unit)
-			throws MultichainException {
+	public String issue(String address, AssetParams assets, float quantity, float unit) throws MultichainException {
 		return issue(address, assets, quantity, unit, 0, null);
 	}
 
@@ -151,18 +152,19 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * 
 	 * Issue new asset
 	 * 
-	 * Arguments:
-	 * 1. "address" (string, required) The address to send newly created asset to.
-	 * 2. "asset-name" (string, required) Asset name, if not "" should be unique.
-	 * or
-	 * 2. "asset-params" (object, required) A json object of with asset params { "name" : "asset-name" (string,
-	 * optional) Asset name "open" : true|false (boolean, optional, default false) True if follow-on issues are
-	 * allowed,... }
-	 * 3. "quantity" (numeric, required) The asset total amount in display units. eg. 1234.56
-	 * 4. "smallest-unit" (numeric, optional, default=1) Number of raw units in one displayed unit, eg 0.01 for cents
-	 * 5. "native-amount" (numeric, optional) native currency amount to send. eg 0.1, Default: minimum-per-output.
-	 * 6 "custom-fields" (object, optional) a json object with custom fields { "param-name": "param-value" (strings,
-	 * required) The key is the parameter name, the value is parameter value ,... }
+	 * Arguments: 1. "address" (string, required) The address to send newly
+	 * created asset to. 2. "asset-name" (string, required) Asset name, if not
+	 * "" should be unique. or 2. "asset-params" (object, required) A json
+	 * object of with asset params { "name" : "asset-name" (string, optional)
+	 * Asset name "open" : true|false (boolean, optional, default false) True if
+	 * follow-on issues are allowed,... } 3. "quantity" (numeric, required) The
+	 * asset total amount in display units. eg. 1234.56 4. "smallest-unit"
+	 * (numeric, optional, default=1) Number of raw units in one displayed unit,
+	 * eg 0.01 for cents 5. "native-amount" (numeric, optional) native currency
+	 * amount to send. eg 0.1, Default: minimum-per-output. 6 "custom-fields"
+	 * (object, optional) a json object with custom fields { "param-name":
+	 * "param-value" (strings, required) The key is the parameter name, the
+	 * value is parameter value ,... }
 	 * 
 	 * Result: "transactionid" (string) The transaction id.
 	 * 
@@ -192,18 +194,19 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * 
 	 * Issue new asset
 	 * 
-	 * Arguments:
-	 * 1. "address" (string, required) The address to send newly created asset to.
-	 * 2. "asset-name" (string, required) Asset name, if not "" should be unique.
-	 * or
-	 * 2. "asset-params" (object, required) A json object of with asset params { "name" : "asset-name" (string,
-	 * optional) Asset name "open" : true|false (boolean, optional, default false) True if follow-on issues are
-	 * allowed,... }
-	 * 3. "quantity" (numeric, required) The asset total amount in display units. eg. 1234.56
-	 * 4. "smallest-unit" (numeric, optional, default=1) Number of raw units in one displayed unit, eg 0.01 for cents
-	 * 5. "native-amount" (numeric, optional) native currency amount to send. eg 0.1, Default: minimum-per-output.
-	 * 6 "custom-fields" (object, optional) a json object with custom fields { "param-name": "param-value" (strings,
-	 * required) The key is the parameter name, the value is parameter value ,... }
+	 * Arguments: 1. "address" (string, required) The address to send newly
+	 * created asset to. 2. "asset-name" (string, required) Asset name, if not
+	 * "" should be unique. or 2. "asset-params" (object, required) A json
+	 * object of with asset params { "name" : "asset-name" (string, optional)
+	 * Asset name "open" : true|false (boolean, optional, default false) True if
+	 * follow-on issues are allowed,... } 3. "quantity" (numeric, required) The
+	 * asset total amount in display units. eg. 1234.56 4. "smallest-unit"
+	 * (numeric, optional, default=1) Number of raw units in one displayed unit,
+	 * eg 0.01 for cents 5. "native-amount" (numeric, optional) native currency
+	 * amount to send. eg 0.1, Default: minimum-per-output. 6 "custom-fields"
+	 * (object, optional) a json object with custom fields { "param-name":
+	 * "param-value" (strings, required) The key is the parameter name, the
+	 * value is parameter value ,... }
 	 * 
 	 * Result: "transactionid" (string) The transaction id.
 	 * 
@@ -217,7 +220,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String issue(String address, List<AssetParams> assets, float quantity, float unit, float amount)
+	public String issue(String address, AssetParams assets, float quantity, float unit, float amount)
 			throws MultichainException {
 		return issue(address, assets, quantity, unit, amount, null);
 	}
@@ -233,18 +236,19 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * 
 	 * Issue new asset
 	 * 
-	 * Arguments:
-	 * 1. "address" (string, required) The address to send newly created asset to.
-	 * 2. "asset-name" (string, required) Asset name, if not "" should be unique.
-	 * or
-	 * 2. "asset-params" (object, required) A json object of with asset params { "name" : "asset-name" (string,
-	 * optional) Asset name "open" : true|false (boolean, optional, default false) True if follow-on issues are
-	 * allowed,... }
-	 * 3. "quantity" (numeric, required) The asset total amount in display units. eg. 1234.56
-	 * 4. "smallest-unit" (numeric, optional, default=1) Number of raw units in one displayed unit, eg 0.01 for cents
-	 * 5. "native-amount" (numeric, optional) native currency amount to send. eg 0.1, Default: minimum-per-output.
-	 * 6 "custom-fields" (object, optional) a json object with custom fields { "param-name": "param-value" (strings,
-	 * required) The key is the parameter name, the value is parameter value ,... }
+	 * Arguments: 1. "address" (string, required) The address to send newly
+	 * created asset to. 2. "asset-name" (string, required) Asset name, if not
+	 * "" should be unique. or 2. "asset-params" (object, required) A json
+	 * object of with asset params { "name" : "asset-name" (string, optional)
+	 * Asset name "open" : true|false (boolean, optional, default false) True if
+	 * follow-on issues are allowed,... } 3. "quantity" (numeric, required) The
+	 * asset total amount in display units. eg. 1234.56 4. "smallest-unit"
+	 * (numeric, optional, default=1) Number of raw units in one displayed unit,
+	 * eg 0.01 for cents 5. "native-amount" (numeric, optional) native currency
+	 * amount to send. eg 0.1, Default: minimum-per-output. 6 "custom-fields"
+	 * (object, optional) a json object with custom fields { "param-name":
+	 * "param-value" (strings, required) The key is the parameter name, the
+	 * value is parameter value ,... }
 	 * 
 	 * Result: "transactionid" (string) The transaction id.
 	 * 
@@ -283,18 +287,19 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * 
 	 * Issue new asset
 	 * 
-	 * Arguments:
-	 * 1. "address" (string, required) The address to send newly created asset to.
-	 * 2. "asset-name" (string, required) Asset name, if not "" should be unique.
-	 * or
-	 * 2. "asset-params" (object, required) A json object of with asset params { "name" : "asset-name" (string,
-	 * optional) Asset name "open" : true|false (boolean, optional, default false) True if follow-on issues are
-	 * allowed,... }
-	 * 3. "quantity" (numeric, required) The asset total amount in display units. eg. 1234.56
-	 * 4. "smallest-unit" (numeric, optional, default=1) Number of raw units in one displayed unit, eg 0.01 for cents
-	 * 5. "native-amount" (numeric, optional) native currency amount to send. eg 0.1, Default: minimum-per-output.
-	 * 6 "custom-fields" (object, optional) a json object with custom fields { "param-name": "param-value" (strings,
-	 * required) The key is the parameter name, the value is parameter value ,... }
+	 * Arguments: 1. "address" (string, required) The address to send newly
+	 * created asset to. 2. "asset-name" (string, required) Asset name, if not
+	 * "" should be unique. or 2. "asset-params" (object, required) A json
+	 * object of with asset params { "name" : "asset-name" (string, optional)
+	 * Asset name "open" : true|false (boolean, optional, default false) True if
+	 * follow-on issues are allowed,... } 3. "quantity" (numeric, required) The
+	 * asset total amount in display units. eg. 1234.56 4. "smallest-unit"
+	 * (numeric, optional, default=1) Number of raw units in one displayed unit,
+	 * eg 0.01 for cents 5. "native-amount" (numeric, optional) native currency
+	 * amount to send. eg 0.1, Default: minimum-per-output. 6 "custom-fields"
+	 * (object, optional) a json object with custom fields { "param-name":
+	 * "param-value" (strings, required) The key is the parameter name, the
+	 * value is parameter value ,... }
 	 * 
 	 * Result: "transactionid" (string) The transaction id.
 	 * 
@@ -309,7 +314,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String issue(String address, List<AssetParams> assets, float quantity, float unit, float amount,
+	public String issue(String address, AssetParams assets, float quantity, float unit, float amount,
 			List<CustomParamString> customFields) throws MultichainException {
 		String issue = "";
 
@@ -497,11 +502,10 @@ public class IssueCommand extends QueryBuilderIssue {
 
 	/**
 	 * 
-	 * listassets ("asset-identifier" verbose)
-	 * 1. "asset-identifier" (string, optional) Asset identifier - one of the following: issue txid, asset reference,
-	 * asset name.
-	 * 2. verbose (boolean, optional, default=false) If true, returns list of all issue transactions, including
-	 * follow-ons
+	 * listassets ("asset-identifier" verbose) 1. "asset-identifier" (string,
+	 * optional) Asset identifier - one of the following: issue txid, asset
+	 * reference, asset name. 2. verbose (boolean, optional, default=false) If
+	 * true, returns list of all issue transactions, including follow-ons
 	 * 
 	 * Returns list of defined assets
 	 * 
@@ -526,11 +530,10 @@ public class IssueCommand extends QueryBuilderIssue {
 
 	/**
 	 * 
-	 * listassets ("asset-identifier" verbose)
-	 * 1. "asset-identifier" (string, optional) Asset identifier - one of the following: issue txid, asset reference,
-	 * asset name.
-	 * 2. verbose (boolean, optional, default=false) If true, returns list of all issue transactions, including
-	 * follow-ons
+	 * listassets ("asset-identifier" verbose) 1. "asset-identifier" (string,
+	 * optional) Asset identifier - one of the following: issue txid, asset
+	 * reference, asset name. 2. verbose (boolean, optional, default=false) If
+	 * true, returns list of all issue transactions, including follow-ons
 	 * 
 	 * Returns list of defined assets
 	 * 
