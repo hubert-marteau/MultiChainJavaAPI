@@ -290,6 +290,6 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		MultichainTestParameter.isNotNullOrEmpty("permissionsFormated", permissionsFormated);
 
-		return execute(CommandEnum.REVOKE, addressFrom, address, permissionsFormated);
+		return execute(CommandEnum.REVOKEFROM, addressFrom, address, permissionsFormated);
 	}
 }
