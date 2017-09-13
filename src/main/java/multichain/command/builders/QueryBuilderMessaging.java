@@ -6,13 +6,14 @@ import multichain.command.tools.MultichainTestParameter;
 public class QueryBuilderMessaging extends QueryBuilderCommon {
 
 	/**
-	 * Verifies that message was approved by the owner of address by checking the
-	 * base64-encoded digital signature provided.
+	 * Verifies that message was approved by the owner of address by checking
+	 * the base64-encoded digital signature provided.
 	 * 
 	 * @param address
 	 *            (String, required) The owner address
 	 * @param signature
-	 *            (String, required) The base64-encoded digital signature to check
+	 *            (String, required) The base64-encoded digital signature to
+	 *            check
 	 * @param message
 	 *            (String, required) The message
 	 * @return (Boolean) True if the message is approved, else false

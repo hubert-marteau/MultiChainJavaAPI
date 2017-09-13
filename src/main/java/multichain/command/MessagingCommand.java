@@ -1,5 +1,6 @@
 package multichain.command;
 
+import multichain.command.MultichainException;
 import multichain.command.builders.QueryBuilderMessaging;
 import multichain.object.Address;
 
@@ -10,13 +11,14 @@ public class MessagingCommand extends QueryBuilderMessaging {
 	}
 
 	/**
-	 * Verifies that message was approved by the owner of address by checking the
-	 * base64-encoded digital signature provided.
+	 * Verifies that message was approved by the owner of address by checking
+	 * the base64-encoded digital signature provided.
 	 * 
 	 * @param address
 	 *            (Address, required) The owner address
 	 * @param signature
-	 *            (String, required) The base64-encoded digital signature to check
+	 *            (String, required) The base64-encoded digital signature to
+	 *            check
 	 * @param message
 	 *            (String, required) The message
 	 * @return (Boolean) True if the message is approved, else false
@@ -27,12 +29,14 @@ public class MessagingCommand extends QueryBuilderMessaging {
 	}
 
 	/**
-	 * {@link #verifyMessage(Address, String, String)} with address in format string
+	 * {@link #verifyMessage(Address, String, String)} with address in format
+	 * string
 	 * 
 	 * @param address
 	 *            (String, required) The owner address
 	 * @param signature
-	 *            (String, required) The base64-encoded digital signature to check
+	 *            (String, required) The base64-encoded digital signature to
+	 *            check
 	 * @param message
 	 *            (String, required) The message
 	 * @return (Boolean) True if the message is approved, else false
