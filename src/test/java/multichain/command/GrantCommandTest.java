@@ -5,7 +5,7 @@
  * https://github.com/SimplyUb/MultiChainJavaAPI/blob/master/LICENSE
  *
  */
-package multichain.test.command;
+package multichain.command;
 
 import java.util.List;
 

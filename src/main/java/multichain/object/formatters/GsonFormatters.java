@@ -34,7 +34,11 @@ public class GsonFormatters {
 	protected static String formatJson(Object value) {
 		final GsonBuilder builder = new GsonBuilder();
 		final Gson gson = builder.create();
-
 		return gson.toJson(value);
 	}
+	
+	protected static String formatJsonWithCustomBuilder(Object value, GsonBuilder builder) {
+		return builder.create().toJson(value);
+	}
+	
 }

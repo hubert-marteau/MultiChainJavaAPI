@@ -8,6 +8,7 @@
 package multichain.command.builders;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -133,7 +135,9 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 		SUBSCRIBE,
 		UNSUBSCRIBE,
 		VALIDATEADDRESS,
-		VERIFYMESSAGE
+		VERIFYMESSAGE,
+		SENDWITHDATA,
+		SENDWITHDATAFROM
 	}
 
 	protected void initialize(String ip, String port, String login, String password) {
@@ -165,33 +169,12 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 		if (httpclient != null && httppost != null) {
 			try {
 				// Generate Mapping of calling arguments
-				Map<String, Object> entityValues = new HashMap<String, Object>();
-				entityValues.put("id", UUID.randomUUID().toString());
-				entityValues.put("method", command.toString().toLowerCase());
-				List<Object> paramList = new ArrayList<Object>(Arrays.asList(parameters));
-				entityValues.put("params", paramList);
-
+				Map<String, Object> entityValues = prepareMap(command, parameters);
 				// Generate the entity and initialize request
-				StringEntity rpcEntity = new StringEntity(formatJson(entityValues));
+				StringEntity rpcEntity = prepareRpcEntity(entityValues);
 				httppost.setEntity(rpcEntity);
-
 				// Execute the request and get the answer
-				HttpResponse response = httpclient.execute(httppost);
-				HttpEntity entity = response.getEntity();
-
-				String rpcAnswer = EntityUtils.toString(entity);
-
-				final Gson gson = new GsonBuilder().create();
-				final MultiChainRPCAnswer multiChainRPCAnswer = gson.fromJson(rpcAnswer, MultiChainRPCAnswer.class);
-
-				if (multiChainRPCAnswer != null && multiChainRPCAnswer.getError() == null) {
-					return multiChainRPCAnswer.getResult();
-				} else if (multiChainRPCAnswer != null && multiChainRPCAnswer.getError() != null) {
-					throw new MultichainException("code :" + multiChainRPCAnswer.getError().get("code").toString(),
-							"message : " + multiChainRPCAnswer.getError().get("message").toString());
-				} else {
-					throw new MultichainException(null, "General RPC Exceution Technical Error");
-				}
+				return executeRequest();
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -202,7 +185,38 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 					"MultiChainCommand not initialized, please specify ip, port, user and pwd !");
 
 		}
+	}
 
+	protected StringEntity prepareRpcEntity(Map<String, Object> entityValues) throws UnsupportedEncodingException {
+		return new StringEntity(formatJson(entityValues));
+	}
+
+	private Object executeRequest() throws IOException, ClientProtocolException, MultichainException {
+		HttpResponse response = httpclient.execute(httppost);
+		HttpEntity entity = response.getEntity();
+
+		String rpcAnswer = EntityUtils.toString(entity);
+
+		final Gson gson = new GsonBuilder().create();
+		final MultiChainRPCAnswer multiChainRPCAnswer = gson.fromJson(rpcAnswer, MultiChainRPCAnswer.class);
+
+		if (multiChainRPCAnswer != null && multiChainRPCAnswer.getError() == null) {
+			return multiChainRPCAnswer.getResult();
+		} else if (multiChainRPCAnswer != null && multiChainRPCAnswer.getError() != null) {
+			throw new MultichainException("code :" + multiChainRPCAnswer.getError().get("code").toString(),
+					"message : " + multiChainRPCAnswer.getError().get("message").toString());
+		} else {
+			throw new MultichainException(null, "General RPC Exceution Technical Error");
+		}
+	}
+
+	private Map<String, Object> prepareMap(CommandEnum command, Object... parameters) {
+		Map<String, Object> entityValues = new HashMap<String, Object>();
+		entityValues.put("id", UUID.randomUUID().toString());
+		entityValues.put("method", command.toString().toLowerCase());
+		List<Object> paramList = new ArrayList<Object>(Arrays.asList(parameters));
+		entityValues.put("params", paramList);
+		return entityValues;
 	}
 
 	@SuppressWarnings("rawtypes")

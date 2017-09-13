@@ -648,7 +648,7 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String SendToAddress(String address, double amount) throws MultichainException {
+	public String sendToAddress(String address, double amount) throws MultichainException {
 		String stringSendToAddress = "";
 
 		Object objectSendToAddress = executeSendToAddress(address, amount);
@@ -687,7 +687,7 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String SendWithMetaData(String address, List<BalanceAssetBase> assets, String hexMetaData)
+	public String sendWithMetaData(String address, List<BalanceAssetBase> assets, String hexMetaData)
 			throws MultichainException {
 		String stringSendWithMetaData = "";
 
@@ -727,7 +727,7 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String SendWithMetaData(String address, double amount, String hexMetaData) throws MultichainException {
+	public String sendWithMetaData(String address, double amount, String hexMetaData) throws MultichainException {
 		String stringSendWithMetaData = "";
 
 		Object objectSendWithMetaData = executeSendWithMetaData(address, amount, hexMetaData);
@@ -769,16 +769,16 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String SendWithMetaDataFrom(String fromAddress, String toAddress, List<BalanceAssetBase> assets,
+	public String sendWithMetaDataFrom(String fromAddress, String toAddress, List<BalanceAssetBase> assets,
 			String hexMetaData) throws MultichainException {
-		String stringSendWithMetaDatarom = "";
+		String stringSendWithMetaDataFrom = "";
 
 		Object objectSendWithMetaDataFrom = executeSendWithMetaDataFrom(fromAddress, toAddress, assets, hexMetaData);
 		if (verifyInstance(objectSendWithMetaDataFrom, String.class)) {
-			stringSendWithMetaDatarom = (String) objectSendWithMetaDataFrom;
+			stringSendWithMetaDataFrom = (String) objectSendWithMetaDataFrom;
 		}
 
-		return stringSendWithMetaDatarom;
+		return stringSendWithMetaDataFrom;
 	}
 
 	/**
@@ -812,16 +812,28 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String SendWithMetaDataFrom(String fromAddress, String toAddress, double amount, String hexMetaData)
+	public String sendWithMetaDataFrom(String fromAddress, String toAddress, double amount, String hexMetaData)
 			throws MultichainException {
-		String stringSendWithMetaDatarom = "";
+		String stringSendWithMetaDataFrom = "";
 
 		Object objectSendWithMetaDataFrom = executeSendWithMetaDataFrom(fromAddress, toAddress, amount, hexMetaData);
 		if (verifyInstance(objectSendWithMetaDataFrom, String.class)) {
-			stringSendWithMetaDatarom = (String) objectSendWithMetaDataFrom;
+			stringSendWithMetaDataFrom = (String) objectSendWithMetaDataFrom;
 		}
 
-		return stringSendWithMetaDatarom;
+		return stringSendWithMetaDataFrom;
+	}
+	
+	public String sendWithDataFrom(String fromAddress, String toAddress, String assetName, Integer assetValue, String metadata)
+			throws MultichainException {
+		String stringSendWithDataFrom = "";
+
+		Object objectSendWithDataFrom = executeSendWithDataFrom(fromAddress, toAddress, assetName, assetValue, metadata);
+		if (verifyInstance(objectSendWithDataFrom, String.class)) {
+			stringSendWithDataFrom = (String) objectSendWithDataFrom;
+		}
+
+		return stringSendWithDataFrom;
 	}
 
 }
