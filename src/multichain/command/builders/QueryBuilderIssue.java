@@ -141,16 +141,14 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected Object executeIssue(String address, List<AssetParams> assets, float quantity, float unit, float amount,
+	protected Object executeIssue(String address, AssetParams assets, float quantity, float unit, float amount,
 			List<CustomParamString> customFields) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 
-		if (assets == null || assets.isEmpty()) {
+		if (assets == null) {
 			throw new MultichainException("assets", "assets needed to be sent");
 		}
-		for (AssetParams asset : assets) {
-			asset.isFilled();
-		}
+		assets.isFilled();
 
 		MultichainTestParameter.valueIsPositive("quantity", quantity);
 		MultichainTestParameter.valueIsPositive("unit", unit);
@@ -159,9 +157,9 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 		Map<String, String> customParams = CustomParamFormatter.formatCustomParamString(customFields);
 
 		if (customParams == null || customParams.size() == 0) {
-			return execute(CommandEnum.ISSUE, address, formatJson(assets), quantity, unit, amount);
+			return execute(CommandEnum.ISSUE, address, assets, quantity, unit, amount);
 		} else {
-			return execute(CommandEnum.ISSUE, address, formatJson(assets), quantity, unit, amount, customParams);
+			return execute(CommandEnum.ISSUE, address, assets, quantity, unit, amount, customParams);
 		}
 	}
 

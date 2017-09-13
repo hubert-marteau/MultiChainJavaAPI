@@ -15,6 +15,7 @@ import java.util.List;
 import multichain.command.MultiChainCommand;
 import multichain.command.MultichainException;
 import multichain.object.BalanceAsset;
+import multichain.object.queryobjects.AssetParams;
 import multichain.object.queryobjects.CustomParamString;
 
 /**
@@ -34,7 +35,8 @@ public class IssueCommandTest {
 	}
 
 	private static void testissue() {
-		String result = "";
+		String resultClosed = "";
+		String resultOpened = "";
 		try {
 			List<String> addresses = multiChainCommand.getAddressCommand().getAddresses();
 			if (addresses != null && addresses.size() > 0) {
@@ -44,25 +46,37 @@ public class IssueCommandTest {
 				customFields.add(new CustomParamString("name1", "value1"));
 				customFields.add(new CustomParamString("name2", "value2"));
 				customFields.add(new CustomParamString("name3", "value3"));
-				result = multiChainCommand.getIssueCommand().issue(address, assetName, 100, 1, 0, customFields);
+
+				// Closed Asset
+				System.out.println("Creation of the asset : " + assetName + "Closed");
+				resultClosed = multiChainCommand.getIssueCommand().issue(address, assetName + "Closed", 100, 1, 0,
+						customFields);
+
+				// Opened Asset
+				AssetParams params = new AssetParams(assetName + "Opened", true);
+				System.out.println("Creation of the asset : " + assetName + "Opened");
+				resultOpened = multiChainCommand.getIssueCommand().issue(address, params, 100, 1, 0, customFields);
+
 			}
 		} catch (MultichainException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (result == null || "".equals(result)) {
-			System.err.println("testissue - result is empty");
+		if (resultClosed == null || "".equals(resultClosed) || resultOpened == null || "".equals(resultOpened)) {
+			System.err.println("testissue - resultClosed or resultOpened is empty");
 		} else {
 			System.out.println("testissue");
-			System.out.println("Result :");
-			System.out.println(result);
+			System.out.println("Result for asset " + assetName + "Closed :");
+			System.out.println(resultClosed);
+			System.out.println("Result for asset " + assetName + "Opened :");
+			System.out.println(resultOpened);
 		}
 	}
 
 	private static void testlistAssets() {
 		List<BalanceAsset> result = null;
 		try {
-			result = multiChainCommand.getIssueCommand().listAssets(assetName);
+			result = multiChainCommand.getIssueCommand().listAssets(assetName + "Closed");
 		} catch (MultichainException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
