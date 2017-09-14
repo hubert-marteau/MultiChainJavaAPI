@@ -537,7 +537,58 @@ public class StreamCommand extends QueryBuilderStream {
 
 		return stringPublish;
 	}
+	
+	/**
+	 * {@link #publish(String, String, String)} with control over the from-address used to
+	 * used to publish
+	 * 
+	 * @param addressFrom
+	 *            (Address) The from-address used to publish
+	 * @param streamName
+	 *            (String) The name of the stream
+	 * @param key
+	 *            (String) The key of the item
+	 * @param dataHex
+	 *            (String) Data in hexadecimal
+	 * @return (String) The transaction id
+	 * @throws MultichainException
+	 */
+	
+	public String publishFrom(Address addressFrom, String streamName, String key, String dataHex) throws MultichainException {
+		String stringPublish = "";
+		Object objectPublish = executePublishFrom(addressFrom.getAddress(), streamName, key, dataHex);
+		if (verifyInstance(objectPublish, String.class)) {
+			stringPublish = (String) objectPublish;
+		}
+		return stringPublish;
+	}
+	
+	/**
+	 * {@link #createFrom(Address, String, String, String)} with address in format string
+	 * 
+	 * @param addressFrom
+	 *            (String) The from-address used to publish
+	 * @param streamName
+	 *            (String) The name of the stream
+	 * @param key
+	 *            (String) The key of the item
+	 * @param dataHex
+	 *            (String) Data in hexadecimal
+	 * @return (String) The transaction id
+	 * @throws MultichainException
+	 */
+	
+	public String publishFrom(String addressFrom, String streamName, String key, String dataHex) throws MultichainException {
+		String stringPublish = "";
 
+		Object objectPublish = executePublishFrom(addressFrom, streamName, key, dataHex);
+		if (verifyInstance(objectPublish, String.class)) {
+			stringPublish = (String) objectPublish;
+		}
+
+		return stringPublish;
+	}
+	
 	/**
 	 * subscribe entity-identifier(s) ( rescan )
 	 * 

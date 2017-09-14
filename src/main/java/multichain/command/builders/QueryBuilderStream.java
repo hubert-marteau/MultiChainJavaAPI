@@ -272,6 +272,30 @@ public class QueryBuilderStream extends QueryBuilderCommon {
 	}
 
 	/**
+	 * {@link #executePublish(String, String, String)} with control over the
+	 * from-address used to publish
+	 * 
+	 * @param addressFrom
+	 *            (String) The from-address used to publish
+	 * @param streamName
+	 *            (String) The name of the stream
+	 * @param key
+	 *            (String) The key of the item
+	 * @param dataHex
+	 *            (String) Data in hexadecimal
+	 * @return (String) The transaction id
+	 * @throws MultichainException
+	 */
+	protected Object executePublishFrom(String addressFrom ,String streamName, String key, String dataHex) throws MultichainException {
+		MultichainTestParameter.isNotNullOrEmpty("addressFrom", addressFrom);
+		MultichainTestParameter.isNotNullOrEmpty("streamName", streamName);
+		MultichainTestParameter.isNotNullOrEmpty("key", key);
+		MultichainTestParameter.isNotNullOrEmpty("dataHex", dataHex);
+
+		return execute(CommandEnum.PUBLISHFROM, addressFrom, streamName, key, dataHex);
+	}
+
+	/**
 	 * subscribe entity-identifier(s) ( rescan )
 	 * 
 	 * Subscribes to the stream.
