@@ -7,68 +7,116 @@
  */
 package multichain.object;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.2
  */
-public class MultiBalance {
+public class MultiBalance extends HashMap<String, List<BalanceAsset>> {
 
-	String label;
-	List<BalanceAsset> assets;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8083084604911767367L;
 
-
+	/**
+	 * 
+	 */
 	public MultiBalance() {
 		super();
-		assets = new ArrayList<BalanceAsset>();
 	}
 
 	/**
-	 * @return the label
+	 * @param initialCapacity
+	 * @param loadFactor
 	 */
-	public String getLabel() {
-		return label;
+	public MultiBalance(int initialCapacity, float loadFactor) {
+		super(initialCapacity, loadFactor);
 	}
 
 	/**
-	 * @param label the label to set
+	 * @param initialCapacity
 	 */
-	public void setLabel(String label) {
-		this.label = label;
+	public MultiBalance(int initialCapacity) {
+		super(initialCapacity);
 	}
-
 
 	/**
-	 * @return the assets
+	 * @param m
 	 */
-	public List<BalanceAsset> getAssets() {
-		return assets;
+	public MultiBalance(Map<? extends String, ? extends List<BalanceAsset>> m) {
+		super(m);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		String multiBalance = "MultiBalance [";
+		for (String key : this.keySet()) {
+			multiBalance += key + ":";
 
-	public BalanceAsset getFirstAsset() {
-		BalanceAsset returnedValue;
-		if (this.assets != null && this.assets.size() > 0) {
-			returnedValue = this.assets.get(0);
-		} else {
-			returnedValue = new BalanceAsset();
+			List<BalanceAsset> listBalanceAsset = this.get(key);
+			for (BalanceAsset balanceAsset : listBalanceAsset) {
+				multiBalance += balanceAsset.toString() + ",";
+			}
 		}
-		return returnedValue;
+		multiBalance += "]";
+
+		return multiBalance;
 	}
 
-	/**
-	 * @param assets the assets to set
-	 */
-	public void setAssets(List<BalanceAsset> assets) {
-		this.assets = assets;
-	}
-
-	/**
-	 * @param asset to add
-	 */
-	public void addAsset(BalanceAsset asset) {
-		this.assets.add(asset);
-	}
+	// /**
+	// * @return the label
+	// */
+	// public String getLabel() {
+	// return label;
+	// }
+	//
+	// /**
+	// * @param label
+	// * the label to set
+	// */
+	// public void setLabel(String label) {
+	// this.label = label;
+	// }
+	//
+	// /**
+	// * @return the assets
+	// */
+	// public List<BalanceAsset> getAssets() {
+	// return assets;
+	// }
+	//
+	// public BalanceAsset getFirstAsset() {
+	// BalanceAsset returnedValue;
+	// if (this.assets != null && this.assets.size() > 0) {
+	// returnedValue = this.assets.get(0);
+	// } else {
+	// returnedValue = new BalanceAsset();
+	// }
+	// return returnedValue;
+	// }
+	//
+	// /**
+	// * @param assets
+	// * the assets to set
+	// */
+	// public void setAssets(List<BalanceAsset> assets) {
+	// this.assets = assets;
+	// }
+	//
+	// /**
+	// * @param asset
+	// * to add
+	// */
+	// public void addAsset(BalanceAsset asset) {
+	// this.assets.add(asset);
+	// }
 }

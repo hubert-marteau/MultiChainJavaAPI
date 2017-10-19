@@ -16,7 +16,7 @@ import multichain.object.queryobjects.CustomParamString;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.1
+ * @version 4.2
  */
 public class CustomParamFormatter extends GsonFormatters {
 	public final static Map<String, String> formatCustomParamString(List<CustomParamString> customParam)
@@ -26,7 +26,7 @@ public class CustomParamFormatter extends GsonFormatters {
 		if (customParam != null) {
 			for (CustomParamString param : customParam) {
 				if (param.isFilled()) {
-					mapFormat.put(formatJson(param.getName()), formatJson(param.getValue()));
+					mapFormat.put(param.getName(), param.getValue());
 				}
 			}
 		}

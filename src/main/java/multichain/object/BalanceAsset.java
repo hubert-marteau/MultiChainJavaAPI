@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.2
  */
 public class BalanceAsset extends BalanceAssetBase {
 	String assetref;
@@ -35,7 +35,7 @@ public class BalanceAsset extends BalanceAssetBase {
 	public String toString() {
 		return "BalanceAsset [assetref=" + assetref + ", multiple=" + multiple + ", units=" + units + ", open=" + open
 				+ ", details=" + details + ", type=" + type + ", raw=" + raw + ", issuetxid=" + issuetxid
-				+ ", addresses=" + addresses + ", issue=" + issue + "]";
+				+ ", addresses=" + addresses + ", issue=" + issue + " " + super.toString() + "]";
 	}
 
 	/**

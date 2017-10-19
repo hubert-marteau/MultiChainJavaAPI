@@ -7,19 +7,22 @@
  */
 package multichain.object.formatters;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import multichain.object.BalanceAsset;
-import multichain.object.MultiBalance;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
+
+import multichain.object.BalanceAsset;
+import multichain.object.MultiBalance;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.2
  */
 public class BalanceFormatter {
 	public final static BalanceAsset formatBalanceAsset(Object objectBalanceAsset) {
@@ -55,6 +58,9 @@ public class BalanceFormatter {
 			GsonBuilder builder = new GsonBuilder();
 			Gson gson = builder.create();
 
+			Type mapType = new TypeToken<Map<String, List<BalanceAsset>>>() {
+			}.getType();
+
 			String jsonValue = gson.toJson(objectMultiBalance);
 			multiBalance = gson.fromJson(jsonValue, MultiBalance.class);
 		}
@@ -62,16 +68,17 @@ public class BalanceFormatter {
 		return multiBalance;
 	}
 
-	public final static List<MultiBalance> formatMultiBalances(List<Object> objectMultiBalances) {
-		List<MultiBalance> multiBalance = new ArrayList<MultiBalance>();
-
-		if (objectMultiBalances != null) {
-			for (Object objectMultiBalance : objectMultiBalances) {
-				multiBalance.add(formatMultiBalance(objectMultiBalance));
-			}
-		}
-
-		return multiBalance;
-	}
+	// public final static List<MultiBalance> formatMultiBalances(List<Object>
+	// objectMultiBalances) {
+	// List<MultiBalance> multiBalance = new ArrayList<MultiBalance>();
+	//
+	// if (objectMultiBalances != null) {
+	// for (Object objectMultiBalance : objectMultiBalances) {
+	// multiBalance.add(formatMultiBalance(objectMultiBalance));
+	// }
+	// }
+	//
+	// return multiBalance;
+	// }
 
 }
