@@ -10,15 +10,16 @@ package multichain.object.formatters;
 import java.util.ArrayList;
 import java.util.List;
 
-import multichain.object.Address;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 
+import multichain.object.Address;
+import multichain.object.KeyPairs;
+
 /**
  * @author Ub - H. MARTEAU
- * @version 3.0
+ * @version 4.3
  */
 public class AddressFormatter {
 	public final static Address formatAddress(Object objectAddress) {
@@ -46,4 +47,31 @@ public class AddressFormatter {
 
 		return addresses;
 	}
+
+	public final static KeyPairs formatKeyPairs(Object objectKeyPair) {
+		KeyPairs keyPairs = new KeyPairs();
+
+		if (objectKeyPair != null && LinkedTreeMap.class.isInstance(objectKeyPair)) {
+			GsonBuilder builder = new GsonBuilder();
+			Gson gson = builder.create();
+
+			String jsonValue = gson.toJson(objectKeyPair);
+			keyPairs = gson.fromJson(jsonValue, KeyPairs.class);
+		}
+
+		return keyPairs;
+	}
+
+	public final static List<KeyPairs> formatKeyPairsList(List<Object> objectKeyPairs) {
+		List<KeyPairs> listKeyPairs = new ArrayList<KeyPairs>();
+
+		if (objectKeyPairs != null) {
+			for (Object objectKeyPair : objectKeyPairs) {
+				listKeyPairs.add(formatKeyPairs(objectKeyPair));
+			}
+		}
+
+		return listKeyPairs;
+	}
+
 }

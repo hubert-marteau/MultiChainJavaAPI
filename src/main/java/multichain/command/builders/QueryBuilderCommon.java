@@ -16,10 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import multichain.command.MultichainException;
-import multichain.object.MultiChainRPCAnswer;
-import multichain.object.formatters.GsonFormatters;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
@@ -37,107 +33,111 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 
+import multichain.command.MultichainException;
+import multichain.object.MultiChainRPCAnswer;
+import multichain.object.formatters.GsonFormatters;
+
 /**
  * @author Ub - H. MARTEAU & Jagrut KOSTI
- * @version 3.1
+ * @version 4.3
  */
 abstract class QueryBuilderCommon extends GsonFormatters {
 
 	private CloseableHttpClient httpclient = null;
 	private HttpPost httppost = null;
 
-	protected enum CommandEnum
-	{
-		ADDMULTISIGADDRESS,
-		ADDNODE,
-		APPENDRAWCHANGE,
-		APPENDRAWEXCHANGE,
-		APPENDROWMETADA,
-		CLEARMEMPOOL,
-		COMBINEUNPSENT,
-		CREATE,
-		CREATEFROM,
-		CREATEMULTISIG,
-		CREATERAWEXCHANGE,
-		CREATERAWSENDFROM,
-		CREATERAWTRANSACTION,
-		DECODERAWEXCHANGE,
-		DECODERAWTRANSACTION,
-		DISABLERAWTRANSACTION,
-		DUMPPRIVKEY,
-		GETADDRESSBALANCES,
-		GETADDRESSES,
-		GETADDRESSTRANSACTION,
-		GETASSETBALANCES,
-		GETBESTBLOCKHASH,
-		GETBLOCK,
-		GETBLOCKCHAINPARAMS,
-		GETBLOCKCOUNT,
-		GETBLOCKHASH,
-		GETINFO,
-		GETMULTIBALANCES,
-		GETNEWADDRESS,
-		GETRAWCHANGEADDRESS,
-		GETPEERINFO,
-		GETRAWTRANSACTION,
-		GETSTREAMITEM,
-		GETTOTALBALANCES,
-		GETTRANSACTION,
-		GETTXOUT,
-		GETTXOUTDATA,
-		GETUNCONFIRMEDBALANCE,
-		GETWALLETTRANSACTION,
-		GRANT,
-		GRANTFROM,
-		GRANTWITHMETADATA,
-		GRANTWITHMETADATAFROM,
-		HELP,
-		IMPORTADDRESS,
-		IMPORTPRIVKEY,
-		ISSUE,
-		ISSUEFROM,
-		ISSUEMORE,
-		ISSUEMOREFROM,
-		LISTADDRESSTRANSACTIONS,
-		LISTASSETS,
-		LISTLOCKUNPSENT,
-		LISTPERMISSIONS,
-		LISTSTREAMITEMS,
-		LISTSTREAMKEYITEMS,
-		LISTSTREAMKEYS,
-		LISTSTREAMPUBLISHERS,
-		LISTSTREAMPUBLISHERITEMS,
-		LISTSTREAMS,
-		LISTUNSPENT,
-		LISTWALLETTRANSACTIONS,
-		LOCKUNSPENT,
-		PAUSE,
-		PING,
-		PREPARELOCKUNSPENT,
-		PREPARELOCKUNSPENTFROM,
-		PUBLISH,
-		PUBLISHFROM,
-		RESUME,
-		REVOKE,
-		REVOKEFROM,
-		SENDASSETFROM,
-		SENDASSETTOADDRESS,
-		SENDFROM,
-		SENDFROMADDRESS,
-		SENDRAWTRANSACTION,
-		SENDTOADDRESS,
-		SENDWITHMETADATA,
-		SENDWITHMETADATAFROM,
-		SETLASTBLOCK,
-		SIGNMESSAGE,
-		SIGNRAWTRANSACTION,
-		STOP,
-		SUBSCRIBE,
-		UNSUBSCRIBE,
-		VALIDATEADDRESS,
-		VERIFYMESSAGE,
-		SENDWITHDATA,
-		SENDWITHDATAFROM
+	protected enum CommandEnum {
+								ADDMULTISIGADDRESS,
+								ADDNODE,
+								APPENDRAWCHANGE,
+								APPENDRAWEXCHANGE,
+								APPENDROWMETADA,
+								CLEARMEMPOOL,
+								COMBINEUNPSENT,
+								CREATE,
+								CREATEFROM,
+								CREATEKEYPAIRS,
+								CREATEMULTISIG,
+								CREATERAWEXCHANGE,
+								CREATERAWSENDFROM,
+								CREATERAWTRANSACTION,
+								DECODERAWEXCHANGE,
+								DECODERAWTRANSACTION,
+								DISABLERAWTRANSACTION,
+								DUMPPRIVKEY,
+								GETADDRESSBALANCES,
+								GETADDRESSES,
+								GETADDRESSTRANSACTION,
+								GETASSETBALANCES,
+								GETBESTBLOCKHASH,
+								GETBLOCK,
+								GETBLOCKCHAINPARAMS,
+								GETBLOCKCOUNT,
+								GETBLOCKHASH,
+								GETINFO,
+								GETMULTIBALANCES,
+								GETNEWADDRESS,
+								GETRAWCHANGEADDRESS,
+								GETPEERINFO,
+								GETRAWTRANSACTION,
+								GETSTREAMITEM,
+								GETTOTALBALANCES,
+								GETTRANSACTION,
+								GETTXOUT,
+								GETTXOUTDATA,
+								GETUNCONFIRMEDBALANCE,
+								GETWALLETTRANSACTION,
+								GRANT,
+								GRANTFROM,
+								GRANTWITHMETADATA,
+								GRANTWITHMETADATAFROM,
+								HELP,
+								IMPORTADDRESS,
+								IMPORTPRIVKEY,
+								ISSUE,
+								ISSUEFROM,
+								ISSUEMORE,
+								ISSUEMOREFROM,
+								LISTADDRESSTRANSACTIONS,
+								LISTASSETS,
+								LISTLOCKUNPSENT,
+								LISTPERMISSIONS,
+								LISTSTREAMITEMS,
+								LISTSTREAMKEYITEMS,
+								LISTSTREAMKEYS,
+								LISTSTREAMPUBLISHERS,
+								LISTSTREAMPUBLISHERITEMS,
+								LISTSTREAMS,
+								LISTUNSPENT,
+								LISTWALLETTRANSACTIONS,
+								LOCKUNSPENT,
+								PAUSE,
+								PING,
+								PREPARELOCKUNSPENT,
+								PREPARELOCKUNSPENTFROM,
+								PUBLISH,
+								PUBLISHFROM,
+								RESUME,
+								REVOKE,
+								REVOKEFROM,
+								SENDASSETFROM,
+								SENDASSETTOADDRESS,
+								SENDFROM,
+								SENDFROMADDRESS,
+								SENDRAWTRANSACTION,
+								SENDTOADDRESS,
+								SENDWITHMETADATA,
+								SENDWITHMETADATAFROM,
+								SETLASTBLOCK,
+								SIGNMESSAGE,
+								SIGNRAWTRANSACTION,
+								STOP,
+								SUBSCRIBE,
+								UNSUBSCRIBE,
+								VALIDATEADDRESS,
+								VERIFYMESSAGE,
+								SENDWITHDATA,
+								SENDWITHDATAFROM
 	}
 
 	protected void initialize(String ip, String port, String login, String password) {
@@ -158,7 +158,7 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 	 * 
 	 * @return
 	 * 
-	 *         example :
+	 * 		example :
 	 *         MultichainQueryBuidlder.executeProcess(MultichainCommand
 	 *         .SENDTOADDRESS,"1EyXuq2JVrj4E3CpM9iNGNSqBpZ2iTPdwGKgvf
 	 *         {\"rdcoin\":0.01}"

@@ -12,9 +12,30 @@ import multichain.command.tools.MultichainTestParameter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.2
+ * @version 4.3
  */
 public class QueryBuilderAddress extends QueryBuilderCommon {
+
+	/**
+	 * Creates public/private key pairs. These key pairs are not stored in the
+	 * wallet.
+	 * 
+	 * Arguments: 1. count (number, optional, default=1) Number of pairs to
+	 * create.
+	 * 
+	 * Result: [ (json array of ) { "address" : "address", (string)
+	 * Pay-to-pubkeyhash address "pubkey" : "pubkey", (string) Public key
+	 * (hexadecimal) "privkey" : "privatekey", (string) Private key,
+	 * base58-encoded as required for signrawtransaction } ]
+	 * 
+	 * @param numberOfPairs
+	 * @return
+	 * @throws MultichainException
+	 */
+	protected Object executeCreateKeyPairs(int numberOfPairs) throws MultichainException {
+		MultichainTestParameter.valueIsPositive("number of pairs", numberOfPairs);
+		return execute(CommandEnum.CREATEKEYPAIRS, numberOfPairs);
+	}
 
 	/**
 	 * addmultisigaddress nrequired ["key",...] ( "account" )
@@ -37,8 +58,8 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 	 * @return the P2SH address
 	 * @throws MultichainException
 	 */
-	protected Object executeAddMultiSigAddress(int numberOfSigRequired, String[] publicKeys)
-			throws MultichainException {
+	protected Object executeAddMultiSigAddress(	int numberOfSigRequired,
+												String[] publicKeys) throws MultichainException {
 		MultichainTestParameter.valueIsPositive("number of signature required", numberOfSigRequired);
 		MultichainTestParameter.isNotNullOrEmpty("publicKeys", publicKeys);
 		MultichainTestParameter.arrayNotContainNullOrEmptyValues("publicKeys", publicKeys);

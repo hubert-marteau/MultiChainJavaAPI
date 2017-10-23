@@ -13,18 +13,67 @@ import java.util.List;
 import multichain.command.builders.QueryBuilderAddress;
 import multichain.object.Address;
 import multichain.object.BalanceAsset;
+import multichain.object.KeyPairs;
 import multichain.object.MultiBalance;
 import multichain.object.formatters.AddressFormatter;
 import multichain.object.formatters.BalanceFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.2
+ * @version 4.3
  */
 public class AddressCommand extends QueryBuilderAddress {
 
 	public AddressCommand(String ip, String port, String login, String password) {
 		initialize(ip, port, login, password);
+	}
+
+	/**
+	 * Creates public/private key pairs. These key pairs are not stored in the
+	 * wallet.
+	 * 
+	 * Arguments: 1. count (number, optional, default=1) Number of pairs to
+	 * create.
+	 * 
+	 * Result: [ (json array of ) { "address" : "address", (string)
+	 * Pay-to-pubkeyhash address "pubkey" : "pubkey", (string) Public key
+	 * (hexadecimal) "privkey" : "privatekey", (string) Private key,
+	 * base58-encoded as required for signrawtransaction } ]
+	 * 
+	 * @param numberOfPairs
+	 * @return
+	 * @throws MultichainException
+	 */
+	public List<KeyPairs> createKeyPairs() throws MultichainException {
+		return createKeyPairs(1);
+	}
+
+	/**
+	 * Creates public/private key pairs. These key pairs are not stored in the
+	 * wallet.
+	 * 
+	 * Arguments: 1. count (number, optional, default=1) Number of pairs to
+	 * create.
+	 * 
+	 * Result: [ (json array of ) { "address" : "address", (string)
+	 * Pay-to-pubkeyhash address "pubkey" : "pubkey", (string) Public key
+	 * (hexadecimal) "privkey" : "privatekey", (string) Private key,
+	 * base58-encoded as required for signrawtransaction } ]
+	 * 
+	 * @param numberOfPairs
+	 * @return
+	 * @throws MultichainException
+	 */
+	public List<KeyPairs> createKeyPairs(int numberOfPairs) throws MultichainException {
+		List<KeyPairs> listKeyPairs = new ArrayList<KeyPairs>();
+		Object objectKeyPairs = executeCreateKeyPairs(numberOfPairs);
+
+		if (verifyInstance(objectKeyPairs, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectKeyPairs, KeyPairs.class)) {
+			listKeyPairs = AddressFormatter.formatKeyPairsList((ArrayList<Object>) objectKeyPairs);
+		}
+
+		return listKeyPairs;
 	}
 
 	/**
