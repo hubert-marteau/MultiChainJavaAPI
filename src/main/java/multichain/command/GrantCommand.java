@@ -233,7 +233,80 @@ public class GrantCommand extends QueryBuilderGrant {
 
 		return grant;
 	}
+	/**
+	 * Grant permission to write in a stream to addresses
+	 * 
+	 * @param address
+	 *            (Address) The addresses to grant permission to
+	 * @param streamName
+	 *            (String) The name of the stream
+	 * @return transactionId of grant action
+	 * @throws MultichainException
+	 */
+	public String grantWrite(Address address, String streamName) throws MultichainException {
+		return grantWrite(address.getAddress(),streamName);
+	}
+	
+	/**
+	 * {@link #grantWrite(Address, byte)} with address in format String
+	 * 
+	 * @param address
+	 *            (String) The addresses to grant permission to
+	 * @param streamName
+	 *            (String) The name of the stream
+	 * @return transactionId of grant action
+	 * @throws MultichainException
+	 */
+	public String grantWrite(String address, String streamName) throws MultichainException {
+		String grantWrite = "";
 
+		Object objectGrant = executeGrantWrite(address, streamName);
+		if (verifyInstance(objectGrant, String.class)) {
+			grantWrite = (String) objectGrant;
+		}
+
+		return grantWrite;
+	}
+	/**
+	 * {@link #grantWrite(Address, byte)} with control over the from-address used to
+	 * used to grant
+	 * 
+	 * @param addressFrom
+	 *            (Address) The from-address used to publish
+	 * @param address
+	 *            (Address) The addresses to grant permission to
+	 * @param streamName
+	 *            (String) The name of the stream
+	 * @return transactionId of grant action
+	 * @throws MultichainException
+	 */
+	public String grantWriteFrom(Address addressFrom, Address address, String streamName) throws MultichainException {
+		return grantWriteFrom(addressFrom.getAddress(), address.getAddress(), streamName);
+	}
+	
+	/**
+	 * {@link #grantWrite(Address, Address, byte)} with addresses in format String
+	 * 
+	 * @param addressFrom
+	 *            (Address) The from-address used to publish
+	 * @param address
+	 *            (String) The addresses to grant permission to
+	 * @param streamName
+	 *            (String) The name of the stream
+	 * @return transactionId of grant action
+	 * @throws MultichainException
+	 */
+	public String grantWriteFrom(String addressFrom, String address, String streamName) throws MultichainException {
+		String grantWrite = "";
+
+		Object objectGrant = executeGrantWriteFrom(addressFrom, address, streamName);
+		if (verifyInstance(objectGrant, String.class)) {
+			grantWrite = (String) objectGrant;
+		}
+
+		return grantWrite;
+	}
+	
 	/**
 	 * listpermissions ("permission(s)" "address" verbose)
 	 * 

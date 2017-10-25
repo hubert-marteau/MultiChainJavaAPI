@@ -555,16 +555,11 @@ public class StreamCommand extends QueryBuilderStream {
 	 */
 	
 	public String publishFrom(Address addressFrom, String streamName, String key, String dataHex) throws MultichainException {
-		String stringPublish = "";
-		Object objectPublish = executePublishFrom(addressFrom.getAddress(), streamName, key, dataHex);
-		if (verifyInstance(objectPublish, String.class)) {
-			stringPublish = (String) objectPublish;
-		}
-		return stringPublish;
+		return publishFrom(addressFrom.getAddress(), streamName, key, dataHex);
 	}
 	
 	/**
-	 * {@link #createFrom(Address, String, String, String)} with address in format string
+	 * {@link #PublishFrom(Address, String, String, String)} with address in format string
 	 * 
 	 * @param addressFrom
 	 *            (String) The from-address used to publish

@@ -92,32 +92,32 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	/**
 	 * Grants permissions to addresses
 	 * 
-	 * grant "address(es)" "permission(s)" ( native-amount "comment" "comment-to" startblock endblock )
+	 * grant "address(es)" "permission(s)" ( native-amount "comment" "comment-to"
+	 * startblock endblock )
 	 * 
 	 * Grant permission(s) to a given address.
 	 * 
-	 * Arguments:
-	 * 1. "address(es)" (string, required) The multichain addresses to send to (comma delimited)
-	 * 2. "permission(s)" (string, required) Permission strings, comma delimited. Possible values:
-	 * connect,send,receive,issue,mine,admin,activate
-	 * 3. "native-amount" (numeric, optional) native currency amount to send. eg 0.1. Default - 0.0
-	 * 4. "startblock" (numeric, optional) Block to apply permissions from (inclusive). Default - 0
-	 * 5. "endblock" (numeric, optional) Block to apply permissions to (exclusive). Default - 4294967295
-	 * If -1 is specified default value is used.
-	 * 6. "comment" (string, optional) A comment used to store what the transaction is for.
-	 * This is not part of the transaction, just kept in your wallet.
-	 * 7. "comment-to" (string, optional) A comment to store the name of the person or organization
-	 * to which you're sending the transaction. This is not part of the
+	 * Arguments: 1. "address(es)" (string, required) The multichain addresses to
+	 * send to (comma delimited) 2. "permission(s)" (string, required) Permission
+	 * strings, comma delimited. Possible values:
+	 * connect,send,receive,issue,mine,admin,activate 3. "native-amount" (numeric,
+	 * optional) native currency amount to send. eg 0.1. Default - 0.0 4.
+	 * "startblock" (numeric, optional) Block to apply permissions from (inclusive).
+	 * Default - 0 5. "endblock" (numeric, optional) Block to apply permissions to
+	 * (exclusive). Default - 4294967295 If -1 is specified default value is used.
+	 * 6. "comment" (string, optional) A comment used to store what the transaction
+	 * is for. This is not part of the transaction, just kept in your wallet. 7.
+	 * "comment-to" (string, optional) A comment to store the name of the person or
+	 * organization to which you're sending the transaction. This is not part of the
 	 * transaction, just kept in your wallet.
 	 * 
-	 * Result:
-	 * "transactionid" (string) The transaction id.
+	 * Result: "transactionid" (string) The transaction id.
 	 * 
 	 * 
 	 * @param address
 	 * @param permissions
-	 *            This permissions will be grant to all addresses who are send
-	 *            in parameter
+	 *            This permissions will be grant to all addresses who are send in
+	 *            parameter
 	 * @return the txid of the transaction granting the permissions
 	 * @throws MultichainException
 	 */
@@ -133,28 +133,27 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	/**
 	 * Grants permissions to addresses From an address
 	 * 
-	 * grantfrom "from-address" "to-address(es)" "permission(s)" ( native-amount "comment" "comment-to" startblock
-	 * endblock )
+	 * grantfrom "from-address" "to-address(es)" "permission(s)" ( native-amount
+	 * "comment" "comment-to" startblock endblock )
 	 * 
 	 * Grant permission using specific address.
 	 * 
-	 * Arguments:
-	 * 1. "from-address" (string, required) Address used for grant.
-	 * 2. "to-address(es)" (string, required) The multichain addresses to grant permissions to
-	 * 3. "permission(s)" (string, required) Permission strings, comma delimited. Possible values:
-	 * connect,send,receive,issue,mine,admin,activate
-	 * 4. "native-amount" (numeric, optional) native currency amount to send. eg 0.1. Default - 0.0
-	 * 5. "startblock" (numeric, optional) Block to apply permissions from (inclusive). Default - 0
-	 * 6. "endblock" (numeric, optional) Block to apply permissions to (exclusive). Default - 4294967295
-	 * If -1 is specified default value is used.
-	 * 7. "comment" (string, optional) A comment used to store what the transaction is for.
-	 * This is not part of the transaction, just kept in your wallet.
-	 * 8. "comment-to" (string, optional) A comment to store the name of the person or organization
-	 * to which you're sending the transaction. This is not part of the
+	 * Arguments: 1. "from-address" (string, required) Address used for grant. 2.
+	 * "to-address(es)" (string, required) The multichain addresses to grant
+	 * permissions to 3. "permission(s)" (string, required) Permission strings,
+	 * comma delimited. Possible values:
+	 * connect,send,receive,issue,mine,admin,activate 4. "native-amount" (numeric,
+	 * optional) native currency amount to send. eg 0.1. Default - 0.0 5.
+	 * "startblock" (numeric, optional) Block to apply permissions from (inclusive).
+	 * Default - 0 6. "endblock" (numeric, optional) Block to apply permissions to
+	 * (exclusive). Default - 4294967295 If -1 is specified default value is used.
+	 * 7. "comment" (string, optional) A comment used to store what the transaction
+	 * is for. This is not part of the transaction, just kept in your wallet. 8.
+	 * "comment-to" (string, optional) A comment to store the name of the person or
+	 * organization to which you're sending the transaction. This is not part of the
 	 * transaction, just kept in your wallet.
 	 * 
-	 * Result:
-	 * "transactionid" (string) The transaction id.
+	 * Result: "transactionid" (string) The transaction id.
 	 * 
 	 * 
 	 * @param addressFrom
@@ -162,8 +161,8 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	 * @param address
 	 *            address destination
 	 * @param permissions
-	 *            This permissions will be grant to all addresses who are send
-	 *            in parameter
+	 *            This permissions will be grant to all addresses who are send in
+	 *            parameter
 	 * @return the txid of the transaction granting the permissions
 	 * @throws MultichainException
 	 */
@@ -178,16 +177,53 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	}
 
 	/**
+	 * Grant permission to write in a stream to addresses
+	 * 
+	 * @param address
+	 *            (String) The addresses to grant permission to
+	 * @param streamName
+	 *            (String) The name of the stream
+	 * @return (String) The transaction id
+	 * @throws MultichainException
+	 */
+	protected Object executeGrantWrite(String address, String streamName) throws MultichainException {
+		MultichainTestParameter.isNotNullOrEmpty("address", address);
+		MultichainTestParameter.isNotNullOrEmpty("stream", streamName);
+		return execute(CommandEnum.GRANT, address, streamName + ".write");
+	}
+	
+
+	/**
+	 * {@link #executeGrantWrite(String, String)} with control over the
+	 * from-address used to grant
+	 * 
+	 * @param addressFrom
+	 *            (String) The from-address used to grant
+	 * @param address
+	 *            (String) The addresses to grant permission to
+	 * @param streamName
+	 *            (String) The name of the stream
+	 * @return (String) The transaction id
+	 * @throws MultichainException
+	 */
+	protected Object executeGrantWriteFrom(String addressFrom, String address, String streamName) throws MultichainException {
+		MultichainTestParameter.isNotNullOrEmpty("addressFrom", addressFrom);
+		MultichainTestParameter.isNotNullOrEmpty("address", address);
+		MultichainTestParameter.isNotNullOrEmpty("stream", streamName);
+		return execute(CommandEnum.GRANTFROM, addressFrom, address, streamName + ".write");
+	}
+
+	/**
 	 * 
 	 * listpermissions ("permission(s)" "address" verbose)
 	 * 
 	 * Returns list of addresses having one of the specified permissions
 	 * 
-	 * Arguments:
-	 * 1. "permission(s)" (string, optional) Permission strings, comma delimited. Possible values:
-	 * connect,send,receive,issue,mine,admin,activate. Default: all.
-	 * 2. "address" (string, optional) The addresses to retrieve permissions for. "" or "*" for all addresses
-	 * 3. verbose (boolean, optional, default=false) If true, returns list of pending grants
+	 * Arguments: 1. "permission(s)" (string, optional) Permission strings, comma
+	 * delimited. Possible values: connect,send,receive,issue,mine,admin,activate.
+	 * Default: all. 2. "address" (string, optional) The addresses to retrieve
+	 * permissions for. "" or "*" for all addresses 3. verbose (boolean, optional,
+	 * default=false) If true, returns list of pending grants
 	 * 
 	 * @param permissions
 	 * @param address
@@ -220,24 +256,22 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	 * 
 	 * Revoke permission from a given address. The amount is a real
 	 * 
-	 * Arguments:
-	 * 1. "address(es)" (string, required) The addresses(es) to revoke permissions from
-	 * 2. "permission(s)" (string, required) Permission strings, comma delimited. Possible values:
-	 * connect,send,receive,issue,mine,admin
-	 * 3. "native-amount" (numeric, optional) native currency amount to send. eg 0.1. Default - 0
-	 * 4. "comment" (string, optional) A comment used to store what the transaction is for.
-	 * This is not part of the transaction, just kept in your wallet.
-	 * 5. "comment-to" (string, optional) A comment to store the name of the person or organization
-	 * to which you're sending the transaction. This is not part of the
-	 * transaction, just kept in your wallet.
+	 * Arguments: 1. "address(es)" (string, required) The addresses(es) to revoke
+	 * permissions from 2. "permission(s)" (string, required) Permission strings,
+	 * comma delimited. Possible values: connect,send,receive,issue,mine,admin 3.
+	 * "native-amount" (numeric, optional) native currency amount to send. eg 0.1.
+	 * Default - 0 4. "comment" (string, optional) A comment used to store what the
+	 * transaction is for. This is not part of the transaction, just kept in your
+	 * wallet. 5. "comment-to" (string, optional) A comment to store the name of the
+	 * person or organization to which you're sending the transaction. This is not
+	 * part of the transaction, just kept in your wallet.
 	 * 
-	 * Result:
-	 * "transactionid" (string) The transaction id.
+	 * Result: "transactionid" (string) The transaction id.
 	 * 
 	 * @param address
 	 * @param permissions
-	 *            This permissions will be grant to all addresses who are send
-	 *            in parameter
+	 *            This permissions will be grant to all addresses who are send in
+	 *            parameter
 	 * @return the txid of the transaction revoking the permissions
 	 * @throws MultichainException
 	 */
@@ -253,24 +287,24 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	/**
 	 * Revoke permissions to addresses From an address
 	 * 
-	 * revokefrom "from-address" "to-address(es)" "permission(s)" ( native-amount "comment" "comment-to" )
+	 * revokefrom "from-address" "to-address(es)" "permission(s)" ( native-amount
+	 * "comment" "comment-to" )
 	 * 
 	 * Revoke permissions using specific address.
 	 * 
-	 * Arguments:
-	 * 1. "from-address" (string, required) Addresses used for revoke.
-	 * 2. "to-address(es)" (string, required) The addresses(es) to revoke permissions from. Comma delimited
-	 * 3. "permission(s)" (string, required) Permission strings, comma delimited. Possible values:
-	 * connect,send,receive,issue,mine,admin
-	 * 4. "native-amount" (numeric, optional) native currency amount to send. eg 0.1. Default - 0
-	 * 5. "comment" (string, optional) A comment used to store what the transaction is for.
-	 * This is not part of the transaction, just kept in your wallet.
-	 * 6. "comment-to" (string, optional) A comment to store the name of the person or organization
-	 * to which you're sending the transaction. This is not part of the
-	 * transaction, just kept in your wallet.
+	 * Arguments: 1. "from-address" (string, required) Addresses used for revoke. 2.
+	 * "to-address(es)" (string, required) The addresses(es) to revoke permissions
+	 * from. Comma delimited 3. "permission(s)" (string, required) Permission
+	 * strings, comma delimited. Possible values:
+	 * connect,send,receive,issue,mine,admin 4. "native-amount" (numeric, optional)
+	 * native currency amount to send. eg 0.1. Default - 0 5. "comment" (string,
+	 * optional) A comment used to store what the transaction is for. This is not
+	 * part of the transaction, just kept in your wallet. 6. "comment-to" (string,
+	 * optional) A comment to store the name of the person or organization to which
+	 * you're sending the transaction. This is not part of the transaction, just
+	 * kept in your wallet.
 	 * 
-	 * Result:
-	 * "transactionid" (string) The transaction id.
+	 * Result: "transactionid" (string) The transaction id.
 	 * 
 	 * 
 	 * @param addressFrom
@@ -278,8 +312,8 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 	 * @param address
 	 *            address destination
 	 * @param permissions
-	 *            This permissions will be grant to all addresses who are send
-	 *            in parameter
+	 *            This permissions will be grant to all addresses who are send in
+	 *            parameter
 	 * @return the txid of the transaction revoking the permissions
 	 * @throws MultichainException
 	 */
