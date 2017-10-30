@@ -18,7 +18,7 @@ import multichain.object.queryobjects.CustomParamString;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 2.0
+ * @version 4.4
  */
 public class IssueCommand extends QueryBuilderIssue {
 
@@ -178,8 +178,11 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String issue(String address, String assetName, float quantity, float unit, float amount)
-			throws MultichainException {
+	public String issue(String address,
+						String assetName,
+						float quantity,
+						float unit,
+						float amount) throws MultichainException {
 		return issue(address, assetName, quantity, unit, amount, null);
 	}
 
@@ -220,8 +223,11 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String issue(String address, AssetParams assets, float quantity, float unit, float amount)
-			throws MultichainException {
+	public String issue(String address,
+						AssetParams assets,
+						float quantity,
+						float unit,
+						float amount) throws MultichainException {
 		return issue(address, assets, quantity, unit, amount, null);
 	}
 
@@ -263,8 +269,12 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String issue(String address, String assetName, float quantity, float unit, float amount,
-			List<CustomParamString> customFields) throws MultichainException {
+	public String issue(String address,
+						String assetName,
+						float quantity,
+						float unit,
+						float amount,
+						List<CustomParamString> customFields) throws MultichainException {
 		String issue = "";
 
 		Object objectIssue = executeIssue(address, assetName, quantity, unit, amount, customFields);
@@ -314,8 +324,12 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String issue(String address, AssetParams assets, float quantity, float unit, float amount,
-			List<CustomParamString> customFields) throws MultichainException {
+	public String issue(String address,
+						AssetParams assets,
+						float quantity,
+						float unit,
+						float amount,
+						List<CustomParamString> customFields) throws MultichainException {
 		String issue = "";
 
 		Object objectIssue = executeIssue(address, assets, quantity, unit, amount, customFields);
@@ -362,11 +376,63 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String issueFrom(String fromAddress, String toAddress, String assetName, int quantity, float unit)
-			throws MultichainException {
+	public String issueFrom(String fromAddress,
+							String toAddress,
+							String assetName,
+							int quantity,
+							float unit) throws MultichainException {
+		return issueFrom(fromAddress, toAddress, assetName, quantity, unit, 0, null);
+	}
+
+	/**
+	 * This works like issue, but with control over the from-address used to
+	 * issue the asset. If there are multiple addresses with asset issuing
+	 * permissions on one node, this allows control over which address is used.
+	 * 
+	 * issuefrom "from-address" "to-address" asset-name|asset-params quantity (
+	 * smallest-unit native-amount custom-fields )
+	 * 
+	 * Issue asset using specific address
+	 * 
+	 * Arguments: 1. "from-address" (string, required) Address used for issuing.
+	 * 2. "to-address" (string, required) The address to send newly created
+	 * asset to. 3. "asset-name" (string, required) Asset name, if not "" should
+	 * be unique. or 3. "asset-params" (object, required) A json object of with
+	 * asset params { "name" : "asset-name" (string, optional) Asset name "open"
+	 * : true|false (boolean, optional, default false) True if follow-on issues
+	 * are allowed ,... } 4. "quantity" (numeric, required) The asset total
+	 * amount in display units. eg. 1234.56 5. "smallest-unit" (numeric,
+	 * optional, default=1) Number of raw units in one displayed unit, eg 0.01
+	 * for cents 6. "native-amount" (numeric, optional) native currency amount
+	 * to send. eg 0.1, Default: minimum-per-output. 7 "custom-fields" (object,
+	 * optional) a json object with custom fields { "param-name": "param-value"
+	 * (strings, required) The key is the parameter name, the value is parameter
+	 * value ,... }
+	 * 
+	 * Result: "transactionid" (string) The transaction id.
+	 * 
+	 * @param toAddress
+	 * @param assetName
+	 * @param open
+	 * @param quantity
+	 * @param unit
+	 *            the smallest transactable unit is given by units, e.g. 0.01.
+	 * @param amount
+	 * @param customFields
+	 * @return
+	 * @throws MultichainException
+	 */
+	public String issueFrom(String fromAddress,
+							String toAddress,
+							String assetName,
+							int quantity,
+							float unit,
+							float amount,
+							List<CustomParamString> customFields) throws MultichainException {
 		String issueFrom = "";
 
-		Object objectIssueFrom = executeIssueFrom(fromAddress, toAddress, assetName, quantity, unit);
+		Object objectIssueFrom = executeIssueFrom(fromAddress, toAddress, assetName, quantity, unit, amount,
+				customFields);
 		if (verifyInstance(objectIssueFrom, String.class)) {
 			issueFrom = (String) objectIssueFrom;
 		}
@@ -410,11 +476,62 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String issueFrom(String fromAddress, String toAddress, List<AssetParams> assets, int quantity, float unit)
-			throws MultichainException {
+	public String issueFrom(String fromAddress,
+							String toAddress,
+							AssetParams assets,
+							float quantity,
+							float unit) throws MultichainException {
+		return issueFrom(fromAddress, toAddress, assets, quantity, unit, 0, null);
+	}
+
+	/**
+	 * This works like issue, but with control over the from-address used to
+	 * issue the asset. If there are multiple addresses with asset issuing
+	 * permissions on one node, this allows control over which address is used.
+	 * 
+	 * issuefrom "from-address" "to-address" asset-name|asset-params quantity (
+	 * smallest-unit native-amount custom-fields )
+	 * 
+	 * Issue asset using specific address
+	 * 
+	 * Arguments: 1. "from-address" (string, required) Address used for issuing.
+	 * 2. "to-address" (string, required) The address to send newly created
+	 * asset to. 3. "asset-name" (string, required) Asset name, if not "" should
+	 * be unique. or 3. "asset-params" (object, required) A json object of with
+	 * asset params { "name" : "asset-name" (string, optional) Asset name "open"
+	 * : true|false (boolean, optional, default false) True if follow-on issues
+	 * are allowed ,... } 4. "quantity" (numeric, required) The asset total
+	 * amount in display units. eg. 1234.56 5. "smallest-unit" (numeric,
+	 * optional, default=1) Number of raw units in one displayed unit, eg 0.01
+	 * for cents 6. "native-amount" (numeric, optional) native currency amount
+	 * to send. eg 0.1, Default: minimum-per-output. 7 "custom-fields" (object,
+	 * optional) a json object with custom fields { "param-name": "param-value"
+	 * (strings, required) The key is the parameter name, the value is parameter
+	 * value ,... }
+	 * 
+	 * Result: "transactionid" (string) The transaction id.
+	 * 
+	 * @param toAddress
+	 * @param assetName
+	 * @param open
+	 * @param quantity
+	 * @param unit
+	 *            the smallest transactable unit is given by units, e.g. 0.01.
+	 * @param amount
+	 * @param customFields
+	 * @return
+	 * @throws MultichainException
+	 */
+	public String issueFrom(String fromAddress,
+							String toAddress,
+							AssetParams assets,
+							float quantity,
+							float unit,
+							float amount,
+							List<CustomParamString> customFields) throws MultichainException {
 		String issueFrom = "";
 
-		Object objectIssueFrom = executeIssueFrom(fromAddress, toAddress, assets, quantity, unit);
+		Object objectIssueFrom = executeIssueFrom(fromAddress, toAddress, assets, quantity, unit, amount, customFields);
 		if (verifyInstance(objectIssueFrom, String.class)) {
 			issueFrom = (String) objectIssueFrom;
 		}
@@ -488,8 +605,10 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String issueMoreFrom(String fromAddress, String toAddress, String assetName, int quantity)
-			throws MultichainException {
+	public String issueMoreFrom(String fromAddress,
+								String toAddress,
+								String assetName,
+								int quantity) throws MultichainException {
 		String issueMoreFrom = "";
 
 		Object objectIssueMoreFrom = executeIssueMoreFrom(fromAddress, toAddress, assetName, quantity);
@@ -576,8 +695,10 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String sendAssetFrom(String fromAddress, String toAddress, String assetName, float quantity)
-			throws MultichainException {
+	public String sendAssetFrom(String fromAddress,
+								String toAddress,
+								String assetName,
+								float quantity) throws MultichainException {
 		String sendAssetFrom = "";
 
 		Object objectSendAssetFrom = executeSendAssetFrom(fromAddress, toAddress, assetName, quantity);

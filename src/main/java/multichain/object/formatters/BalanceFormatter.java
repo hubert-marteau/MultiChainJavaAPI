@@ -7,22 +7,19 @@
  */
 package multichain.object.formatters;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
-import com.google.gson.reflect.TypeToken;
 
 import multichain.object.BalanceAsset;
 import multichain.object.MultiBalance;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.2
+ * @version 4.4
  */
 public class BalanceFormatter {
 	public final static BalanceAsset formatBalanceAsset(Object objectBalanceAsset) {
@@ -57,9 +54,6 @@ public class BalanceFormatter {
 		if (objectMultiBalance != null && LinkedTreeMap.class.isInstance(objectMultiBalance)) {
 			GsonBuilder builder = new GsonBuilder();
 			Gson gson = builder.create();
-
-			Type mapType = new TypeToken<Map<String, List<BalanceAsset>>>() {
-			}.getType();
 
 			String jsonValue = gson.toJson(objectMultiBalance);
 			multiBalance = gson.fromJson(jsonValue, MultiBalance.class);

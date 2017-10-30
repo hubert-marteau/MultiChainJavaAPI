@@ -12,11 +12,12 @@ import multichain.command.tools.MultichainTestParameter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.2
+ * @version 4.4
  */
 public class BalanceAssetBase {
 	String name;
 	double qty;
+	String comment;
 
 	/*
 	 * (non-Javadoc)
@@ -25,7 +26,7 @@ public class BalanceAssetBase {
 	 */
 	@Override
 	public String toString() {
-		return "BalanceAssetBase [name=" + name + ", qty=" + qty + "]";
+		return "BalanceAssetBase [name=" + name + ", qty=" + qty + ", comment=" + comment + "]";
 	}
 
 	public void isFilled() throws MultichainException {
@@ -76,6 +77,21 @@ public class BalanceAssetBase {
 	 */
 	public void setIssueqty(double qty) {
 		this.qty = qty;
+	}
+
+	/**
+	 * @return the comment
+	 */
+	public String getComment() {
+		return comment;
+	}
+
+	/**
+	 * @param comment
+	 *            the comment to set
+	 */
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 }

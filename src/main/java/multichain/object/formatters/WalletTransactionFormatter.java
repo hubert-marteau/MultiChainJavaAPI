@@ -10,16 +10,16 @@ package multichain.object.formatters;
 import java.util.ArrayList;
 import java.util.List;
 
-import multichain.object.TransactionWallet;
-import multichain.object.TransactionWalletDetailed;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 
+import multichain.object.TransactionWallet;
+import multichain.object.TransactionWalletDetailed;
+
 /**
  * @author Ub - H. MARTEAU
- * @version 3.0
+ * @version 4.4
  */
 public class WalletTransactionFormatter {
 	public final static List<TransactionWallet> formatListTransactionWallet(List<Object> objectWalletTransactions) {
@@ -46,6 +46,18 @@ public class WalletTransactionFormatter {
 		}
 
 		return transactionWallet;
+	}
+
+	public static final List<TransactionWalletDetailed> formatListTransactionWalletDetailed(List<Object> objectWalletTransactionsDetailed) {
+		List<TransactionWalletDetailed> transactionWalletList = new ArrayList<TransactionWalletDetailed>();
+
+		if (objectWalletTransactionsDetailed != null) {
+			for (Object objectWalletTransaction : objectWalletTransactionsDetailed) {
+				transactionWalletList.add(formatTransactionWalletDetailed(objectWalletTransaction));
+			}
+		}
+
+		return transactionWalletList;
 	}
 
 	public final static TransactionWalletDetailed formatTransactionWalletDetailed(Object objectWalletTransactionDetailed) {

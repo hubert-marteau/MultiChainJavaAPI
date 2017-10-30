@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.4
  */
 public class TransactionWallet extends TransactionBase {
 	Balance balance;
@@ -21,6 +21,8 @@ public class TransactionWallet extends TransactionBase {
 	List<PermissionDetailed> permissions;
 	BalanceAsset issue;
 	List<String> data;
+	List<Item> items;
+
 	/**
 	 *
 	 */
@@ -32,6 +34,7 @@ public class TransactionWallet extends TransactionBase {
 		permissions = new ArrayList<PermissionDetailed>();
 		issue = new BalanceAsset();
 		data = new ArrayList<String>();
+		items = new ArrayList<>();
 	}
 
 	public TransactionWallet(TransactionWallet transaction) {
@@ -42,6 +45,7 @@ public class TransactionWallet extends TransactionBase {
 		permissions = transaction.getPermissions();
 		issue = transaction.getIssue();
 		data = transaction.getData();
+		items = transaction.getItems();
 	}
 
 	public TransactionWallet(TransactionBase base) {
@@ -52,6 +56,7 @@ public class TransactionWallet extends TransactionBase {
 		permissions = new ArrayList<PermissionDetailed>();
 		issue = new BalanceAsset();
 		data = new ArrayList<String>();
+		items = new ArrayList<>();
 	}
 
 	/**
@@ -62,7 +67,8 @@ public class TransactionWallet extends TransactionBase {
 	}
 
 	/**
-	 * @param issue the issue to set
+	 * @param issue
+	 *            the issue to set
 	 */
 	public void setIssue(BalanceAsset issue) {
 		this.issue = issue;
@@ -74,8 +80,10 @@ public class TransactionWallet extends TransactionBase {
 	public Balance getBalance() {
 		return balance;
 	}
+
 	/**
-	 * @param balance the balance to set
+	 * @param balance
+	 *            the balance to set
 	 */
 	public void setBalance(Balance balance) {
 		this.balance = balance;
@@ -87,24 +95,30 @@ public class TransactionWallet extends TransactionBase {
 	public List<PermissionDetailed> getPermissions() {
 		return permissions;
 	}
+
 	/**
-	 * @param permissions the permissions to set
+	 * @param permissions
+	 *            the permissions to set
 	 */
 	public void setPermissions(List<PermissionDetailed> permissions) {
 		this.permissions = permissions;
 	}
+
 	/**
-	 * @param permission to add
+	 * @param permission
+	 *            to add
 	 */
 	public void addPermission(PermissionDetailed permission) {
 		this.permissions.add(permission);
 	}
+
 	/**
 	 * @return the data
 	 */
 	public List<String> getData() {
 		return data;
 	}
+
 	/**
 	 *
 	 * @return data in 1 String
@@ -118,14 +132,18 @@ public class TransactionWallet extends TransactionBase {
 		}
 		return returnedString;
 	}
+
 	/**
-	 * @param data the data to set
+	 * @param data
+	 *            the data to set
 	 */
 	public void setData(List<String> data) {
 		this.data = data;
 	}
+
 	/**
-	 * @param data to add
+	 * @param data
+	 *            to add
 	 */
 	public void addData(String dataStr) {
 		this.data.add(dataStr);
@@ -139,7 +157,8 @@ public class TransactionWallet extends TransactionBase {
 	}
 
 	/**
-	 * @param myaddresses the myaddresses to set
+	 * @param myaddresses
+	 *            the myaddresses to set
 	 */
 	public void setMyaddresses(List<String> myaddresses) {
 		this.myaddresses = myaddresses;
@@ -153,9 +172,25 @@ public class TransactionWallet extends TransactionBase {
 	}
 
 	/**
-	 * @param addresses the addresses to set
+	 * @param addresses
+	 *            the addresses to set
 	 */
 	public void setAddresses(List<String> addresses) {
 		this.addresses = addresses;
+	}
+
+	/**
+	 * @return the items
+	 */
+	public List<Item> getItems() {
+		return items;
+	}
+
+	/**
+	 * @param items
+	 *            the items to set
+	 */
+	public void setItems(List<Item> items) {
+		this.items = items;
 	}
 }

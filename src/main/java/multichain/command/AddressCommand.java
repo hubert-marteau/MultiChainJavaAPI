@@ -20,7 +20,7 @@ import multichain.object.formatters.BalanceFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.3
+ * @version 4.4
  */
 public class AddressCommand extends QueryBuilderAddress {
 
@@ -68,8 +68,7 @@ public class AddressCommand extends QueryBuilderAddress {
 		List<KeyPairs> listKeyPairs = new ArrayList<KeyPairs>();
 		Object objectKeyPairs = executeCreateKeyPairs(numberOfPairs);
 
-		if (verifyInstance(objectKeyPairs, ArrayList.class)
-				&& verifyInstanceofList((ArrayList<Object>) objectKeyPairs, KeyPairs.class)) {
+		if (verifyInstance(objectKeyPairs, ArrayList.class) && verifyInstanceofList((ArrayList<Object>) objectKeyPairs, KeyPairs.class)) {
 			listKeyPairs = AddressFormatter.formatKeyPairsList((ArrayList<Object>) objectKeyPairs);
 		}
 
@@ -159,8 +158,7 @@ public class AddressCommand extends QueryBuilderAddress {
 		List<String> addresses = new ArrayList<String>();
 
 		Object objectAddresses = executeGetAddresses(false);
-		if (verifyInstance(objectAddresses, ArrayList.class)
-				&& verifyInstanceofList((ArrayList<Object>) objectAddresses, String.class)) {
+		if (verifyInstance(objectAddresses, ArrayList.class) && verifyInstanceofList((ArrayList<Object>) objectAddresses, String.class)) {
 			addresses = (ArrayList<String>) objectAddresses;
 		}
 
@@ -200,8 +198,7 @@ public class AddressCommand extends QueryBuilderAddress {
 		List<Address> addresses = new ArrayList<Address>();
 
 		Object objectAddresses = executeGetAddresses(true);
-		if (verifyInstance(objectAddresses, ArrayList.class)
-				&& verifyInstanceofList((ArrayList<Object>) objectAddresses, Address.class)) {
+		if (verifyInstance(objectAddresses, ArrayList.class) && verifyInstanceofList((ArrayList<Object>) objectAddresses, Address.class)) {
 			addresses = AddressFormatter.formatAddressesList((ArrayList<Object>) objectAddresses);
 		}
 
@@ -338,10 +335,7 @@ public class AddressCommand extends QueryBuilderAddress {
 		List<BalanceAsset> balance = new ArrayList<BalanceAsset>();
 
 		Object objectBalances = executeGetAddressBalances(address);
-		if (verifyInstance(objectBalances, BalanceAsset.class)
-				&& verifyInstanceofList((ArrayList<Object>) objectBalances, BalanceAsset.class)) {
-			balance = BalanceFormatter.formatBalanceAssets((ArrayList<Object>) objectBalances);
-		}
+		balance = BalanceFormatter.formatBalanceAssets((ArrayList<Object>) objectBalances);
 
 		return balance;
 	}
