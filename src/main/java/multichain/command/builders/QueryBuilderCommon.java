@@ -193,6 +193,11 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 
 	private Object executeRequest() throws IOException, ClientProtocolException, MultichainException {
 		HttpResponse response = httpclient.execute(httppost);
+		int statusCode = response.getStatusLine().getStatusCode();
+		if (statusCode >= 400) {
+			throw new MultichainException("code :" + statusCode,
+					"message : " + response.getStatusLine().getReasonPhrase());
+		}
 		HttpEntity entity = response.getEntity();
 
 		String rpcAnswer = EntityUtils.toString(entity);
