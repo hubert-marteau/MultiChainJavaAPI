@@ -23,7 +23,7 @@ import multichain.object.formatters.WalletTransactionFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.4
+ * @version 4.6
  */
 public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 
@@ -323,7 +323,16 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @throws MultichainException
 	 */
 	@SuppressWarnings("unchecked")
-	public List<TransactionWallet> listAddressTransactions(String address, long count, long skip, boolean verbose) throws MultichainException {
+	public List<TransactionWalletDetailed> listAddressTransactions(String address, long count, long skip, boolean verbose) throws MultichainException {
+		List<TransactionWalletDetailed> listTransactionWallet = new ArrayList<TransactionWalletDetailed>();
+
+		Object objectTransactionWallet = executeListAddressTransactions(address, count, skip, verbose);
+		listTransactionWallet = WalletTransactionFormatter.formatListTransactionWalletDetailed((List<Object>) objectTransactionWallet);
+
+		return listTransactionWallet;
+	}
+
+	public List<TransactionWallet> listAddressTransactionsWithoutDetail(String address, long count, long skip, boolean verbose) throws MultichainException {
 		List<TransactionWallet> listTransactionWallet = new ArrayList<TransactionWallet>();
 
 		Object objectTransactionWallet = executeListAddressTransactions(address, count, skip, verbose);
@@ -343,7 +352,7 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @throws MultichainException
 	 */
 	public List<TransactionWallet> listAddressTransactions(String address, long count, long skip) throws MultichainException {
-		return listAddressTransactions(address, count, skip, false);
+		return listAddressTransactionsWithoutDetail(address, count, skip, false);
 	}
 
 	/**
@@ -355,7 +364,7 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @throws MultichainException
 	 */
 	public List<TransactionWallet> listAddressTransactions(String address, long count) throws MultichainException {
-		return listAddressTransactions(address, count, 0, false);
+		return listAddressTransactionsWithoutDetail(address, count, 0, false);
 	}
 
 	/**
@@ -367,7 +376,7 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @throws MultichainException
 	 */
 	public List<TransactionWallet> listAddressTransactions(String address) throws MultichainException {
-		return listAddressTransactions(address, 10, 0, false);
+		return listAddressTransactionsWithoutDetail(address, 10, 0, false);
 	}
 
 	/**

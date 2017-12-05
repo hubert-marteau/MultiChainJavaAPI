@@ -7,12 +7,16 @@
  */
 package multichain.command.builders;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import multichain.command.MultichainException;
 import multichain.command.tools.MultichainTestParameter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.3
+ * @version 4.6
  */
 public class QueryBuilderAddress extends QueryBuilderCommon {
 
@@ -58,13 +62,13 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 	 * @return the P2SH address
 	 * @throws MultichainException
 	 */
-	protected Object executeAddMultiSigAddress(	int numberOfSigRequired,
-												String[] publicKeys) throws MultichainException {
+	protected Object executeAddMultiSigAddress(int numberOfSigRequired, String[] publicKeys) throws MultichainException {
 		MultichainTestParameter.valueIsPositive("number of signature required", numberOfSigRequired);
 		MultichainTestParameter.isNotNullOrEmpty("publicKeys", publicKeys);
 		MultichainTestParameter.arrayNotContainNullOrEmptyValues("publicKeys", publicKeys);
 		if (publicKeys.length >= numberOfSigRequired) {
-			return execute(CommandEnum.ADDMULTISIGADDRESS, numberOfSigRequired, formatJson(publicKeys));
+			List<String> publicKeysList = new ArrayList<>(Arrays.asList(publicKeys));
+			return execute(CommandEnum.ADDMULTISIGADDRESS, numberOfSigRequired, publicKeysList);
 		} else {
 			throw new MultichainException("number of signature", "is greater than the size of public keys");
 		}
@@ -97,7 +101,8 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 		MultichainTestParameter.isNotNullOrEmpty("public Keys", publicKeys);
 		MultichainTestParameter.arrayNotContainNullOrEmptyValues("public Keys", publicKeys);
 		if (publicKeys.length >= numberOfSigRequired) {
-			return execute(CommandEnum.CREATEMULTISIG, numberOfSigRequired, formatJson(publicKeys));
+			List<String> publicKeysList = new ArrayList<>(Arrays.asList(publicKeys));
+			return execute(CommandEnum.CREATEMULTISIG, numberOfSigRequired, publicKeysList);
 		} else {
 			throw new MultichainException("number of signature", "is greater than the size of public keys");
 		}
@@ -172,7 +177,9 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 		MultichainTestParameter.arrayNotContainNullOrEmptyValues("addresses", addresses);
 		MultichainTestParameter.isNotNullOrEmpty("assets", assets);
 		MultichainTestParameter.arrayNotContainNullOrEmptyValues("assets", assets);
-		return execute(CommandEnum.GETMULTIBALANCES, formatJson(addresses), formatJson(assets));
+
+		List<String> addressesList = new ArrayList<>(Arrays.asList(addresses));
+		return execute(CommandEnum.GETMULTIBALANCES, addressesList, formatJson(assets));
 	}
 
 	/**
@@ -199,7 +206,9 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 	protected Object executeGetMultiBalances(String[] addresses) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("addresses", addresses);
 		MultichainTestParameter.arrayNotContainNullOrEmptyValues("addresses", addresses);
-		return execute(CommandEnum.GETMULTIBALANCES, formatJson(addresses));
+
+		List<String> addressesList = new ArrayList<>(Arrays.asList(addresses));
+		return execute(CommandEnum.GETMULTIBALANCES, addressesList);
 	}
 
 	protected Object executeGetMultiBalances(String address) throws MultichainException {

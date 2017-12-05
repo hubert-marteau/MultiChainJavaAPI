@@ -29,7 +29,7 @@ import multichain.object.formatters.HexFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.4
+ * @version 4.6
  */
 public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	/**
@@ -76,9 +76,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected Object executeGetAddressTransaction(	String address,
-													String txid,
-													boolean verbose) throws MultichainException {
+	protected Object executeGetAddressTransaction(String address, String txid, boolean verbose) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		MultichainTestParameter.isNotNullOrEmpty("txid", txid);
 		return execute(CommandEnum.GETADDRESSTRANSACTION, address, txid, verbose);
@@ -197,9 +195,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected Object executeGetWalletTransaction(	String txid,
-													boolean includeWatchOnly,
-													boolean verbose) throws MultichainException {
+	protected Object executeGetWalletTransaction(String txid, boolean includeWatchOnly, boolean verbose) throws MultichainException {
 		return execute(CommandEnum.GETWALLETTRANSACTION, txid, includeWatchOnly, verbose);
 
 	}
@@ -253,10 +249,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected Object executeListAddressTransactions(String address,
-													long count,
-													long skip,
-													boolean verbose) throws MultichainException {
+	protected Object executeListAddressTransactions(String address, long count, long skip, boolean verbose) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		MultichainTestParameter.valueIsPositive("count", count);
 		MultichainTestParameter.valueIsNotNegative("skip", skip);
@@ -308,10 +301,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected Object executeListWalletTransaction(	long count,
-													long skip,
-													boolean includeWatchonly,
-													boolean verbose) throws MultichainException {
+	protected Object executeListWalletTransaction(long count, long skip, boolean includeWatchonly, boolean verbose) throws MultichainException {
 		MultichainTestParameter.valueIsPositive("count", count);
 		MultichainTestParameter.valueIsNotNegative("skip", skip);
 		return execute(CommandEnum.LISTWALLETTRANSACTIONS, count, skip, includeWatchonly, verbose);
@@ -345,19 +335,20 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	 * @return transactionId
 	 * @throws MultichainException
 	 */
-	protected Object executeSendFromAddress(String fromAddress,
-											String toAddress,
-											List<BalanceAssetBase> assets) throws MultichainException {
+	protected Object executeSendFromAddress(String fromAddress, String toAddress, List<BalanceAssetBase> assets) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
 		if (assets == null || assets.isEmpty()) {
 			throw new MultichainException("assets", "assets needed to be sent");
 		}
+
+		Map<String, Double> mapAssets = new HashMap<String, Double>();
 		for (BalanceAssetBase asset : assets) {
 			asset.isFilled();
+			mapAssets.put(asset.getName(), new Double(asset.getQty()));
 		}
 
-		return execute(CommandEnum.SENDFROMADDRESS, fromAddress, toAddress, assets);
+		return execute(CommandEnum.SENDFROMADDRESS, fromAddress, toAddress, mapAssets);
 	}
 
 	/**
@@ -388,9 +379,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	 * @return transactionId
 	 * @throws MultichainException
 	 */
-	protected Object executeSendFromAddress(String fromAddress,
-											String toAddress,
-											double amount) throws MultichainException {
+	protected Object executeSendFromAddress(String fromAddress, String toAddress, double amount) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
 		MultichainTestParameter.valueIsPositive("amount", amount);
@@ -430,11 +419,13 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 		if (assets == null || assets.isEmpty()) {
 			throw new MultichainException("assets", "assets needed to be sent");
 		}
+		Map<String, Double> mapAssets = new HashMap<String, Double>();
 		for (BalanceAssetBase asset : assets) {
 			asset.isFilled();
+			mapAssets.put(asset.getName(), new Double(asset.getQty()));
 		}
 
-		return execute(CommandEnum.SENDTOADDRESS, address, formatJson(assets));
+		return execute(CommandEnum.SENDTOADDRESS, address, mapAssets);
 	}
 
 	/**
@@ -494,19 +485,19 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected Object executeSendWithMetaData(	String address,
-												List<BalanceAssetBase> assets,
-												String hexMetaData) throws MultichainException {
+	protected Object executeSendWithMetaData(String address, List<BalanceAssetBase> assets, String hexMetaData) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		MultichainTestParameter.isNotNullOrEmpty("hexMetaData", hexMetaData);
 		if (assets == null || assets.isEmpty()) {
 			throw new MultichainException("assets", "assets needed to be sent");
 		}
+		Map<String, Double> mapAssets = new HashMap<String, Double>();
 		for (BalanceAssetBase asset : assets) {
 			asset.isFilled();
+			mapAssets.put(asset.getName(), new Double(asset.getQty()));
 		}
 
-		return execute(CommandEnum.SENDWITHMETADATA, address, formatJson(assets), hexMetaData);
+		return execute(CommandEnum.SENDWITHMETADATA, address, mapAssets, hexMetaData);
 	}
 
 	/**
@@ -532,9 +523,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected Object executeSendWithMetaData(	String address,
-												double amount,
-												String hexMetaData) throws MultichainException {
+	protected Object executeSendWithMetaData(String address, double amount, String hexMetaData) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		MultichainTestParameter.isNotNullOrEmpty("hexMetaData", hexMetaData);
 		MultichainTestParameter.valueIsPositive("amount", amount);
@@ -568,10 +557,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected Object executeSendWithMetaDataFrom(	String fromAddress,
-													String toAddress,
-													List<BalanceAssetBase> assets,
-													String hexMetaData) throws MultichainException {
+	protected Object executeSendWithMetaDataFrom(String fromAddress, String toAddress, List<BalanceAssetBase> assets, String hexMetaData) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
 		MultichainTestParameter.isNotNullOrEmpty("hexMetaData", hexMetaData);
@@ -582,9 +568,10 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 		for (BalanceAssetBase asset : assets) {
 			asset.isFilled();
 		}
-		Map<String, Object> mapAssets = new HashMap<String, Object>();
+		Map<String, Double> mapAssets = new HashMap<String, Double>();
 		for (BalanceAssetBase asset : assets) {
-			mapAssets.put(asset.getName(), asset.getIssueqty());
+			asset.isFilled();
+			mapAssets.put(asset.getName(), new Double(asset.getQty()));
 		}
 
 		return execute(CommandEnum.SENDWITHMETADATAFROM, fromAddress, toAddress, mapAssets, hexMetaData);
@@ -616,10 +603,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected Object executeSendWithMetaDataFrom(	String fromAddress,
-													String toAddress,
-													double amount,
-													String hexMetaData) throws MultichainException {
+	protected Object executeSendWithMetaDataFrom(String fromAddress, String toAddress, double amount, String hexMetaData) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
 		MultichainTestParameter.isNotNullOrEmpty("hexMetaData", hexMetaData);
@@ -628,11 +612,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 		return execute(CommandEnum.SENDWITHMETADATAFROM, fromAddress, toAddress, String.valueOf(amount), hexMetaData);
 	}
 
-	protected Object executeSendWithDataFrom(	String fromAddress,
-												String toAddress,
-												String assetName,
-												Integer assetValue,
-												String metadata) throws MultichainException {
+	protected Object executeSendWithDataFrom(String fromAddress, String toAddress, String assetName, Integer assetValue, String metadata) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
 		MultichainTestParameter.isNotNullOrEmpty("metadata", metadata);

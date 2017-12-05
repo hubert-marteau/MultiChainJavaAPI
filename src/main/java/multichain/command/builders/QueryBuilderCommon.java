@@ -17,11 +17,11 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCredentialsProvider;
@@ -39,7 +39,7 @@ import multichain.object.formatters.GsonFormatters;
 
 /**
  * @author Ub - H. MARTEAU & Jagrut KOSTI
- * @version 4.3
+ * @version 4.6
  */
 abstract class QueryBuilderCommon extends GsonFormatters {
 
@@ -192,15 +192,15 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 	}
 
 	private Object executeRequest() throws IOException, ClientProtocolException, MultichainException {
-		HttpResponse response = httpclient.execute(httppost);
+		CloseableHttpResponse response = httpclient.execute(httppost);
 		int statusCode = response.getStatusLine().getStatusCode();
 		if (statusCode >= 400) {
-			throw new MultichainException("code :" + statusCode,
-					"message : " + response.getStatusLine().getReasonPhrase());
+			throw new MultichainException("code :" + statusCode, "message : " + response.getStatusLine().getReasonPhrase());
 		}
 		HttpEntity entity = response.getEntity();
 
 		String rpcAnswer = EntityUtils.toString(entity);
+		response.close();
 
 		final Gson gson = new GsonBuilder().create();
 		final MultiChainRPCAnswer multiChainRPCAnswer = gson.fromJson(rpcAnswer, MultiChainRPCAnswer.class);
