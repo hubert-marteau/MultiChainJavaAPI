@@ -16,7 +16,7 @@ These compilation instructions have been tested on Windows 7.0 and Ubuntu 12.4 x
 
 ## Dependecies
 
-    * Java 1.7.0 is needed, upper version should be compatible
+    * Java 1.7.0 is needed, upper version should be compatible.
 	* All other dependencies are managed by Maven.
 
 ## Architecture
