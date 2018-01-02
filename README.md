@@ -17,12 +17,12 @@ These compilation instructions have been tested on Windows 7.0 and Ubuntu 12.4 x
 ## Dependecies
 
     * Java 1.7.0 is needed, upper version should be compatible
-	* All other depencies are managed by Maven.
+	* All other dependencies are managed by Maven.
 
 ## Architecture
 
 ### Global Architecture
-The goal of the API is to directly integrate calls to command system and Json Formating to make Java developing easier :
+The goal of the API is to directly integrate calls to command system and Json Formating to make Java development easier :
 
 ![alt tag](Archi.png)
 
@@ -34,7 +34,7 @@ Next versions will decide to integrate (or not) theses commands.
 ### Project Architecture
 
 #### multichain.command and MultiChainCommand
-The package multichain.command and the Class `MultiChainCommand` are the essential of the project.
+The package multichain.command and the Class `MultiChainCommand` are the essentials of the project.
 They contain Java commands to call.
 
 Examples of command calls can be found in `multichain.test.command`.
@@ -67,7 +67,7 @@ The package contains `formatters` with technical classes used to format Json to 
 
 #### multichain.test.object.formatters
 The package `multichain.test` contains Java unit test.
-Test are written with `main()` function to be executed whatever IDE or system used.
+Test are written with `main()` function to be executed on whatever IDE or system used.
 
 The package `command` has to contain unit tests for each command.
 The package `object.formatters` is helpful to test the good work of Formatters Json<->Java.
