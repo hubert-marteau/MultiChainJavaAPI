@@ -15,7 +15,7 @@ import multichain.object.formatters.GsonFormatters;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.1
+ * @version 4.7
  */
 public class RawParam extends GsonFormatters {
 	String address;
@@ -71,7 +71,7 @@ public class RawParam extends GsonFormatters {
 			if (assets != null && assets.size() != 0) {
 				for (AssetQuantity asset : assets) {
 					if (asset.isFilled()) {
-						filledAssets.put(formatJson(asset.getName()), new Float(asset.getQuantity()));
+						filledAssets.put(asset.getName(), new Float(asset.getQuantity()));
 					}
 				}
 			}
