@@ -195,7 +195,11 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 		CloseableHttpResponse response = httpclient.execute(httppost);
 		int statusCode = response.getStatusLine().getStatusCode();
 		if (statusCode >= 400) {
-			throw new MultichainException("code :" + statusCode, "message : " + response.getStatusLine().getReasonPhrase());
+			String message = "message : " + response.getStatusLine().getReasonPhrase();
+			// Close the response to prevent two exceptions from preventing future http requests
+			// As the default number of connections is 2. 
+			response.close();
+			throw new MultichainException("code :" + statusCode, message);
 		}
 		HttpEntity entity = response.getEntity();
 
