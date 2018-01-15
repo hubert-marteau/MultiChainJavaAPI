@@ -508,6 +508,137 @@ public class StreamCommand extends QueryBuilderStream {
 	}
 
 	/**
+	 * liststreamkeyitems "stream-identifier" ( verbose count start
+	 * local-ordering )
+	 *
+	 * Returns stream items.
+	 *
+	 * Arguments: 1. "stream-identifier"(string, required) Stream identifier - one
+	 * of the following: stream txid, stream reference, stream name. 2. verbose (boolean, optional, default=false)
+	 * If true, returns information about item transaction 3. count (number,
+	 * optional, default=10) The number of items to display 4. start (number,
+	 * optional, default=-count - last) Start from specific item, 0 based, if
+	 * negative - from the end 5. local-ordering (boolean, optional, default=false)
+	 * If true, items appear in the order they were processed by the wallet, if
+	 * false - in the order they appear in blockchain
+	 *
+	 * Result: "stream-items" (array) List of stream items.
+	 *
+	 * @param streamName
+	 * @param verbose
+	 * @param count
+	 * @param start
+	 * @return
+	 * @throws MultichainException
+	 */
+	@SuppressWarnings("unchecked")
+	public List<StreamKeyItem> listStreamItems(String streamName, boolean verbose, int count, int start)
+			throws MultichainException {
+		List<StreamKeyItem> streamKeyItems = new ArrayList<StreamKeyItem>();
+
+		Object objectStreamKeyItems = executeListStreamItems(streamName, verbose, count, start);
+		if (verifyInstance(objectStreamKeyItems, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectStreamKeyItems, StreamKeyItem.class)) {
+			streamKeyItems = StreamFormatter.formatStreamKeyItems((ArrayList<Object>) objectStreamKeyItems);
+		}
+
+		return streamKeyItems;
+	}
+
+	/**
+	 * liststreamkeyitems "stream-identifier" ( verbose count start
+	 * local-ordering )
+	 *
+	 * Returns stream items.
+	 *
+	 * Arguments: 1. "stream-identifier"(string, required) Stream identifier - one
+	 * of the following: stream txid, stream reference, stream name. 2. verbose (boolean, optional, default=false)
+	 * If true, returns information about item transaction 3. count (number,
+	 * optional, default=10) The number of items to display 4. start (number,
+	 * optional, default=-count - last) Start from specific item, 0 based, if
+	 * negative - from the end 5. local-ordering (boolean, optional, default=false)
+	 * If true, items appear in the order they were processed by the wallet, if
+	 * false - in the order they appear in blockchain
+	 *
+	 * Result: "stream-items" (array) List of stream items.
+	 *
+	 * @param streamName
+	 * @param verbose
+	 * @param count
+	 *            * @return
+	 * @throws MultichainException
+	 */
+	@SuppressWarnings("unchecked")
+	public List<StreamKeyItem> listStreamItems(String streamName, boolean verbose, int count)
+			throws MultichainException {
+		List<StreamKeyItem> streamKeyItems = new ArrayList<StreamKeyItem>();
+
+		Object objectStreamKeyItems = executeListStreamItems(streamName, verbose, count);
+		if (verifyInstance(objectStreamKeyItems, ArrayList.class)
+				&& verifyInstanceofList((ArrayList<Object>) objectStreamKeyItems, StreamKeyItem.class)) {
+			streamKeyItems = StreamFormatter.formatStreamKeyItems((ArrayList<Object>) objectStreamKeyItems);
+		}
+
+		return streamKeyItems;
+	}
+
+	/**
+	 * liststreamkeyitems "stream-identifier" ( verbose count start
+	 * local-ordering )
+	 *
+	 * Returns stream items.
+	 *
+	 * Arguments: 1. "stream-identifier"(string, required) Stream identifier - one
+	 * of the following: stream txid, stream reference, stream name. 2. verbose (boolean, optional, default=false)
+	 * If true, returns information about item transaction 3. count (number,
+	 * optional, default=10) The number of items to display 4. start (number,
+	 * optional, default=-count - last) Start from specific item, 0 based, if
+	 * negative - from the end 5. local-ordering (boolean, optional, default=false)
+	 * If true, items appear in the order they were processed by the wallet, if
+	 * false - in the order they appear in blockchain
+	 *
+	 * Result: "stream-items" (array) List of stream items.
+	 *
+	 * @param streamName
+	 * @param verbose
+	 * @param count
+	 *            = 10 * @return
+	 * @throws MultichainException
+	 */
+	public List<StreamKeyItem> listStreamItems(String streamName, boolean verbose)
+			throws MultichainException {
+		return listStreamItems(streamName, verbose, 10);
+	}
+
+	/**
+	 * liststreamkeyitems "stream-identifier" ( verbose count start
+	 * local-ordering )
+	 *
+	 * Returns stream items.
+	 *
+	 * Arguments: 1. "stream-identifier"(string, required) Stream identifier - one
+	 * of the following: stream txid, stream reference, stream name. 2. verbose (boolean, optional, default=false)
+	 * If true, returns information about item transaction 3. count (number,
+	 * optional, default=10) The number of items to display 4. start (number,
+	 * optional, default=-count - last) Start from specific item, 0 based, if
+	 * negative - from the end 5. local-ordering (boolean, optional, default=false)
+	 * If true, items appear in the order they were processed by the wallet, if
+	 * false - in the order they appear in blockchain
+	 *
+	 * Result: "stream-items" (array) List of stream items.
+	 *
+	 * @param streamName
+	 * @param verbose
+	 *            = false
+	 * @param count
+	 *            = 10 * @return
+	 * @throws MultichainException
+	 */
+	public List<StreamKeyItem> listStreamItems(String streamName) throws MultichainException {
+		return listStreamItems(streamName, false, 10);
+	}
+
+	/**
 	 * publish "stream-identifier" "key" data-hex
 	 * 
 	 * Publishes stream item
