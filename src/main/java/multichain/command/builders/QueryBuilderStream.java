@@ -341,7 +341,7 @@ public class QueryBuilderStream extends QueryBuilderCommon {
 	}
         
         /****
-         * added by leo
+         * subscribe address to stream with rescan param
          * @param streamname
          * @param rescan 
          */
@@ -350,19 +350,20 @@ public class QueryBuilderStream extends QueryBuilderCommon {
            execute(CommandEnum.SUBSCRIBE,streamname,rescan);
         }
         /****
-         * added by leo
+         *  
          * @param steamname
          * @param verbose
          * @param count
          * @param start
          * @param localordering 
+         * @return Object
          */
         protected Object executeListStreamItems(String streamname,boolean verbose,int count,int start,boolean localordering) throws MultichainException{
             MultichainTestParameter.isNotNullOrEmpty("streamname", streamname);
             return execute(CommandEnum.LISTSTREAMITEMS,streamname,verbose,count,start,localordering);
         }
         /****
-         * added by leo
+         * 
          * @param streamname
          * @param txid
          * @param verbose

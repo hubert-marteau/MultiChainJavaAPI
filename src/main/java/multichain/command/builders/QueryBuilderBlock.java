@@ -76,10 +76,10 @@ public class QueryBuilderBlock extends QueryBuilderCommon {
 	}
 
         /****
-         * added by leo
+         * return blockList object for block identified by string with form like 12-13
          * @param blockidentifiers
          * @param verbose
-         * @return
+         * @return Object
          * @throws MultichainException 
          */
         protected Object executeListBlocks(String blockidentifiers,boolean verbose) throws MultichainException{

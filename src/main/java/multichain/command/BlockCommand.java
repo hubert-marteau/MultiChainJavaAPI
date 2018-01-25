@@ -99,7 +99,7 @@ public class BlockCommand extends QueryBuilderBlock {
          * added by leo
          * @param blockidentifiers
          * @param verbose
-         * @return 
+         * @return List<Block>
          */
         public List<Block> listBlocksList(String blockidentifiers,boolean verbose){
             try {

@@ -85,7 +85,7 @@ public class StreamCommand extends QueryBuilderStream {
 		return create(streamName, false);
 	}
         /*****
-         * added by leo
+         * subscribe to a stream with rescan param
          * @param streamidentifier
          * @param rescan 
          */
@@ -93,7 +93,7 @@ public class StreamCommand extends QueryBuilderStream {
             executeSubscribe(streamidentifier,rescan);
         }
         /****
-         * added by leo
+         * list stream items for a stream 
          * @param streanmane
          * @param verbose
          * @param count
@@ -119,7 +119,7 @@ public class StreamCommand extends QueryBuilderStream {
         }
         /****
          * added by leo
-         * 通过txid快速获取某一个stream里面的某个item
+         * return a specific item for a stream 
          * @param streamname
          * @param txid
          * @param verbose
@@ -143,7 +143,7 @@ public class StreamCommand extends QueryBuilderStream {
         }
         /**
      * **
-     * added by leo
+     * get the latest key item for a specific stream
      *
      * @param streamname
      * @param key
