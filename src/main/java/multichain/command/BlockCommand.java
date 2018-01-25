@@ -7,6 +7,10 @@
  */
 package multichain.command;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import multichain.command.builders.QueryBuilderBlock;
 import multichain.object.Block;
 import multichain.object.formatters.BlockFormatter;
@@ -91,6 +95,26 @@ public class BlockCommand extends QueryBuilderBlock {
 		return block;
 	}
 
+        /****
+         * added by leo
+         * @param blockidentifiers
+         * @param verbose
+         * @return 
+         */
+        public List<Block> listBlocksList(String blockidentifiers,boolean verbose){
+            try {
+                List<Block> blocks=new ArrayList<Block>();
+                Object objectBlock=executeListBlocks(blockidentifiers,verbose);
+                int size=((ArrayList)objectBlock).size();
+                for(int a=0;a<size;a++){
+                    blocks.add(BlockFormatter.formatBlock(((ArrayList)objectBlock).get(a)));
+                }
+                return blocks;
+            } catch (MultichainException ex) {
+                Logger.getLogger(BlockCommand.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return null;
+        }
 	/**
 	 * {@link #getBlock(String, boolean)} without verbose
 	 * 

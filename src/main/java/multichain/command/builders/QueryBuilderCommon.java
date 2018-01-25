@@ -111,6 +111,7 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 								LISTUNSPENT,
 								LISTWALLETTRANSACTIONS,
 								LOCKUNSPENT,
+                                                                LISTBLOCKS,
 								PAUSE,
 								PING,
 								PREPARELOCKUNSPENT,

@@ -75,6 +75,16 @@ public class QueryBuilderBlock extends QueryBuilderCommon {
 		return execute(CommandEnum.GETBLOCK, hash, verbose);
 	}
 
+        /****
+         * added by leo
+         * @param blockidentifiers
+         * @param verbose
+         * @return
+         * @throws MultichainException 
+         */
+        protected Object executeListBlocks(String blockidentifiers,boolean verbose) throws MultichainException{
+            return execute(CommandEnum.LISTBLOCKS,blockidentifiers,verbose);
+        }
 	/**
 	 * getblock "hash/height" ( verbose )
 	 * 

@@ -9,6 +9,8 @@ package multichain.command;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import multichain.command.builders.QueryBuilderStream;
 import multichain.object.Address;
@@ -82,7 +84,83 @@ public class StreamCommand extends QueryBuilderStream {
 	public String create(String streamName) throws MultichainException {
 		return create(streamName, false);
 	}
-
+        /*****
+         * added by leo
+         * @param streamidentifier
+         * @param rescan 
+         */
+        public void subscribe(String streamidentifier,boolean rescan) throws MultichainException{
+            executeSubscribe(streamidentifier,rescan);
+        }
+        /****
+         * added by leo
+         * @param streanmane
+         * @param verbose
+         * @param count
+         * @param start
+         * @param localordering
+         * @return 
+         */
+        public List<StreamKeyItem> listStreamItems(String streanmane,boolean verbose,int count,int start,boolean localordering){
+            Object obj=null;
+            try {
+                obj = executeListStreamItems(streanmane,verbose,count,start,localordering);
+            } catch (MultichainException ex) {
+                Logger.getLogger(StreamCommand.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            int size=((List)obj).size();
+            StreamKeyItem item=null;
+            List<StreamKeyItem> items=new ArrayList<StreamKeyItem>();
+            for(int a=0;a<size;a++){
+                item=StreamFormatter.formatStreamKeyItem(((List)obj).get(a));
+                items.add(item);
+            }
+            return items;
+        }
+        /****
+         * added by leo
+         * 通过txid快速获取某一个stream里面的某个item
+         * @param streamname
+         * @param txid
+         * @param verbose
+         * @return 
+         */
+        public StreamKeyItem getStreamItem(String streamname,String txid,boolean verbose){
+            Object obj=null;
+            StreamKeyItem item=null;
+            try {
+                obj=executeGetstreamitem(streamname,txid,verbose);
+            } catch (MultichainException ex) {
+                Logger.getLogger(StreamCommand.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(verifyInstance(obj,com.google.gson.internal.LinkedTreeMap.class)){
+                item=StreamFormatter.formatStreamKeyItem(obj);
+            }
+            if(item!=null){
+                return item;
+            }
+            return null;
+        }
+        /**
+     * **
+     * added by leo
+     *
+     * @param streamname
+     * @param key
+     * @param verbose
+     *
+     * @return
+     */
+    public StreamKeyItem getLatestStreamKeyItem(String streamname, String key, boolean verbose) throws MultichainException {
+        StreamKeyItem result = new StreamKeyItem();
+        Object obj = executeListStreamKeyItems(streamname, key, verbose, 1, -1);
+        if (verifyInstance(obj, ArrayList.class) && verifyInstanceofList((ArrayList<Object>) obj, StreamKeyItem.class)) {
+            if (StreamFormatter.formatStreamKeyItems((ArrayList<Object>) obj).size() > 0) {
+                result = StreamFormatter.formatStreamKeyItems((ArrayList<Object>) obj).get(0);
+            }
+        }
+        return result;
+    }
 	/**
 	 * {@link #create(String, boolean)} with control over the from-address used to
 	 * used to create the stream

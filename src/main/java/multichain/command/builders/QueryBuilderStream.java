@@ -60,7 +60,39 @@ public class QueryBuilderStream extends QueryBuilderCommon {
 
 		return execute(CommandEnum.CREATEFROM, addressFrom, "stream", streamName, open);
 	}
-
+        /****
+         * added by leo
+         * @param streamname
+         * @param rescan 
+         */
+        protected void executeSubscribe(String streamname,boolean rescan) throws MultichainException, MultichainException{
+           MultichainTestParameter.isNotNullOrEmpty("streamname", streamname);
+           execute(CommandEnum.SUBSCRIBE,streamname,rescan);
+        }
+        /****
+         * added by leo
+         * @param steamname
+         * @param verbose
+         * @param count
+         * @param start
+         * @param localordering 
+         */
+        protected Object executeListStreamItems(String streamname,boolean verbose,int count,int start,boolean localordering) throws MultichainException{
+            MultichainTestParameter.isNotNullOrEmpty("streamname", streamname);
+            return execute(CommandEnum.LISTSTREAMITEMS,streamname,verbose,count,start,localordering);
+        }
+        /****
+         * added by leo
+         * @param streamname
+         * @param txid
+         * @param verbose
+         * @return 
+         */
+        protected Object executeGetstreamitem(String streamname,String txid,boolean verbose) throws MultichainException{
+            MultichainTestParameter.isNotNullOrEmpty("streamname", streamname);
+            MultichainTestParameter.isNotNullOrEmpty("txid", txid);
+            return execute(CommandEnum.GETSTREAMITEM,streamname,txid,verbose);
+        }
 	/**
 	 * 
 	 * liststreamkeys "stream-identifier" ( key(s) verbose count start
