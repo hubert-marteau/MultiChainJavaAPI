@@ -11,7 +11,7 @@ import multichain.command.MultichainException;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 3.0
+ * @version 4.8
  */
 public class QueryBuilderBlock extends QueryBuilderCommon {
 
@@ -75,6 +75,16 @@ public class QueryBuilderBlock extends QueryBuilderCommon {
 		return execute(CommandEnum.GETBLOCK, hash, verbose);
 	}
 
+        /****
+         * return blockList object for block identified by string with form like 12-13
+         * @param blockidentifiers
+         * @param verbose
+         * @return Object
+         * @throws MultichainException 
+         */
+        protected Object executeListBlocks(String blockidentifiers,boolean verbose) throws MultichainException{
+            return execute(CommandEnum.LISTBLOCKS,blockidentifiers,verbose);
+        }
 	/**
 	 * getblock "hash/height" ( verbose )
 	 * 

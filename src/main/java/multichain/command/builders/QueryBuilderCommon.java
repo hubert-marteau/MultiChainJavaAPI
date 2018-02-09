@@ -39,7 +39,7 @@ import multichain.object.formatters.GsonFormatters;
 
 /**
  * @author Ub - H. MARTEAU & Jagrut KOSTI
- * @version 4.6
+ * @version 4.8
  */
 abstract class QueryBuilderCommon extends GsonFormatters {
 
@@ -111,6 +111,7 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 								LISTUNSPENT,
 								LISTWALLETTRANSACTIONS,
 								LOCKUNSPENT,
+                                LISTBLOCKS,
 								PAUSE,
 								PING,
 								PREPARELOCKUNSPENT,
