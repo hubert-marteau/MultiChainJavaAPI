@@ -42,6 +42,35 @@ public class QueryBuilderStream extends QueryBuilderCommon {
 	}
 
 	/**
+	 * create from address stream "stream-name" open ( custom-fields )
+	 *
+	 * Creates stream from address
+	 *
+	 *
+	 * Arguments: 1. from address (string, required) From address the stream will
+	 * be created for 2. entity-type (string, required) The only possible value:
+	 * stream 3. "stream-name" (string, required) Stream name, if not "" should
+	 * be unique. 4. open (boolean, required) Allow anyone to publish in this
+	 * stream 5. custom-fields (object, optional) a json object with custom
+	 * fields { "param-name": "param-value" (strings, required) The key is the
+	 * parameter name, the value is parameter value ,... }
+	 *
+	 * Result: "transactionid" (string) The transaction id.
+	 *
+	 * @param fromAddress
+	 * @param streamName
+	 * @param open
+	 * @return TxId
+	 * @throws MultichainException
+	 */
+	protected Object executeCreateFrom(String fromAddress, String streamName, boolean open) throws MultichainException {
+		MultichainTestParameter.isNotNullOrEmpty("streamName", streamName);
+		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
+
+		return execute(CommandEnum.CREATEFROM, fromAddress, "stream", streamName, open);
+	}
+
+	/**
 	 * 
 	 * liststreamkeys "stream-identifier" ( key(s) verbose count start local-ordering )
 	 * 

@@ -73,13 +73,71 @@ public class StreamCommand extends QueryBuilderStream {
 	 * Result: "transactionid" (string) The transaction id.
 	 * 
 	 * @param streamName
-	 * @param open
-	 *            = false
+	 * @param open = false
 	 * @return TxId
 	 * @throws MultichainException
 	 */
 	public String create(String streamName) throws MultichainException {
 		return create(streamName, false);
+	}
+
+	/**
+	 * create  stream "stream-name" from address open ( custom-fields )
+	 *
+	 * Creates stream
+	 *
+	 *
+	 * Arguments: 1. from address (string, required) From address the stream will
+	 * be created for 2. entity-type (string, required) The only possible value:
+	 * stream 3. "stream-name" (string, required) Stream name, if not "" should
+	 * be unique. 4. open (boolean, required) Allow anyone to publish in this
+	 * stream 5. custom-fields (object, optional) a json object with custom
+	 * fields { "param-name": "param-value" (strings, required) The key is the
+	 * parameter name, the value is parameter value ,... }
+	 *
+	 * Result: "transactionid" (string) The transaction id.
+	 *
+	 * @param fromAddress
+	 * @param streamName
+	 * @param open
+	 * @return TxId
+	 * @throws MultichainException
+	 */
+	public String createFrom(String fromAddress, String streamName, boolean open) throws MultichainException {
+		String stringCreate = "";
+
+		Object objectCreate = executeCreateFrom(fromAddress, streamName, open);
+		if (verifyInstance(objectCreate, String.class)) {
+			stringCreate = (String) objectCreate;
+		}
+
+		return stringCreate;
+	}
+
+	/**
+	 * create  stream "stream-name" from address open ( custom-fields )
+	 *
+	 * Creates stream
+	 *
+	 *
+	 * Arguments: 1. from address (string, required) From address the stream will
+	 * be created for 2. entity-type (string, required) The only possible value:
+	 * stream 3. "stream-name" (string, required) Stream name, if not "" should
+	 * be unique. 4. open (boolean, required) Allow anyone to publish in this
+	 * stream 5. custom-fields (object, optional) a json object with custom
+	 * fields { "param-name": "param-value" (strings, required) The key is the
+	 * parameter name, the value is parameter value ,... }
+	 *
+	 * Result: "transactionid" (string) The transaction id.
+	 *
+	 * @param fromAddress
+	 * @param streamName
+	 * @param open = false
+	 * @return TxId
+	 * @throws MultichainException
+	 */
+	public String createFrom(String fromAddress, String streamName) throws MultichainException {
+		return createFrom(fromAddress, streamName, false);
 	}
 
 	/**

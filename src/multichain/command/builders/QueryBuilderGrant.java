@@ -79,7 +79,7 @@ public class QueryBuilderGrant extends QueryBuilderCommon {
 			}
 			permissionsFormated = permissionsFormated.concat(ADMIN_STR);
 		}
-		if ((permissions & CREATE) > 0) {
+		if ((permissions & CREATE) < 0) {
 			if (permissionsFormated.length() > 0) {
 				permissionsFormated = permissionsFormated.concat(",");
 			}

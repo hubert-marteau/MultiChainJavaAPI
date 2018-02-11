@@ -25,6 +25,7 @@ public class StreamCommandTest {
 	static MultiChainCommand multiChainCommand;
 
 	static String streamName = "";
+	static String fromAddress ="1TLRjnPGioxA6iH1avFGcyS7PKS4dnWREhYbNE";
 
 	/**
 	 *
@@ -108,6 +109,24 @@ public class StreamCommandTest {
 		try {
 
 			result = multiChainCommand.getStreamCommand().create(streamName);
+		} catch (MultichainException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (result == null || "".equals(result)) {
+			System.err.println("testcreate - result is empty");
+		} else {
+			System.out.println("Result :");
+			System.out.println(result);
+		}
+	}
+
+	private static void testCreateFrom() {
+		String result = "";
+		System.out.println("testCreateFrom :");
+		try {
+
+			result = multiChainCommand.getStreamCommand().createFrom(fromAddress, streamName + "From");
 		} catch (MultichainException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -412,8 +431,8 @@ public class StreamCommandTest {
 		System.out.println("--- Start of StreamCommandTest ---");
 
 		// BlockChain TestCommand has to be created and started before
-		multiChainCommand = new MultiChainCommand("localhost", "6824", "multichainrpc",
-				"73oYQWzx45hossFPPWUgicpLvHhsD8PempYxnSF6bnY9");
+		multiChainCommand = new MultiChainCommand("localhost", "7434", "multichainrpc",
+				"2CHmxhzbvzM7qd2ryaPuuKqzpUvW9dExWb2ygPZPcr6o");
 
 		// BlockChain TestCommand has to be created and started before
 		// ChainCommand.initializeChain("TestAPI1");
@@ -430,6 +449,15 @@ public class StreamCommandTest {
 		System.out.println();
 
 		testcreate();
+
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+
+		testCreateFrom();
 
 		System.out.println();
 		System.out.println();
