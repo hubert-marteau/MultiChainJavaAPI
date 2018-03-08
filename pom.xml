@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>MultiChainJavaAPI</groupId>
 	<artifactId>MultiChainJavaAPI</artifactId>
-	<version>0.4.8-SNAPSHOT</version>
+	<version>0.4.9-SNAPSHOT</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,6 +15,12 @@
 		<commons-codec.version>1.10</commons-codec.version>
 		<commons-collections4.version>4.1</commons-collections4.version>
 	</properties>
+
+    <scm>
+	    <connection>scm:git:git://github.com/SimplyUb/MultiChainJavaAPI.git</connection>
+	    <developerConnection>scm:git:git@github.com/SimplyUb/MultiChainJavaAPI.git</developerConnection>
+	    <url>https://github.com/SimplyUb/MultiChainJavaAPI</url>
+    </scm>
 
 	<build>
 		<plugins>
