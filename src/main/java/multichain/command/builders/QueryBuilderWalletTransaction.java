@@ -145,7 +145,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	 */
 	protected Object executeGetTxOut(String txid, int vout, boolean includemempool) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("txid", txid);
-		MultichainTestParameter.valueIsPositive("vout", vout);
+		MultichainTestParameter.valueIsNotNegative("vout", vout);
 		return execute(CommandEnum.GETTXOUT, txid, vout, includemempool);
 	}
 
@@ -382,7 +382,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	protected Object executeSendFromAddress(String fromAddress, String toAddress, double amount) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
-		MultichainTestParameter.valueIsPositive("amount", amount);
+		MultichainTestParameter.valueIsNotNegative("amount", amount);
 
 		return execute(CommandEnum.SENDFROMADDRESS, fromAddress, toAddress, amount);
 	}
@@ -457,7 +457,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	 */
 	protected Object executeSendToAddress(String address, double amount) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
-		MultichainTestParameter.valueIsPositive("amount", amount);
+		MultichainTestParameter.valueIsNotNegative("amount", amount);
 
 		return execute(CommandEnum.SENDTOADDRESS, address, amount);
 	}
@@ -526,7 +526,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	protected Object executeSendWithMetaData(String address, double amount, String hexMetaData) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		MultichainTestParameter.isNotNullOrEmpty("hexMetaData", hexMetaData);
-		MultichainTestParameter.valueIsPositive("amount", amount);
+		MultichainTestParameter.valueIsNotNegative("amount", amount);
 
 		return execute(CommandEnum.SENDWITHMETADATA, address, amount, hexMetaData);
 	}
@@ -607,7 +607,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
 		MultichainTestParameter.isNotNullOrEmpty("hexMetaData", hexMetaData);
-		MultichainTestParameter.valueIsPositive("amount", amount);
+		MultichainTestParameter.valueIsNotNegative("amount", amount);
 
 		return execute(CommandEnum.SENDWITHMETADATAFROM, fromAddress, toAddress, amount, hexMetaData);
 	}
@@ -617,7 +617,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
 		MultichainTestParameter.isNotNullOrEmpty("metadata", metadata);
 		MultichainTestParameter.isNotNull("asset", assetName);
-		MultichainTestParameter.valueIsPositive("assetValue", assetValue);
+		MultichainTestParameter.valueIsNotNegative("assetValue", assetValue);
 
 		SimpleEntry<String, Integer> simpleEntry = new SimpleEntry<String, Integer>(assetName, assetValue);
 		return execute(CommandEnum.SENDWITHDATAFROM, fromAddress, toAddress, simpleEntry, HexFormatter.toHex(metadata));
