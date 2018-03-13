@@ -7,6 +7,8 @@
  */
 package multichain.command;
 
+import java.util.List;
+
 import multichain.command.MultiChainCommand;
 import multichain.command.MultichainException;
 import multichain.object.Block;
@@ -23,6 +25,16 @@ public class BlockCommandTest {
 	 */
 	public BlockCommandTest() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	private static void testlistBlocks() {
+		List<Block> resultlist = multiChainCommand.getBlockCommand().listBlocksList("10-50,100",false);
+		System.out.println("");
+		System.out.println("resultlist size : " + resultlist.size());
+		System.out.println("heights");
+		for (int i =0; i<resultlist.size(); i++) {
+			System.out.print(resultlist.get(i).getHeight()+"-");
+		}
 	}
 
 	private static void testgetBlock() {
@@ -103,7 +115,8 @@ public class BlockCommandTest {
 		multiChainCommand = new MultiChainCommand("localhost", "6824", "multichainrpc",
 				"73oYQWzx45hossFPPWUgicpLvHhsD8PempYxnSF6bnY9");
 
-		testgetBlock();
+		//testgetBlock();
+		testlistBlocks();
 
 		System.out.println("--- End of AddressCommandTest ---");
 	}

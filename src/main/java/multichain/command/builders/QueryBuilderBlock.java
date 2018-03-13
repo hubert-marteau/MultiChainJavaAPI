@@ -127,7 +127,7 @@ public class QueryBuilderBlock extends QueryBuilderCommon {
 	 * @throws MultichainException
 	 */
 	protected Object executeGetBlock(int height, boolean verbose) throws MultichainException {
-		return execute(CommandEnum.GETBLOCK, String.valueOf(height), verbose);
+		return execute(CommandEnum.GETBLOCK, height, verbose);
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class QueryBuilderBlock extends QueryBuilderCommon {
 	 * @throws MultichainException
 	 */
 	protected Object executeGetBlockHash(long index) throws MultichainException {
-		return execute(CommandEnum.GETBESTBLOCKHASH, String.valueOf(index));
+		return execute(CommandEnum.GETBESTBLOCKHASH, index);
 	}
 
 }

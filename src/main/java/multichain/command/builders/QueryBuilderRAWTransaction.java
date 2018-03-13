@@ -429,7 +429,7 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	 * @throws MultichainException
 	 */
 	protected Object executeGetRawTransaction(String txid, int verbose) throws MultichainException {
-		return execute(CommandEnum.GETRAWTRANSACTION, txid, String.valueOf(verbose));
+		return execute(CommandEnum.GETRAWTRANSACTION, txid, verbose);
 	}
 
 	/**

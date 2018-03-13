@@ -146,7 +146,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	protected Object executeGetTxOut(String txid, int vout, boolean includemempool) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("txid", txid);
 		MultichainTestParameter.valueIsPositive("vout", vout);
-		return execute(CommandEnum.GETTXOUT, txid, String.valueOf(vout), includemempool);
+		return execute(CommandEnum.GETTXOUT, txid, vout, includemempool);
 	}
 
 	/**
@@ -384,7 +384,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
 		MultichainTestParameter.valueIsPositive("amount", amount);
 
-		return execute(CommandEnum.SENDFROMADDRESS, fromAddress, toAddress, String.valueOf(amount));
+		return execute(CommandEnum.SENDFROMADDRESS, fromAddress, toAddress, amount);
 	}
 
 	/**
@@ -459,7 +459,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		MultichainTestParameter.valueIsPositive("amount", amount);
 
-		return execute(CommandEnum.SENDTOADDRESS, address, String.valueOf(amount));
+		return execute(CommandEnum.SENDTOADDRESS, address, amount);
 	}
 
 	/**
@@ -528,7 +528,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 		MultichainTestParameter.isNotNullOrEmpty("hexMetaData", hexMetaData);
 		MultichainTestParameter.valueIsPositive("amount", amount);
 
-		return execute(CommandEnum.SENDWITHMETADATA, address, String.valueOf(amount), hexMetaData);
+		return execute(CommandEnum.SENDWITHMETADATA, address, amount, hexMetaData);
 	}
 
 	/**
@@ -609,7 +609,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 		MultichainTestParameter.isNotNullOrEmpty("hexMetaData", hexMetaData);
 		MultichainTestParameter.valueIsPositive("amount", amount);
 
-		return execute(CommandEnum.SENDWITHMETADATAFROM, fromAddress, toAddress, String.valueOf(amount), hexMetaData);
+		return execute(CommandEnum.SENDWITHMETADATAFROM, fromAddress, toAddress, amount, hexMetaData);
 	}
 
 	protected Object executeSendWithDataFrom(String fromAddress, String toAddress, String assetName, Integer assetValue, String metadata) throws MultichainException {
