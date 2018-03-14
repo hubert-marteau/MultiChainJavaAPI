@@ -565,9 +565,6 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 		if (assets == null || assets.isEmpty()) {
 			throw new MultichainException("assets", "assets needed to be sent");
 		}
-		for (BalanceAssetBase asset : assets) {
-			asset.isFilled();
-		}
 		Map<String, Double> mapAssets = new HashMap<String, Double>();
 		for (BalanceAssetBase asset : assets) {
 			asset.isFilled();

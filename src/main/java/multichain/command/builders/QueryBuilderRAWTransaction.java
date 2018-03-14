@@ -7,13 +7,14 @@
  */
 package multichain.command.builders;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import multichain.command.MultichainException;
 import multichain.command.tools.MultichainTestParameter;
-import multichain.object.AddressBalanceAsset;
+import multichain.object.AddressBalance;
 import multichain.object.queryobjects.RawParam;
 import multichain.object.queryobjects.TxIdVout;
 
@@ -273,7 +274,7 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected Object executeCreateRawTransaction(List<TxIdVout> inputs, List<AddressBalanceAsset> addessAssets)
+	protected Object executeCreateRawTransaction(List<TxIdVout> inputs, List<AddressBalance> addessBalances, List<String> hexMetaData)
 			throws MultichainException {
 		if (inputs == null || inputs.isEmpty()) {
 			throw new MultichainException("inputs", "inputs needed to create a RAW Transaction");
@@ -282,15 +283,22 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 			input.isFilled();
 		}
 
-		if (addessAssets == null || addessAssets.isEmpty()) {
-			throw new MultichainException("Address Assets", "Address Assets needed to create a RAW Transaction");
+		if (addessBalances == null || addessBalances.isEmpty()) {
+			throw new MultichainException("Address Balance", "Address Balance needed to create a RAW Transaction");
 		}
-		for (AddressBalanceAsset addressAsset : addessAssets) {
-			addressAsset.isFilled();
+		Map<String, Object> mapOuput = new HashMap<String, Object>();
+		for (AddressBalance addessBalance : addessBalances) {
+			addessBalance.isFilled();
+			mapOuput.put(addessBalance.getAddress(), addessBalance.getValue());
 		}
-
-		return execute(CommandEnum.CREATERAWTRANSACTION, formatJson(inputs), formatJson(addessAssets));
+		
+		if (hexMetaData != null) {
+			return execute(CommandEnum.CREATERAWTRANSACTION, inputs, mapOuput, hexMetaData);
+		} else {
+			return execute(CommandEnum.CREATERAWTRANSACTION, inputs, mapOuput);
+		}
 	}
+	
 
 	/**
 	 * 

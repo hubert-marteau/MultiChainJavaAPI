@@ -15,37 +15,37 @@ import multichain.command.tools.MultichainTestParameter;
  * @version 1.0
  */
 public class TxIdVout {
-	String txId;
-	int vOut;
+	String txid;
+	int vout;
 
 	public void isFilled() throws MultichainException {
-		MultichainTestParameter.isNotNullOrEmpty("txId", txId);
-		MultichainTestParameter.valueIsNotNegative("vOut", vOut);
+		MultichainTestParameter.isNotNullOrEmpty("txId", txid);
+		MultichainTestParameter.valueIsNotNegative("vOut", vout);
 	}
 
 	/**
 	 * @return the txId
 	 */
 	public String getTxId() {
-		return txId;
+		return txid;
 	}
 	/**
 	 * @param txId the txId to set
 	 */
 	public void setTxId(String txId) {
-		this.txId = txId;
+		this.txid = txId;
 	}
 	/**
 	 * @return the vOut
 	 */
 	public int getvOut() {
-		return vOut;
+		return vout;
 	}
 	/**
 	 * @param vOut the vOut to set
 	 */
 	public void setvOut(int vOut) {
-		this.vOut = vOut;
+		this.vout = vOut;
 	}
 
 
