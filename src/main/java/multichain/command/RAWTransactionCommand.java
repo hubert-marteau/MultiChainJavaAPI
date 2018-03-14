@@ -11,7 +11,7 @@ import java.util.List;
 
 import multichain.command.builders.QueryBuilderRAWTransaction;
 import multichain.object.Address;
-import multichain.object.AddressBalanceAsset;
+import multichain.object.AddressBalance;
 import multichain.object.SignedTransactionRAW;
 import multichain.object.TransactionRAW;
 import multichain.object.formatters.RAWTransactionFormatter;
@@ -20,7 +20,7 @@ import multichain.object.queryobjects.TxIdVout;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 3.0
+ * @version 4.10
  */
 public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 
@@ -354,63 +354,76 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * Note that the transaction's inputs are not signed, and
 	 * it is not stored in the wallet or transmitted to the network.
 	 * 
+	 * Create a transaction spending the given inputs.
+	 *
 	 * Arguments:
-	 * 1. "transactions" (string, required) A json array of json objects
-	 * [
-	 * {
-	 * "txid":"id", (string, required) The transaction id
-	 * "vout":n (numeric, required) The output number
-	 * }
-	 * ,...
-	 * ]
-	 * 2. "addresses" (string, required) a json object with addresses as keys and amounts as values
-	 * {
-	 * "address":
-	 * x.xxx (numeric, required) The key is the address, the value is the native currency amount
-	 * or
-	 * { (object) A json object of assets to send
-	 * "asset-identifier" : asset-quantity
-	 * ,...
-	 * }
-	 * or
-	 * { (object) A json object describing new asset issue
-	 * "issue" :
-	 * {
-	 * "raw" : n (numeric, required) The asset total amount in raw units
-	 * ,...
-	 * }
-	 * ,...
-	 * }
-	 * or
-	 * { (object) A json object describing follow-on asset issue
-	 * "issuemore" :
-	 * {
-	 * "asset" : "asset-identifier" (string, required) Asset identifier - one of the following: issue txid. asset
-	 * reference, asset name.
-	 * "raw" : n (numeric, required) The asset total amount in raw units
-	 * ,...
-	 * }
-	 * ,...
-	 * }
-	 * or
-	 * { (object) A json object describing permission change
-	 * "permissions" :
-	 * {
-	 * "type" : "permission(s)" (string,required) Permission strings, comma delimited. Possible values:
-	 * connect,send,receive,issue,mine,admin,activate
-	 * "startblock" (numeric, optional) Block to apply permissions from (inclusive). Default - 0
-	 * "endblock" (numeric, optional) Block to apply permissions to (exclusive). Default - 4294967295
-	 * "timestamp" (numeric, optional) This helps resolve conflicts between permissions assigned by the same
-	 * administrator. Default - current time
-	 * ,...
-	 * }
-	 * ,...
-	 * }
-	 * ,...
-	 * }
+	 * 1. transactions                           (array, required) A json array of json objects
+	 *      [
+	 *        {
+	 *          "txid":"id",                     (string, required) The transaction id
+	 *          "vout":n                         (numeric, required) The output number
+	 *          "scriptPubKey": "hex",           (string, optional) script key, used if cache=true or action=sign
+	 *          "redeemScript": "hex"            (string, optional) redeem script, used if action=sign
+	 *          "cache":true|false               (boolean, optional) If true - add cached script to tx, if omitted - add automatically if needed
+	 *        }
+	 *        ,...
+	 *      ]
+	 * 2. addresses                              (object, required) a json object with addresses as keys and amounts as values
+	 *     {
+	 *       "address": 
+	 *         x.xxx                             (numeric, required) The key is the address, the value is the native currency amount
+	 *           or 
+	 *         {                                 (object) A json object of assets to send
+	 *           "asset-identifier" : asset-quantity 
+	 *           ,...
+	 *         }
+	 *           or 
+	 *         {                                 (object) A json object describing new asset issue
+	 *           "issue" : 
+	 *             {
+	 *               "raw" : n                   (numeric, required) The asset total amount in raw units 
+	 *               ,...
+	 *             }
+	 *           ,...
+	 *         }
+	 *           or 
+	 *         {                                 (object) A json object describing follow-on asset issue
+	 *           "issuemore" : 
+	 *             {
+	 *               "asset" : "asset-identifier"(string, required) Asset identifier - one of the following: issue txid. asset reference, asset name.
+	 *               "raw" : n                   (numeric, required) The asset total amount in raw units 
+	 *               ,...
+	 *             }
+	 *           ,...
+	 *         }
+	 *           or 
+	 *         {                                 (object) A json object describing permission change
+	 *           "permissions" : 
+	 *             {
+	 *               "type" : "permission(s)"    (string,required) Permission strings, comma delimited. Possible values:
+	 *                                                               connect,send,receive,issue,mine,admin,activate,create 
+	 *               "startblock" : n            (numeric, optional) Block to apply permissions from (inclusive). Default - 0
+	 *               "endblock"  : n             (numeric, optional) Block to apply permissions to (exclusive). Default - 4294967295
+	 *               "timestamp" : n             (numeric, optional) This helps resolve conflicts between
+	 *                                                                 permissions assigned by the same administrator. Default - current time
+	 *               ,...
+	 *             }
+	 *           ,...
+	 *         }
+	 *       ,...
+	 *     }
+	 * 3. data                                   (array, optional) Array of hexadecimal strings or data objects, see help appendrawdata for details.
+	 * 4."action"                                (string, optional, default "") Additional actions: "lock", "sign", "lock,sign", "sign,lock", "send". 
 	 * 
 	 * Result:
-	 * "transaction" (string) hex string of the transaction
+	 * "transaction"                             (string) hex string of the transaction (if action= "" or "lock")
+	 *   or 
+	 * {                                         (object) A json object (if action= "sign" or "lock,sign" or "sign,lock")
+	 *   "hex": "value",                         (string) The raw transaction with signature(s) (hex-encoded string)
+	 *   "complete": true|false                  (boolean) if transaction has a complete set of signature (0 if not)
+	 * }
+	 *   or 
+	 * "hex"                                     (string) The transaction hash in hex (if action= "send")
 	 * 
 	 * @param txids
 	 * @param vouts
@@ -419,16 +432,21 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String createRawTransaction(List<TxIdVout> inputs, List<AddressBalanceAsset> addessAssets)
+	public String createRawTransaction(List<TxIdVout> inputs, List<AddressBalance> addessBalances, List<String> hexMetaData)
 			throws MultichainException {
 		String createTransactionRAW = new String();
 
-		Object objectTransactionRAW = executeCreateRawTransaction(inputs, addessAssets);
+		Object objectTransactionRAW = executeCreateRawTransaction(inputs, addessBalances, hexMetaData);
 		if (verifyInstance(objectTransactionRAW, String.class)) {
 			createTransactionRAW = (String) objectTransactionRAW;
 		}
 
 		return createTransactionRAW;
+	}
+	
+	public String createRawTransaction(List<TxIdVout> inputs,  List<AddressBalance> addessBalances)
+			throws MultichainException {
+		return createRawTransaction(inputs, addessBalances, null);
 	}
 
 	/**

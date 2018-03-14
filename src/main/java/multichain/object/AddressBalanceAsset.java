@@ -8,16 +8,18 @@
 package multichain.object;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import multichain.command.MultichainException;
 import multichain.command.tools.MultichainTestParameter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.10
  */
-public class AddressBalanceAsset {
+public class AddressBalanceAsset implements AddressBalance {
 	String address;
 	List<BalanceAssetBase> assets;
 
@@ -31,6 +33,16 @@ public class AddressBalanceAsset {
 			asset.isFilled();
 		}
 	}
+	
+	public Map<String, Double> getValue() throws MultichainException {
+		Map<String, Double> mapAssets = new HashMap<String, Double>();
+		for (BalanceAssetBase asset : assets) {
+			asset.isFilled();
+			mapAssets.put(asset.getName(), new Double(asset.getQty()));
+		}
+		return mapAssets;
+	}
+	
 
 	/**
 	 * @return the address
