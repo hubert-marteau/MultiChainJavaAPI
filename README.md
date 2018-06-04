@@ -14,10 +14,27 @@ https://github.com/SimplyUb/MultiChainJavaAPI
 These compilation instructions have been tested on Windows 7.0 and Ubuntu 12.4 x64 only with Java 1.7.0_80
 
 
-## Dependecies
+## Dependencies
 
     * Java 1.7.0 is needed, upper version should be compatible.
 	* All other dependencies are managed by Maven.
+
+## Installation
+```
+	.\install.sh
+```
+or manually :
+```
+	mvn compile
+	mvn package
+	mvn install:install-file -Dfile=target/MultiChainJavaAPI-0.4.11-SNAPSHOT.jar -DgroupId=com.multichainjavaapi -DartifactId=MultiChainJavaAPI -Dversion=0.4.11
+	mvn install:install-file -Dfile=target/MultiChainJavaAPI-0.4.11-SNAPSHOT-jar-with-dependencies.jar -DgroupId=com.multichainjavaapi -DartifactId=MultiChainJavaAPI -Dversion=0.4.11-full
+
+```
+will create 2 jar files in local repository :
+- version : 0.4.11 light version
+- version : 0.4.11-full directly included all dependencies
+
 
 ## Architecture
 
