@@ -112,11 +112,11 @@ public class BlockCommandTest {
 		System.out.println("--- Start of AddressCommandTest ---");
 
 		// BlockChain TestCommand has to be created and started before
-		multiChainCommand = new MultiChainCommand("localhost", "6824", "multichainrpc",
-				"73oYQWzx45hossFPPWUgicpLvHhsD8PempYxnSF6bnY9");
+		multiChainCommand = new MultiChainCommand(TestConst.MULTICHAIN_SERVER_IP, TestConst.MULTICHAIN_SERVER_PORT, TestConst.MULTICHAIN_SERVER_LOGIN,
+		    TestConst.MULTICHAIN_SERVER_PWD);
 
-		//testgetBlock();
-		testlistBlocks();
+		testgetBlock();
+		//testlistBlocks();
 
 		System.out.println("--- End of AddressCommandTest ---");
 	}

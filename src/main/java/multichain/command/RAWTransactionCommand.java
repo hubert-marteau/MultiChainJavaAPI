@@ -596,13 +596,15 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public TransactionRAW getRawTransaction(String txid, int verbose) throws MultichainException {
-		TransactionRAW transactionRAW = new TransactionRAW();
-
+	public Object getRawTransaction(String txid, int verbose) throws MultichainException {
 		Object objectTransactionRAW = executeGetRawTransaction(txid, verbose);
-		transactionRAW = RAWTransactionFormatter.formatTransactionRAW(objectTransactionRAW);
-
-		return transactionRAW;
+		if (verbose == 0) {
+          return objectTransactionRAW;
+		} else {
+          TransactionRAW transactionRAW = RAWTransactionFormatter.formatTransactionRAW(objectTransactionRAW);
+          return transactionRAW;
+		}
+		
 	}
 
 	/**
@@ -613,7 +615,7 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @throws MultichainException
 	 */
 	public TransactionRAW getRAWTransactionWithDetail(String txid) throws MultichainException {
-		return getRawTransaction(txid, 1);
+		return (TransactionRAW) getRawTransaction(txid, 1);
 	}
 
 	/**
@@ -623,8 +625,8 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public TransactionRAW getRAWTransactionWithoutDetail(String txid) throws MultichainException {
-		return getRawTransaction(txid, 0);
+	public String getRAWTransactionWithoutDetail(String txid) throws MultichainException {
+		return (String) getRawTransaction(txid, 0);
 	}
 
 	/**

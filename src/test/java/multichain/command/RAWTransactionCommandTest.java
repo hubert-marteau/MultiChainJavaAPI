@@ -134,5 +134,16 @@ public class RAWTransactionCommandTest extends TestCase {
 		assertTrue(true);
 	}
 	
+	   @Test
+	    public void testgetRawTransaction() throws MultichainException {
+//	      MultiChainCommand multiChainCommand = new MultiChainCommand(TestConst.MULTICHAIN_SERVER_IP,
+//	          TestConst.MULTICHAIN_SERVER_PORT, TestConst.MULTICHAIN_SERVER_LOGIN, TestConst.MULTICHAIN_SERVER_PWD);
+//
+//	      Object temp = multiChainCommand.getRawTransactionCommand().getRawTransaction("a8d2952e73258f115a7561f799b26dbf14b446ddf62b0136a982fc76a2d80a85", 0);
+//	      
+//	      System.out.println(temp.getClass());
+	      assertTrue(true);
+	   }
+	
 
 }

@@ -126,8 +126,8 @@ public class QueryBuilderBlock extends QueryBuilderCommon {
 	 *         active chain
 	 * @throws MultichainException
 	 */
-	protected Object executeGetBlock(int height, boolean verbose) throws MultichainException {
-		return execute(CommandEnum.GETBLOCK, height, verbose);
+	protected Object executeGetBlock(long height, int verbose) throws MultichainException {
+		return execute(CommandEnum.GETBLOCK, String.valueOf(height), verbose);
 	}
 
 	/**
