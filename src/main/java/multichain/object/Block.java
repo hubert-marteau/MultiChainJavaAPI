@@ -12,24 +12,24 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class Block {
-    String hash;
-    String miner;
-    long confirmations;
-    long size;
-    long height;
-    long version;
-    String merkleroot;
+    String hash = null;
+    String miner = null;
+    Long confirmations = null;
+    Long size = null;
+    Long height = null;
+    Long version = null;
+    String merkleroot = null;
     List<String> tx;
-    long time;
-    long nonce;
-    String bits;
-    double difficulty;
-    String chainwork;
-    String previousblockhash;
-    String nextblockhash;
+    Long time = null;
+    Long nonce = null;
+    String bits = null;
+    Double difficulty = null;
+    String chainwork = null;
+    String previousblockhash = null;
+    String nextblockhash = null;
 
     /**
 	 *

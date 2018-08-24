@@ -9,13 +9,13 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class TransactionListElement extends TransactionGeneral {
-	String account;
-	String address;
-	String category;
-	long vout;
+	String account = null;
+	String address = null;
+	String category = null;
+	Long vout = null;
 
 	/**
 	 * @return the account

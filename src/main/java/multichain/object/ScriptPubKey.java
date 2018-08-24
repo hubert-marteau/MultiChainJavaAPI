@@ -12,13 +12,13 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class ScriptPubKey {
-    String asm;
-    String hex;
-    long reqSigs;
-    String type;
+    String asm = null;
+    String hex = null;
+    Long reqSigs = null;
+    String type = null;
     List<String> addresses;
 
     /**

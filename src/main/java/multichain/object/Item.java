@@ -12,15 +12,15 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.4
+ * @version 4.14
  */
 public class Item {
-	String type; // For example "Stream"
-	String name; // For example name of the Stream
-	String streamref;
+	String type = null; // For example "Stream"
+	String name = null; // For example name of the Stream
+	String streamref = null;
 	List<String> publishers; // @ of publishers
-	String key; // For example key used to publish in the Stream
-	String data; // For example data published in the Stream
+	String key = null; // For example key used to publish in the Stream
+	String data = null; // For example data published in the Stream
 
 	/**
 	 * 

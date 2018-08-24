@@ -9,14 +9,14 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 3.1
+ * @version 4.14
  */
 public class StreamKey {
-	String key;
-	long items;
-	long confirmed;
-	StreamKeyInfo first;
-	StreamKeyInfo last;
+	String key = null;
+	Long items = null;
+	Long confirmed = null;
+	StreamKeyInfo first = null;
+	StreamKeyInfo last = null;
 
 	/*
 	 * (non-Javadoc)

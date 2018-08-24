@@ -9,15 +9,15 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class TransactionDetail {
-	String account;
-	String address;
-	String category;
-	double amount;
-	long vout;
-	double fee;
+	String account = null;
+	String address = null;
+	String category = null;
+	Double amount = null;
+	Long vout = null;
+	Double fee = null;
 
 	/**
 	 * @return the account

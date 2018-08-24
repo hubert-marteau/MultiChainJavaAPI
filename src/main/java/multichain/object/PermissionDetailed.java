@@ -7,134 +7,41 @@
  */
 package multichain.object;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
-public class PermissionDetailed extends Permission {
+public class PermissionDetailed {
 
-	boolean connect;
-	boolean send;
-	boolean receive;
-	boolean issue;
-	boolean mine;
-	boolean admin;
-	boolean activate;
-	long timestamp;
-	List<String> addresses;
+	Boolean connect = null;
+	Boolean send = null;
+	Boolean receive = null;
+	Boolean create = null;
+	Boolean issue = null;
+	Boolean mine = null;
+	Boolean admin = null;
+	Boolean activate = null;
+	Long startblock = null;
+	Long endblock = null;
+	Long timestamp = null;
+	List<String> addresses = null;
 
 	/**
 	 *
 	 */
 	public PermissionDetailed() {
 		super();
-		addresses = new ArrayList<String>();
 	}
-	/**
-	 * @return the connect
-	 */
-	public boolean isConnect() {
-		return connect;
-	}
-	/**
-	 * @param connect the connect to set
-	 */
-	public void setConnect(boolean connect) {
-		this.connect = connect;
-	}
-	/**
-	 * @return the send
-	 */
-	public boolean isSend() {
-		return send;
-	}
-	/**
-	 * @param send the send to set
-	 */
-	public void setSend(boolean send) {
-		this.send = send;
-	}
-	/**
-	 * @return the receive
-	 */
-	public boolean isReceive() {
-		return receive;
-	}
-	/**
-	 * @param receive the receive to set
-	 */
-	public void setReceive(boolean receive) {
-		this.receive = receive;
-	}
-	/**
-	 * @return the issue
-	 */
-	public boolean isIssue() {
-		return issue;
-	}
-	/**
-	 * @param issue the issue to set
-	 */
-	public void setIssue(boolean issue) {
-		this.issue = issue;
-	}
-	/**
-	 * @return the mine
-	 */
-	public boolean isMine() {
-		return mine;
-	}
-	/**
-	 * @param mine the mine to set
-	 */
-	public void setMine(boolean mine) {
-		this.mine = mine;
-	}
-	/**
-	 * @return the admin
-	 */
-	public boolean isAdmin() {
-		return admin;
-	}
-	/**
-	 * @param admin the admin to set
-	 */
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
-	}
-	/**
-	 * @return the activate
-	 */
-	public boolean isActivate() {
-		return activate;
-	}
-	/**
-	 * @param activate the activate to set
-	 */
-	public void setActivate(boolean activate) {
-		this.activate = activate;
-	}
-	/**
-	 * @return the timestamp
-	 */
-	public long getTimestamp() {
-		return timestamp;
-	}
-	/**
-	 * @param timestamp the timestamp to set
-	 */
-	public void setTimestamp(long timestamp) {
-		this.timestamp = timestamp;
-	}
+
 	/**
 	 * @return the addresses
 	 */
 	public List<String> getAddresses() {
 		return addresses;
 	}
+
 	/**
 	 * @param addresses the addresses to set
 	 */
@@ -142,4 +49,159 @@ public class PermissionDetailed extends Permission {
 		this.addresses = addresses;
 	}
 
+	/**
+	 * @return the connect
+	 */
+	public Boolean getConnect() {
+		return connect;
+	}
+
+	/**
+	 * @param connect the connect to set
+	 */
+	public void setConnect(Boolean connect) {
+		this.connect = connect;
+	}
+
+	/**
+	 * @return the send
+	 */
+	public Boolean getSend() {
+		return send;
+	}
+
+	/**
+	 * @param send the send to set
+	 */
+	public void setSend(Boolean send) {
+		this.send = send;
+	}
+
+	/**
+	 * @return the receive
+	 */
+	public Boolean getReceive() {
+		return receive;
+	}
+
+	/**
+	 * @param receive the receive to set
+	 */
+	public void setReceive(Boolean receive) {
+		this.receive = receive;
+	}
+
+	/**
+	 * @return the create
+	 */
+	public Boolean getCreate() {
+		return create;
+	}
+
+	/**
+	 * @param create the create to set
+	 */
+	public void setCreate(Boolean create) {
+		this.create = create;
+	}
+
+	/**
+	 * @return the issue
+	 */
+	public Boolean getIssue() {
+		return issue;
+	}
+
+	/**
+	 * @param issue the issue to set
+	 */
+	public void setIssue(Boolean issue) {
+		this.issue = issue;
+	}
+
+	/**
+	 * @return the mine
+	 */
+	public Boolean getMine() {
+		return mine;
+	}
+
+	/**
+	 * @param mine the mine to set
+	 */
+	public void setMine(Boolean mine) {
+		this.mine = mine;
+	}
+
+	/**
+	 * @return the admin
+	 */
+	public Boolean getAdmin() {
+		return admin;
+	}
+
+	/**
+	 * @param admin the admin to set
+	 */
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
+	}
+
+	/**
+	 * @return the activate
+	 */
+	public Boolean getActivate() {
+		return activate;
+	}
+
+	/**
+	 * @param activate the activate to set
+	 */
+	public void setActivate(Boolean activate) {
+		this.activate = activate;
+	}
+
+	/**
+	 * @return the startblock
+	 */
+	public Long getStartblock() {
+		return startblock;
+	}
+
+	/**
+	 * @param startblock the startblock to set
+	 */
+	public void setStartblock(Long startblock) {
+		this.startblock = startblock;
+	}
+
+	/**
+	 * @return the endblock
+	 */
+	public Long getEndblock() {
+		return endblock;
+	}
+
+	/**
+	 * @param endblock the endblock to set
+	 */
+	public void setEndblock(Long endblock) {
+		this.endblock = endblock;
+	}
+
+	/**
+	 * @return the timestamp
+	 */
+	public Long getTimestamp() {
+		return timestamp;
+	}
+
+	/**
+	 * @param timestamp the timestamp to set
+	 */
+	public void setTimestamp(Long timestamp) {
+		this.timestamp = timestamp;
+	}
+	
+	
 }

@@ -13,9 +13,9 @@ import java.util.Map;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.2
+ * @version 4.14
  */
-public class MultiBalance extends HashMap<String, List<BalanceAsset>> {
+public class MultiBalance extends HashMap<String, List<BalanceAssetGeneral>> {
 
 	/**
 	 * 
@@ -47,7 +47,7 @@ public class MultiBalance extends HashMap<String, List<BalanceAsset>> {
 	/**
 	 * @param m
 	 */
-	public MultiBalance(Map<? extends String, ? extends List<BalanceAsset>> m) {
+	public MultiBalance(Map<? extends String, ? extends List<BalanceAssetGeneral>> m) {
 		super(m);
 	}
 
@@ -62,8 +62,8 @@ public class MultiBalance extends HashMap<String, List<BalanceAsset>> {
 		for (String key : this.keySet()) {
 			multiBalance += key + ":";
 
-			List<BalanceAsset> listBalanceAsset = this.get(key);
-			for (BalanceAsset balanceAsset : listBalanceAsset) {
+			List<BalanceAssetGeneral> listBalanceAsset = this.get(key);
+			for (BalanceAssetGeneral balanceAsset : listBalanceAsset) {
 				multiBalance += balanceAsset.toString() + ",";
 			}
 		}

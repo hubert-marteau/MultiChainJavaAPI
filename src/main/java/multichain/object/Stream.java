@@ -14,18 +14,18 @@ import java.util.List;
  * @version 3.1
  */
 public class Stream {
-	String name;
-	String createtxid;
-	String streamref;
-	boolean open;
-	Object details;
+	String name = null;
+	String createtxid = null;
+	String streamref = null;
+	Boolean open = null;
+	Object details = null;
 	List<String> creators;
-	boolean subscribed;
-	boolean synchronized_;
-	int items;
-	int confirmed;
-	int keys;
-	int publishers;
+	Boolean subscribed = null;
+	Boolean synchronized_ = null;
+	Integer items = null;
+	Integer confirmed = null;
+	Integer keys = null;
+	Integer publishers = null;
 
 	/*
 	 * (non-Javadoc)

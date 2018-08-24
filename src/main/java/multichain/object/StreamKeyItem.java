@@ -1,20 +1,31 @@
+/*
+ * Copyright (C) 2017 Worldline, Inc.
+ *
+ * MultiChainJavaAPI code distributed under the GPLv3 license, see COPYING file.
+ * https://github.com/SimplyUb/MultiChainJavaAPI/blob/master/LICENSE
+ *
+ */
 package multichain.object;
 
 import java.util.List;
 
+/**
+ * @author Ub - H. MARTEAU
+ * @version 4.14
+ */
 public class StreamKeyItem {
 	List<String> publishers;
-	String key;
-	String data;
-	long confirmations;
-	String blockhash;
-	long blockindex;
-	long blocktime;
-	String txid;
-	long vout;
-	boolean valid;
-	long time;
-	long timereceived;
+	String key = null;
+	String data = null;
+	Long confirmations = null;
+	String blockhash = null;
+	Long blockindex = null;
+	Long blocktime = null;
+	String txid = null;
+	Long vout = null;
+	Boolean valid = null;
+	Long time = null;
+	Long timereceived = null;
 
 	/*
 	 * (non-Javadoc)

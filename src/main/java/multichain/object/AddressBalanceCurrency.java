@@ -12,11 +12,11 @@ import multichain.command.tools.MultichainTestParameter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.10
+ * @version 4.14
  */
 public class AddressBalanceCurrency implements AddressBalance {
-	String address;
-	double currencyValue;
+	String address = null;
+	Double currencyValue = null;
 
 	public AddressBalanceCurrency() {
 	}

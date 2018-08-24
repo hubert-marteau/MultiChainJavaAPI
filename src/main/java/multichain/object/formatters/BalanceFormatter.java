@@ -15,13 +15,40 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 
 import multichain.object.BalanceAsset;
+import multichain.object.BalanceAssetGeneral;
 import multichain.object.MultiBalance;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.4
+ * @version 4.13
  */
 public class BalanceFormatter {
+	public final static BalanceAssetGeneral formatBalanceAssetGeneral(Object objectBalanceAsset) {
+		BalanceAssetGeneral balanceAsset = new BalanceAssetGeneral();
+
+		if (objectBalanceAsset != null && LinkedTreeMap.class.isInstance(objectBalanceAsset)) {
+			GsonBuilder builder = new GsonBuilder();
+			Gson gson = builder.create();
+
+			String jsonValue = gson.toJson(objectBalanceAsset);
+			balanceAsset = gson.fromJson(jsonValue, BalanceAssetGeneral.class);
+		}
+
+		return balanceAsset;
+	}
+
+	public final static List<BalanceAssetGeneral> formatBalanceAssetsGeneral(List<Object> objectBalanceAssets) {
+		List<BalanceAssetGeneral> balanceAsset = new ArrayList<BalanceAssetGeneral>();
+
+		if (objectBalanceAssets != null) {
+			for (Object objectBalanceAsset : objectBalanceAssets) {
+				balanceAsset.add(formatBalanceAssetGeneral(objectBalanceAsset));
+			}
+		}
+
+		return balanceAsset;
+	}	
+	
 	public final static BalanceAsset formatBalanceAsset(Object objectBalanceAsset) {
 		BalanceAsset balanceAsset = new BalanceAsset();
 
@@ -62,17 +89,5 @@ public class BalanceFormatter {
 		return multiBalance;
 	}
 
-	// public final static List<MultiBalance> formatMultiBalances(List<Object>
-	// objectMultiBalances) {
-	// List<MultiBalance> multiBalance = new ArrayList<MultiBalance>();
-	//
-	// if (objectMultiBalances != null) {
-	// for (Object objectMultiBalance : objectMultiBalances) {
-	// multiBalance.add(formatMultiBalance(objectMultiBalance));
-	// }
-	// }
-	//
-	// return multiBalance;
-	// }
 
 }

@@ -12,10 +12,10 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class Balance {
-	double amount;
+	Double amount = null;
 	List<BalanceAsset> assets;
 
 	public Balance() {

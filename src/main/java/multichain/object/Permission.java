@@ -9,14 +9,14 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class Permission {
 
-	String address;
-	String type;
-	long startblock;
-	long endblock;
+	String address = null;
+	String type = null;
+	Long startblock = null;
+	Long endblock = null;
 
 	/*
 	 * (non-Javadoc)

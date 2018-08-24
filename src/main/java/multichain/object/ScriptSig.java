@@ -9,11 +9,11 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class ScriptSig {
-    String asm;
-    String hex;
+    String asm = null;
+    String hex = null;
 
 	/**
 	 * @return the asm

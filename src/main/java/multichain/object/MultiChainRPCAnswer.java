@@ -1,12 +1,23 @@
+/*
+ * Copyright (C) 2017 Worldline, Inc.
+ *
+ * MultiChainJavaAPI code distributed under the GPLv3 license, see COPYING file.
+ * https://github.com/SimplyUb/MultiChainJavaAPI/blob/master/LICENSE
+ *
+ */
 package multichain.object;
 
 import com.google.gson.internal.LinkedTreeMap;
 
+/**
+ * @author Ub - H. MARTEAU
+ * @version 4.14
+ */
 public class MultiChainRPCAnswer {
 
-	Object result;
+	Object result = null;
 	LinkedTreeMap<String, Object> error;
-	String id;
+	String id = null;
 
 	/**
 	 * @return the result

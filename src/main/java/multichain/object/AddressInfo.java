@@ -9,16 +9,16 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class AddressInfo {
 
-    boolean isvalid;
-    boolean ismine;
-    boolean iswatchonly;
-    boolean isscript;
-    String pubkey;
-    boolean iscompressed;
+    Boolean isvalid = null;
+    Boolean ismine = null;
+    Boolean iswatchonly = null;
+    Boolean isscript = null;
+    String pubkey = null;
+    Boolean iscompressed = null;
 	/**
 	 * @return the isvalid
 	 */

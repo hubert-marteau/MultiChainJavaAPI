@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class MultiChainInfo {
 
@@ -19,10 +19,10 @@ public class MultiChainInfo {
 	 * {"method":"issue","params":["169dyfazv83kBFXdUFyjChVR9kqDcve4VQtUaN",
 	 * "Data source 2",10000,1.00000000],"id":1,"chain_name":"testIssue"}
 	 */
-	String method;
+	String method = null;
 	List<Object> params;
-	int id;
-	String chain_name;
+	Integer id = null;
+	String chain_name = null;
 
 	/**
 	 * @return the method

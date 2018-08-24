@@ -12,15 +12,16 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class TransactionWalletVInfo {
 	List<String> addresses;
-	String type;
-	boolean ismine;
-	boolean iswatchonly;
-	List<BalanceAsset> assets;
-	double amount;
+	String type = null;
+	Boolean ismine = null;
+	Boolean iswatchonly = null;
+	Double amount = null;
+	List<BalanceAssetWalletTransaction> assets;
+	List<PermissionDetailed> permissions;
 
 	/**
 	 *
@@ -28,8 +29,9 @@ public class TransactionWalletVInfo {
 	public TransactionWalletVInfo() {
 		super();
 		addresses = new ArrayList<String>();
-		assets = new ArrayList<BalanceAsset>();
-		type = "";
+		assets = new ArrayList<BalanceAssetWalletTransaction>();
+		permissions = new ArrayList<PermissionDetailed>();		
+		type = null;
 	}
 
 	/**
@@ -42,6 +44,7 @@ public class TransactionWalletVInfo {
 		this.ismine = info.isIsmine();
 		this.iswatchonly = info.isIswatchonly();
 		this.assets = info.getAssets();
+		this.permissions = info.getPermissions();
 	}
 
 	/**
@@ -98,14 +101,14 @@ public class TransactionWalletVInfo {
 	/**
 	 * @return the assets
 	 */
-	public List<BalanceAsset> getAssets() {
+	public List<BalanceAssetWalletTransaction> getAssets() {
 		return assets;
 	}
 
 	/**
 	 * @param assets the assets to set
 	 */
-	public void setAssets(List<BalanceAsset> assets) {
+	public void setAssets(List<BalanceAssetWalletTransaction> assets) {
 		this.assets = assets;
 	}
 
@@ -121,6 +124,20 @@ public class TransactionWalletVInfo {
 	 */
 	public void setAmount(double amount) {
 		this.amount = amount;
+	}
+
+	/**
+	 * @return the permissions
+	 */
+	public List<PermissionDetailed> getPermissions() {
+		return permissions;
+	}
+
+	/**
+	 * @param permissions the permissions to set
+	 */
+	public void setPermissions(List<PermissionDetailed> permissions) {
+		this.permissions = permissions;
 	}
 
 }

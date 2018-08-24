@@ -9,18 +9,19 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class TransactionBase {
-	long confirmations;
-	String blockhash;
-	long blockindex;
-	long blocktime;
-	String txid;
-	long time;
-	long timereceived;
-	long version;
-	long locktime;
+	Long confirmations = null;
+	String blockhash = null;
+	Long blockindex = null;
+	Long blocktime = null;
+	String txid = null;
+	Boolean valid = null;
+	Long time = null;
+	Long timereceived = null;
+	Long version = null;
+	Long locktime = null;
 
 	/**
 	 *
@@ -136,6 +137,20 @@ public class TransactionBase {
 	 */
 	public void setTimereceived(long timereceived) {
 		this.timereceived = timereceived;
+	}
+
+	/**
+	 * @return the valid
+	 */
+	public boolean isValid() {
+		return valid;
+	}
+
+	/**
+	 * @param valid the valid to set
+	 */
+	public void setValid(boolean valid) {
+		this.valid = valid;
 	}
 
 

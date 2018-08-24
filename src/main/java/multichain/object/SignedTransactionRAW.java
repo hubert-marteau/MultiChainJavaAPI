@@ -9,11 +9,11 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.1
+ * @version 4.14
  */
 public class SignedTransactionRAW {
-	String hex;
-	boolean complete;
+	String hex = null;
+	Boolean complete = null;
 
 	/*
 	 * (non-Javadoc)

@@ -12,11 +12,11 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class Transaction extends TransactionGeneral {
 	List<TransactionDetail> details;
-	String hex;
+	String hex = null;
 
 	/**
 	 *

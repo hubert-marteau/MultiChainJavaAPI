@@ -9,10 +9,10 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 3.2
+ * @version 4.14
  */
 public class Address extends AddressInfo {
-	String address;
+	String address = null;
 
 	/*
 	 * (non-Javadoc)

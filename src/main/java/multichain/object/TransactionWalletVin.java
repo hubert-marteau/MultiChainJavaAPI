@@ -9,12 +9,12 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class TransactionWalletVin extends TransactionWalletVInfo{
-	String txid;
-	long vout;
-
+	Long n = null;
+	String txid = null;
+	Long vout = null;
 
 
 	/**
@@ -22,7 +22,6 @@ public class TransactionWalletVin extends TransactionWalletVInfo{
 	 */
 	public TransactionWalletVin(TransactionWalletVInfo info) {
 		super(info);
-		txid = "";
 	}
 
 	/**
@@ -30,7 +29,6 @@ public class TransactionWalletVin extends TransactionWalletVInfo{
 	 */
 	public TransactionWalletVin() {
 		super();
-		txid = "";
 	}
 
 	/**
@@ -48,18 +46,33 @@ public class TransactionWalletVin extends TransactionWalletVInfo{
 	}
 
 	/**
+	 * @return the n
+	 */
+	public long getN() {
+		return n;
+	}
+
+	/**
+	 * @param n the n to set
+	 */
+	public void setN(long n) {
+		this.n = n;
+	}
+
+	/**
 	 * @return the vout
 	 */
-	public long getVout() {
+	public Long getVout() {
 		return vout;
 	}
 
 	/**
 	 * @param vout the vout to set
 	 */
-	public void setVout(long vout) {
+	public void setVout(Long vout) {
 		this.vout = vout;
 	}
+
 
 
 }

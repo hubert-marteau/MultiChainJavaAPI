@@ -12,12 +12,12 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class TransactionRAW {
-	String txid;
-	int version;
-	long locktime;
+	String txid = null;
+	Integer version = null;
+	Long locktime = null;
 	List<TransactionRAWVin> vin;
 	List<TransactionRAWVout> vout;
 	List<String> data;

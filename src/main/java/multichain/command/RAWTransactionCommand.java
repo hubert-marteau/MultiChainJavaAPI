@@ -8,6 +8,7 @@
 package multichain.command;
 
 import java.util.List;
+import java.util.Map;
 
 import multichain.command.builders.QueryBuilderRAWTransaction;
 import multichain.object.Address;
@@ -20,7 +21,7 @@ import multichain.object.queryobjects.TxIdVout;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.10
+ * @version 4.13
  */
 public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 
@@ -198,6 +199,22 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 
 		return signedTransactionRAW;
 	}
+	
+	/**
+	 * to agree to call the method as in tutorial https://www.multichain.com/developers/raw-transactions/
+	 * for example have a look in test : RAWTransactionCommandTest
+	 * 
+	 * @param address from-address 
+	 * @param rawParams list of parameters
+	 * @return txId
+	 * @throws MultichainException
+	 */
+	public String createRawSendFromByMap(String address, List<Map<String, String>> rawParams)
+			throws MultichainException {
+		Object objectTransactionRAW = executeCreateRawSendFrom(address, rawParams);
+
+		return objectTransactionRAW.toString();
+	}	
 
 	/**
 	 * createrawsendfrom from-address {"address":amount,...} ( [data] action )

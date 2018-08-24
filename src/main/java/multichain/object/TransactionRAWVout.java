@@ -12,11 +12,11 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class TransactionRAWVout {
-	double value;
-	long n;
+	Double value = null;
+	Long n = null;
 	ScriptPubKey scriptPubKey;
 	List<BalanceAsset> assets;
 	List<Permission> permissions;

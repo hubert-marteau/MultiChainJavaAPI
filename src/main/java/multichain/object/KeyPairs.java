@@ -9,12 +9,12 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.3
+ * @version 4.14
  */
 public class KeyPairs {
-	String address;
-	String pubkey;
-	String privkey;
+	String address = null;
+	String pubkey = null;
+	String privkey = null;
 
 	/*
 	 * (non-Javadoc)

@@ -12,16 +12,16 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class TxOut {
 
-	String bestblock;
-	long confirmations;
-	double value;
-	ScriptPubKey scriptPubKey;
-	long version;
-	boolean coinbase;
+	String bestblock = null;
+	Long confirmations = null;
+	Double value = null;
+	ScriptPubKey scriptPubKey = null;
+	Long version = null;
+	Boolean coinbase = null;
 	List<BalanceAsset> assets;
 
 	public TxOut() {

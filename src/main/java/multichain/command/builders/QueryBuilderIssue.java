@@ -18,7 +18,7 @@ import multichain.object.queryobjects.CustomParamString;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.4
+ * @version 4.13
  */
 public class QueryBuilderIssue extends QueryBuilderCommon {
 
@@ -382,7 +382,6 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 	 * @throws MultichainException
 	 */
 	protected Object executeListAssets(String asset, boolean verbose) throws MultichainException {
-		MultichainTestParameter.isNotNullOrEmpty("asset", asset);
 		if (asset != null && !"".equals(asset)) {
 			return execute(CommandEnum.LISTASSETS, asset, verbose);
 		} else {

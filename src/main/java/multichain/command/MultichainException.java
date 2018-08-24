@@ -9,7 +9,7 @@ package multichain.command;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.2
+ * @version 4.13
  */
 public class MultichainException extends Exception {
 
@@ -25,6 +25,8 @@ public class MultichainException extends Exception {
 		object = excep_object;
 		reason = excep_reason;
 	}
+	
+	
 
 	/*
 	 * (non-Javadoc)
@@ -34,7 +36,7 @@ public class MultichainException extends Exception {
 	@Override
 	public String toString() {
 		return "MultichainException [\r\n" + "                      object=" + object + ",\r\n"
-				+ "                      reason=" + reason + ",\r\n" + "                      message=" + getMessage()
+				+ "                      reason=" + reason + ",\r\n" + "                      message=" + super.getMessage()
 				+ ",\r\n" + "                      cause=" + getCause() + "\r\n]";
 	}
 
@@ -71,6 +73,16 @@ public class MultichainException extends Exception {
 	 */
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Throwable#getMessage()
+	 */
+	@Override
+	public String getMessage() {
+		return toString();
 	}
 
 }

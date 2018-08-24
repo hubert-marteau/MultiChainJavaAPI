@@ -12,7 +12,7 @@ import multichain.command.tools.MultichainTestParameter;
 
 /**
  * @author Ub - H. MARTEAU & Jagrut KOSTI
- * @version 4.8
+ * @version 4.13
  */
 public class QueryBuilderStream extends QueryBuilderCommon {
 	/**
@@ -91,7 +91,9 @@ public class QueryBuilderStream extends QueryBuilderCommon {
 	 */
 	protected Object executeListStreams(String streamName, boolean verbose, int count, int start)
 			throws MultichainException {
-		MultichainTestParameter.isNotNullOrEmpty("streamName", streamName);
+		if (streamName == null || streamName.isEmpty()) {
+			streamName = "*";
+		}
 		MultichainTestParameter.valueIsPositive("count", count);
 
 		return execute(CommandEnum.LISTSTREAMS, streamName, verbose, count, start);
@@ -108,7 +110,9 @@ public class QueryBuilderStream extends QueryBuilderCommon {
 	 * @throws MultichainException
 	 */
 	protected Object executeListStreams(String streamName, boolean verbose, int count) throws MultichainException {
-		MultichainTestParameter.isNotNullOrEmpty("streamName", streamName);
+		if (streamName == null || streamName.isEmpty()) {
+			streamName = "*";
+		}
 		MultichainTestParameter.valueIsPositive("count", count);
 
 		return execute(CommandEnum.LISTSTREAMS, streamName, verbose, count);

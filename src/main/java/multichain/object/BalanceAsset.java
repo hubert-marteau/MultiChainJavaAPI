@@ -7,35 +7,30 @@
  */
 package multichain.object;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author Ub - H. MARTEAU
- * @version 4.2
+ * @version 4.14
  */
-public class BalanceAsset extends BalanceAssetBase {
-	String assetref;
-	long multiple;
-	double units;
-	boolean open;
-	Object details;
-	String type;
-	long raw;
-	String issuetxid;
-	List<String> addresses = new ArrayList<String>();
-	boolean issue;
+public class BalanceAsset {
+	String name = null;
+	String issuetxid = null;
+	String assetref = null;
+	Long multiple = null;
+	Double units = null;
+	Boolean open = null;
+	Object details = null;
+	Double issueqty = null;
+	Long issueraw = null;
+	Boolean subscribed = null;
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "BalanceAsset [assetref=" + assetref + ", multiple=" + multiple + ", units=" + units + ", open=" + open
-				+ ", details=" + details + ", type=" + type + ", raw=" + raw + ", issuetxid=" + issuetxid
-				+ ", addresses=" + addresses + ", issue=" + issue + " " + super.toString() + "]";
+		return "BalanceAsset [name=" + name + ", issuetxid=" + issuetxid + ", assetref=" + assetref + ", multiple="
+				+ multiple + ", units=" + units + ", open=" + open + ", details=" + details + ", issueqty=" + issueqty
+				+ ", issueraw=" + issueraw + ", subscribed=" + subscribed + "]";
 	}
 
 	/**
@@ -106,21 +101,6 @@ public class BalanceAsset extends BalanceAssetBase {
 	}
 
 	/**
-	 * @return the addresses
-	 */
-	public List<String> getAddresses() {
-		return addresses;
-	}
-
-	/**
-	 * @param addresses
-	 *            the addresses to set
-	 */
-	public void setAddresses(List<String> addresses) {
-		this.addresses = addresses;
-	}
-
-	/**
 	 * @return the assetref
 	 */
 	public String getAssetref() {
@@ -136,25 +116,10 @@ public class BalanceAsset extends BalanceAssetBase {
 	}
 
 	/**
-	 * @return the type
-	 */
-	public String getType() {
-		return type;
-	}
-
-	/**
-	 * @param type
-	 *            the type to set
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	/**
 	 * @return the raw
 	 */
 	public long getRaw() {
-		return raw;
+		return issueraw;
 	}
 
 	/**
@@ -162,14 +127,14 @@ public class BalanceAsset extends BalanceAssetBase {
 	 *            the raw to set
 	 */
 	public void setRaw(long raw) {
-		this.raw = raw;
+		this.issueraw = raw;
 	}
 
 	/**
 	 * @return the raw
 	 */
 	public long getIssueraw() {
-		return raw;
+		return issueraw;
 	}
 
 	/**
@@ -177,7 +142,7 @@ public class BalanceAsset extends BalanceAssetBase {
 	 *            the raw to set
 	 */
 	public void setIssueraw(long raw) {
-		this.raw = raw;
+		this.issueraw = raw;
 	}
 
 	/**
@@ -196,18 +161,45 @@ public class BalanceAsset extends BalanceAssetBase {
 	}
 
 	/**
-	 * @return the issue
+	 * @return the subscribed
 	 */
-	public boolean isIssue() {
-		return issue;
+	public boolean isSubscribed() {
+		return subscribed;
 	}
 
 	/**
-	 * @param issue
-	 *            the issue to set
+	 * @param subscribed the subscribed to set
 	 */
-	public void setIssue(boolean issue) {
-		this.issue = issue;
+	public void setSubscribed(boolean subscribed) {
+		this.subscribed = subscribed;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the issueqty
+	 */
+	public double getIssueqty() {
+		return issueqty;
+	}
+
+	/**
+	 * @param issueqty the issueqty to set
+	 */
+	public void setIssueqty(double issueqty) {
+		this.issueqty = issueqty;
 	}
 
 }

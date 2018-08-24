@@ -9,14 +9,14 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class TransactionRAWVin {
-	String txid;
-	long vout;
-	ScriptSig scriptSig;
-	String coinbase;
-	long sequence;
+	String txid = null;
+	Long vout = null;
+	ScriptSig scriptSig = null;
+	String coinbase = null;
+	Long sequence = null;
 
 	/**
 	 *

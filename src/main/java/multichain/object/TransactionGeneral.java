@@ -12,11 +12,11 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 abstract class TransactionGeneral extends TransactionBase {
-	double amount;
-	double fee;
+	Double amount = null;
+	Double fee = null;
 	List<String> walletconflicts;
 
 	/**
