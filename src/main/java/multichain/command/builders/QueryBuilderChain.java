@@ -11,12 +11,20 @@ import multichain.command.MultichainException;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 3.0
+ * @version 4.13
  */
 public class QueryBuilderChain extends QueryBuilderCommon {
 
-	protected Object executeGetInfo() throws MultichainException {
-		return execute(CommandEnum.GETINFO);
+	protected String executeGetInfo() throws MultichainException {
+		return execute(CommandEnum.GETINFO).toString();
+	}
+	
+	protected String executeHelp(String arg)  throws MultichainException {
+		if(arg == null) {
+			return (String) execute(CommandEnum.HELP);
+		} else {
+			return (String) execute(CommandEnum.HELP, arg);
+		}
 	}
 
 }

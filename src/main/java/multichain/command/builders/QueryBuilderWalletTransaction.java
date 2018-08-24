@@ -24,12 +24,12 @@ import com.google.gson.JsonSerializer;
 
 import multichain.command.MultichainException;
 import multichain.command.tools.MultichainTestParameter;
-import multichain.object.BalanceAssetBase;
+import multichain.object.BalanceAssetGeneral;
 import multichain.object.formatters.HexFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.6
+ * @version 4.13
  */
 public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	/**
@@ -335,7 +335,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	 * @return transactionId
 	 * @throws MultichainException
 	 */
-	protected Object executeSendFromAddress(String fromAddress, String toAddress, List<BalanceAssetBase> assets) throws MultichainException {
+	protected Object executeSendFromAddress(String fromAddress, String toAddress, List<BalanceAssetGeneral> assets) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
 		if (assets == null || assets.isEmpty()) {
@@ -343,7 +343,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 		}
 
 		Map<String, Double> mapAssets = new HashMap<String, Double>();
-		for (BalanceAssetBase asset : assets) {
+		for (BalanceAssetGeneral asset : assets) {
 			asset.isFilled();
 			mapAssets.put(asset.getName(), new Double(asset.getQty()));
 		}
@@ -414,13 +414,13 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected Object executeSendToAddress(String address, List<BalanceAssetBase> assets) throws MultichainException {
+	protected Object executeSendToAddress(String address, List<BalanceAssetGeneral> assets) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		if (assets == null || assets.isEmpty()) {
 			throw new MultichainException("assets", "assets needed to be sent");
 		}
 		Map<String, Double> mapAssets = new HashMap<String, Double>();
-		for (BalanceAssetBase asset : assets) {
+		for (BalanceAssetGeneral asset : assets) {
 			asset.isFilled();
 			mapAssets.put(asset.getName(), new Double(asset.getQty()));
 		}
@@ -485,14 +485,14 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected Object executeSendWithMetaData(String address, List<BalanceAssetBase> assets, String hexMetaData) throws MultichainException {
+	protected Object executeSendWithMetaData(String address, List<BalanceAssetGeneral> assets, String hexMetaData) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		MultichainTestParameter.isNotNullOrEmpty("hexMetaData", hexMetaData);
 		if (assets == null || assets.isEmpty()) {
 			throw new MultichainException("assets", "assets needed to be sent");
 		}
 		Map<String, Double> mapAssets = new HashMap<String, Double>();
-		for (BalanceAssetBase asset : assets) {
+		for (BalanceAssetGeneral asset : assets) {
 			asset.isFilled();
 			mapAssets.put(asset.getName(), new Double(asset.getQty()));
 		}
@@ -557,7 +557,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected Object executeSendWithMetaDataFrom(String fromAddress, String toAddress, List<BalanceAssetBase> assets, String hexMetaData) throws MultichainException {
+	protected Object executeSendWithMetaDataFrom(String fromAddress, String toAddress, List<BalanceAssetGeneral> assets, String hexMetaData) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
 		MultichainTestParameter.isNotNullOrEmpty("hexMetaData", hexMetaData);
@@ -566,7 +566,7 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 			throw new MultichainException("assets", "assets needed to be sent");
 		}
 		Map<String, Double> mapAssets = new HashMap<String, Double>();
-		for (BalanceAssetBase asset : assets) {
+		for (BalanceAssetGeneral asset : assets) {
 			asset.isFilled();
 			mapAssets.put(asset.getName(), new Double(asset.getQty()));
 		}

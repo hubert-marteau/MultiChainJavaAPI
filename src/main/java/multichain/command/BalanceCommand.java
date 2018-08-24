@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import multichain.command.builders.QueryBuilderBalance;
-import multichain.object.BalanceAsset;
+import multichain.object.BalanceAssetGeneral;
 import multichain.object.formatters.BalanceFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 3.0
+ * @version 4.13
  */
 public class BalanceCommand extends QueryBuilderBalance {
 	public BalanceCommand(String ip, String port, String login, String password) {
@@ -44,14 +44,14 @@ public class BalanceCommand extends QueryBuilderBalance {
 	 * @throws MultichainException
 	 */
 	@SuppressWarnings("unchecked")
-	public List<BalanceAsset> getTotalBalances() throws MultichainException {
-		List<BalanceAsset> listBalanceAsset = new ArrayList<BalanceAsset>();
+	public List<BalanceAssetGeneral> getTotalBalances() throws MultichainException {
+		List<BalanceAssetGeneral> listBalanceAsset = new ArrayList<BalanceAssetGeneral>();
 
 		Object objectBalanceAsset = executeGetTotalBalances();
 
 		if (verifyInstance(objectBalanceAsset, ArrayList.class)
-				&& verifyInstanceofList((ArrayList<Object>) objectBalanceAsset, BalanceAsset.class)) {
-			listBalanceAsset = BalanceFormatter.formatBalanceAssets((ArrayList<Object>) objectBalanceAsset);
+				&& verifyInstanceofList((ArrayList<Object>) objectBalanceAsset, BalanceAssetGeneral.class)) {
+			listBalanceAsset = BalanceFormatter.formatBalanceAssetsGeneral((ArrayList<Object>) objectBalanceAsset);
 		}
 
 		return listBalanceAsset;

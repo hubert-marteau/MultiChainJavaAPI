@@ -12,17 +12,20 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.13
  */
-public class PermissionDetailed extends Permission {
+public class PermissionDetailed {
 
 	boolean connect;
 	boolean send;
 	boolean receive;
+	boolean create;
 	boolean issue;
 	boolean mine;
 	boolean admin;
 	boolean activate;
+	long startblock;
+	long endblock;
 	long timestamp;
 	List<String> addresses;
 
@@ -140,6 +143,42 @@ public class PermissionDetailed extends Permission {
 	 */
 	public void setAddresses(List<String> addresses) {
 		this.addresses = addresses;
+	}
+	/**
+	 * @return the create
+	 */
+	public boolean isCreate() {
+		return create;
+	}
+	/**
+	 * @param create the create to set
+	 */
+	public void setCreate(boolean create) {
+		this.create = create;
+	}
+	/**
+	 * @return the startblock
+	 */
+	public long getStartblock() {
+		return startblock;
+	}
+	/**
+	 * @param startblock the startblock to set
+	 */
+	public void setStartblock(long startblock) {
+		this.startblock = startblock;
+	}
+	/**
+	 * @return the endblock
+	 */
+	public long getEndblock() {
+		return endblock;
+	}
+	/**
+	 * @param endblock the endblock to set
+	 */
+	public void setEndblock(long endblock) {
+		this.endblock = endblock;
 	}
 
 }

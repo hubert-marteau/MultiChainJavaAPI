@@ -12,15 +12,15 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.13
  */
 public class TransactionWalletVInfo {
 	List<String> addresses;
 	String type;
 	boolean ismine;
 	boolean iswatchonly;
-	List<BalanceAsset> assets;
 	double amount;
+	List<BalanceAssetWalletTransaction> assets;
 
 	/**
 	 *
@@ -28,7 +28,7 @@ public class TransactionWalletVInfo {
 	public TransactionWalletVInfo() {
 		super();
 		addresses = new ArrayList<String>();
-		assets = new ArrayList<BalanceAsset>();
+		assets = new ArrayList<BalanceAssetWalletTransaction>();
 		type = "";
 	}
 
@@ -98,14 +98,14 @@ public class TransactionWalletVInfo {
 	/**
 	 * @return the assets
 	 */
-	public List<BalanceAsset> getAssets() {
+	public List<BalanceAssetWalletTransaction> getAssets() {
 		return assets;
 	}
 
 	/**
 	 * @param assets the assets to set
 	 */
-	public void setAssets(List<BalanceAsset> assets) {
+	public void setAssets(List<BalanceAssetWalletTransaction> assets) {
 		this.assets = assets;
 	}
 

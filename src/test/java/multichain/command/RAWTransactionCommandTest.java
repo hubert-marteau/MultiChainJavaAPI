@@ -10,7 +10,9 @@ package multichain.command;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -18,13 +20,13 @@ import junit.framework.TestCase;
 import multichain.object.AddressBalance;
 import multichain.object.AddressBalanceAsset;
 import multichain.object.AddressBalanceCurrency;
-import multichain.object.BalanceAssetBase;
+import multichain.object.BalanceAssetGeneral;
 import multichain.object.SignedTransactionRAW;
 import multichain.object.queryobjects.TxIdVout;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.10
+ * @version 4.13
  */
 public class RAWTransactionCommandTest extends TestCase {
 	
@@ -49,6 +51,40 @@ public class RAWTransactionCommandTest extends TestCase {
 //		assertTrue(!result.getHex().isEmpty());
 	  assertTrue(true);
 	}
+	
+	@Test
+	public void testcreateRawTransactionStream() {
+//		MultiChainCommand multiChainCommand = new MultiChainCommand(TestConst.MULTICHAIN_SERVER_IP,
+//				TestConst.MULTICHAIN_SERVER_PORT, TestConst.MULTICHAIN_SERVER_LOGIN, TestConst.MULTICHAIN_SERVER_PWD);
+//		String testAddress = "136ptUdTCCgcg4RQ7FktVtVih4Te5cfzn4P1kE";
+//		
+//		List<Map<String, String>> rawParams = new ArrayList<>();
+//		
+//		Map<String, String> param1 = new HashMap<>();
+//		param1.put("for","stream3");
+//		param1.put("key","key1");
+//		param1.put("data","4f6e65206974656d");
+//		
+//		Map<String, String> param2 = new HashMap<>();
+//		param2.put("for","stream4");
+//		param2.put("key","key2");
+//		param2.put("data","416e6f74686572206974656d");
+//		
+//		rawParams.add(param1);
+//		rawParams.add(param2);
+//		
+//		try {
+//			String result = multiChainCommand.getRawTransactionCommand().createRawSendFromByMap(testAddress, rawParams);
+//			
+//			System.out.println(result);
+//			assertNotNull(result);
+//		} catch (MultichainException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			fail();
+//		}
+		assertTrue(true);
+	}	
 	
 	@Test
 	public void testcreateRawTransaction() {

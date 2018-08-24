@@ -12,13 +12,12 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.13
  */
 public class TransactionWalletVout extends TransactionWalletVInfo{
 	long n;
 	List<Permission> permissions;
-
-
+	List<Item> items;
 
 	/**
 	 *
@@ -26,6 +25,7 @@ public class TransactionWalletVout extends TransactionWalletVInfo{
 	public TransactionWalletVout() {
 		super();
 		permissions = new ArrayList<Permission>();
+		items = new ArrayList<Item>();
 	}
 	/**
 	 * @param info
@@ -33,6 +33,7 @@ public class TransactionWalletVout extends TransactionWalletVInfo{
 	public TransactionWalletVout(TransactionWalletVInfo info) {
 		super(info);
 		permissions = new ArrayList<Permission>();
+		items = new ArrayList<Item>();
 	}
 	/**
 	 * @return the n
@@ -57,6 +58,18 @@ public class TransactionWalletVout extends TransactionWalletVInfo{
 	 */
 	public void setPermissions(List<Permission> permissions) {
 		this.permissions = permissions;
+	}
+	/**
+	 * @return the items
+	 */
+	public List<Item> getItems() {
+		return items;
+	}
+	/**
+	 * @param items the items to set
+	 */
+	public void setItems(List<Item> items) {
+		this.items = items;
 	}
 
 

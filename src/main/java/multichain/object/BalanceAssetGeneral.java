@@ -12,26 +12,24 @@ import multichain.command.tools.MultichainTestParameter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.4
+ * @version 4.13
  */
-public class BalanceAssetBase {
+public class BalanceAssetGeneral {
 	String name;
+	String assetref;
 	double qty;
-	String comment;
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "BalanceAssetBase [name=" + name + ", qty=" + qty + ", comment=" + comment + "]";
-	}
 
 	public void isFilled() throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("name", getName());
 		MultichainTestParameter.valueIsPositive("qty", getQty());
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "BalanceAssetGeneral [name=" + name + ", assetref=" + assetref + ", qty=" + qty + "]";
 	}
 
 	/**
@@ -42,11 +40,24 @@ public class BalanceAssetBase {
 	}
 
 	/**
-	 * @param name
-	 *            the name to set
+	 * @param name the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the assetref
+	 */
+	public String getAssetref() {
+		return assetref;
+	}
+
+	/**
+	 * @param assetref the assetref to set
+	 */
+	public void setAssetref(String assetref) {
+		this.assetref = assetref;
 	}
 
 	/**
@@ -57,41 +68,10 @@ public class BalanceAssetBase {
 	}
 
 	/**
-	 * @param qty
-	 *            the qty to set
+	 * @param qty the qty to set
 	 */
 	public void setQty(double qty) {
 		this.qty = qty;
-	}
-
-	/**
-	 * @return the qty
-	 */
-	public double getIssueqty() {
-		return qty;
-	}
-
-	/**
-	 * @param qty
-	 *            the qty to set
-	 */
-	public void setIssueqty(double qty) {
-		this.qty = qty;
-	}
-
-	/**
-	 * @return the comment
-	 */
-	public String getComment() {
-		return comment;
-	}
-
-	/**
-	 * @param comment
-	 *            the comment to set
-	 */
-	public void setComment(String comment) {
-		this.comment = comment;
 	}
 
 }

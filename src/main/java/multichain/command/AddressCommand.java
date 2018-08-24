@@ -12,7 +12,7 @@ import java.util.List;
 
 import multichain.command.builders.QueryBuilderAddress;
 import multichain.object.Address;
-import multichain.object.BalanceAsset;
+import multichain.object.BalanceAssetGeneral;
 import multichain.object.KeyPairs;
 import multichain.object.MultiBalance;
 import multichain.object.formatters.AddressFormatter;
@@ -20,7 +20,7 @@ import multichain.object.formatters.BalanceFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.4
+ * @version 4.13
  */
 public class AddressCommand extends QueryBuilderAddress {
 
@@ -331,11 +331,11 @@ public class AddressCommand extends QueryBuilderAddress {
 	 * @throws MultichainException
 	 */
 	@SuppressWarnings("unchecked")
-	public List<BalanceAsset> getAddressBalances(String address) throws MultichainException {
-		List<BalanceAsset> balance = new ArrayList<BalanceAsset>();
+	public List<BalanceAssetGeneral> getAddressBalances(String address) throws MultichainException {
+		List<BalanceAssetGeneral> balance = new ArrayList<BalanceAssetGeneral>();
 
 		Object objectBalances = executeGetAddressBalances(address);
-		balance = BalanceFormatter.formatBalanceAssets((ArrayList<Object>) objectBalances);
+		balance = BalanceFormatter.formatBalanceAssetsGeneral((ArrayList<Object>) objectBalances);
 
 		return balance;
 	}

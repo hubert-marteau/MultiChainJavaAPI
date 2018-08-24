@@ -8,11 +8,10 @@
 package multichain.command;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import multichain.command.builders.QueryBuilderWalletTransaction;
-import multichain.object.BalanceAssetBase;
+import multichain.object.BalanceAssetGeneral;
 import multichain.object.Transaction;
 import multichain.object.TransactionWallet;
 import multichain.object.TransactionWalletDetailed;
@@ -23,7 +22,7 @@ import multichain.object.formatters.WalletTransactionFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.6
+ * @version 4.13
  */
 public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 
@@ -270,7 +269,7 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @throws MultichainException
 	 */
 	public TransactionWallet getWalletTransactionWithoutDetail(String txid) throws MultichainException {
-		return getWalletTransaction(txid, false, false);
+		return getWalletTransaction(txid, false, false).getTransactionWallet();
 	}
 
 	/**
@@ -481,15 +480,11 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @throws MultichainException
 	 */
 	public List<TransactionWallet> listWalletTransactionWithoutDetail(long count, long skip, boolean includeWatchonly, boolean verbose) throws MultichainException {
+		List<TransactionWallet> listTransactionWallet = new ArrayList<TransactionWallet>();
 
-		List<TransactionWalletDetailed> listTransactionWalletDetailed = listWalletTransaction(count, skip, includeWatchonly, verbose);
-
-		TransactionWalletDetailed[] arrayTransactionWalletDetailed = new TransactionWalletDetailed[listTransactionWalletDetailed.size()];
-		arrayTransactionWalletDetailed = listTransactionWalletDetailed.toArray(arrayTransactionWalletDetailed);
-
-		TransactionWallet[] arrayTransactionWallet = arrayTransactionWalletDetailed;
-		List<TransactionWallet> listTransactionWallet = new ArrayList<>(Arrays.asList(arrayTransactionWallet));
-
+		Object objectTransactionWallet = executeListWalletTransaction(count, skip, includeWatchonly, verbose);
+		listTransactionWallet = WalletTransactionFormatter.formatListTransactionWallet((List<Object>) objectTransactionWallet);
+		
 		return listTransactionWallet;
 	}
 
@@ -569,7 +564,7 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @return transactionId
 	 * @throws MultichainException
 	 */
-	public String sendFromAddress(String fromAddress, String toAddress, List<BalanceAssetBase> assets) throws MultichainException {
+	public String sendFromAddress(String fromAddress, String toAddress, List<BalanceAssetGeneral> assets) throws MultichainException {
 		String stringSendFromAddress = "";
 
 		Object objectSendFromAddress = executeSendFromAddress(fromAddress, toAddress, assets);
@@ -608,7 +603,7 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String sendToAddress(String address, List<BalanceAssetBase> assets) throws MultichainException {
+	public String sendToAddress(String address, List<BalanceAssetGeneral> assets) throws MultichainException {
 		String stringSendToAddress = "";
 
 		Object objectSendToAddress = executeSendToAddress(address, assets);
@@ -680,7 +675,7 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String sendWithMetaData(String address, List<BalanceAssetBase> assets, String hexMetaData) throws MultichainException {
+	public String sendWithMetaData(String address, List<BalanceAssetGeneral> assets, String hexMetaData) throws MultichainException {
 		String stringSendWithMetaData = "";
 
 		Object objectSendWithMetaData = executeSendWithMetaData(address, assets, hexMetaData);
@@ -751,7 +746,7 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String sendWithMetaDataFrom(String fromAddress, String toAddress, List<BalanceAssetBase> assets, String hexMetaData) throws MultichainException {
+	public String sendWithMetaDataFrom(String fromAddress, String toAddress, List<BalanceAssetGeneral> assets, String hexMetaData) throws MultichainException {
 		String stringSendWithMetaDataFrom = "";
 
 		Object objectSendWithMetaDataFrom = executeSendWithMetaDataFrom(fromAddress, toAddress, assets, hexMetaData);

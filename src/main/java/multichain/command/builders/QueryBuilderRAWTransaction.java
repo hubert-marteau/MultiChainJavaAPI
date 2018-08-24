@@ -7,7 +7,6 @@
  */
 package multichain.command.builders;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +19,7 @@ import multichain.object.queryobjects.TxIdVout;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 3.0
+ * @version 4.13
  */
 public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 
@@ -197,6 +196,17 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 		} else {
 			return execute(CommandEnum.CREATERAWSENDFROM, address, mapParams, dataFormated, action);
 		}
+	}
+
+	protected Object executeCreateRawSendFrom(String address, List<Map<String, String>> rawParams)
+			throws MultichainException {
+		MultichainTestParameter.isNotNullOrEmpty("address", address);
+
+		if (rawParams == null || rawParams.isEmpty()) {
+			throw new MultichainException("rawParams", "rawParams is null or empty");
+		}
+
+		return execute(CommandEnum.CREATERAWSENDFROM, address, new Object(), rawParams, "send");
 	}
 
 	/**
