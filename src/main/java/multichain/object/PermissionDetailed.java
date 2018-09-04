@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class PermissionDetailed {
 
-	List<String> addresses = null;
 	Boolean connect = null;
 	Boolean send = null;
 	Boolean receive = null;
@@ -27,7 +26,8 @@ public class PermissionDetailed {
 	Long startblock = null;
 	Long endblock = null;
 	Long timestamp = null;
-
+	List<String> addresses = null;
+	
 	/**
 	 *
 	 */
