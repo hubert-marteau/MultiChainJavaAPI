@@ -15,7 +15,6 @@ public class BalanceAssetWalletTransaction {
 	String name = null;
 	String assetref = null;
 	Double qty = null;
-	String type = null;
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU & Jagrut KOSTI
- * @version 3.1
+ * @version 4.14
  */
 public class Stream {
 	String name = null;
