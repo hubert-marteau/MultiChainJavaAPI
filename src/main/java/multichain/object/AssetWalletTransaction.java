@@ -19,7 +19,7 @@ public class AssetWalletTransaction extends BalanceAssetWalletTransaction {
     Boolean open = null;
 	
 	Object details;
-	long raw;
+	Long raw = null;
 	List<String> addresses;
 	
 	

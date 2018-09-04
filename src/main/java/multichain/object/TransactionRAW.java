@@ -20,6 +20,7 @@ public class TransactionRAW {
 	Long locktime = null;
 	List<TransactionRAWVin> vin;
 	List<TransactionRAWVout> vout;
+	AssetWalletTransaction issue = null;
 	List<String> data;
 
 	/**
@@ -139,6 +140,20 @@ public class TransactionRAW {
 	 */
 	public void setVersion(int version) {
 		this.version = version;
+	}
+
+	/**
+	 * @return the issue
+	 */
+	public AssetWalletTransaction getIssue() {
+		return issue;
+	}
+
+	/**
+	 * @param issue the issue to set
+	 */
+	public void setIssue(AssetWalletTransaction issue) {
+		this.issue = issue;
 	}
 
 }

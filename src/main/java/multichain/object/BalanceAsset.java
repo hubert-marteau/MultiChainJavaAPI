@@ -19,9 +19,10 @@ public class BalanceAsset {
 	Double units = null;
 	Boolean open = null;
 	Object details = null;
-	Double issueqty = null;
-	Long issueraw = null;
+	Double qty = null;
+	Long raw = null;
 	Boolean subscribed = null;
+	String type = null;
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -29,8 +30,8 @@ public class BalanceAsset {
 	@Override
 	public String toString() {
 		return "BalanceAsset [name=" + name + ", issuetxid=" + issuetxid + ", assetref=" + assetref + ", multiple="
-				+ multiple + ", units=" + units + ", open=" + open + ", details=" + details + ", issueqty=" + issueqty
-				+ ", issueraw=" + issueraw + ", subscribed=" + subscribed + "]";
+				+ multiple + ", units=" + units + ", open=" + open + ", details=" + details + ", qty=" + qty
+				+ ", raw=" + raw + ", subscribed=" + subscribed + "]";
 	}
 
 	/**
@@ -116,36 +117,6 @@ public class BalanceAsset {
 	}
 
 	/**
-	 * @return the raw
-	 */
-	public long getRaw() {
-		return issueraw;
-	}
-
-	/**
-	 * @param raw
-	 *            the raw to set
-	 */
-	public void setRaw(long raw) {
-		this.issueraw = raw;
-	}
-
-	/**
-	 * @return the raw
-	 */
-	public long getIssueraw() {
-		return issueraw;
-	}
-
-	/**
-	 * @param raw
-	 *            the raw to set
-	 */
-	public void setIssueraw(long raw) {
-		this.issueraw = raw;
-	}
-
-	/**
 	 * @return the issuetxid
 	 */
 	public String getIssuetxid() {
@@ -189,17 +160,87 @@ public class BalanceAsset {
 	}
 
 	/**
-	 * @return the issueqty
+	 * @return the open
 	 */
-	public double getIssueqty() {
-		return issueqty;
+	public Boolean getOpen() {
+		return open;
 	}
 
 	/**
-	 * @param issueqty the issueqty to set
+	 * @param open the open to set
 	 */
-	public void setIssueqty(double issueqty) {
-		this.issueqty = issueqty;
+	public void setOpen(Boolean open) {
+		this.open = open;
+	}
+
+	/**
+	 * @return the qty
+	 */
+	public Double getQty() {
+		return qty;
+	}
+
+	/**
+	 * @param qty the qty to set
+	 */
+	public void setQty(Double qty) {
+		this.qty = qty;
+	}
+
+	/**
+	 * @return the raw
+	 */
+	public Long getRaw() {
+		return raw;
+	}
+
+	/**
+	 * @param raw the raw to set
+	 */
+	public void setRaw(Long raw) {
+		this.raw = raw;
+	}
+
+	/**
+	 * @return the subscribed
+	 */
+	public Boolean getSubscribed() {
+		return subscribed;
+	}
+
+	/**
+	 * @param subscribed the subscribed to set
+	 */
+	public void setSubscribed(Boolean subscribed) {
+		this.subscribed = subscribed;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	/**
+	 * @param multiple the multiple to set
+	 */
+	public void setMultiple(Long multiple) {
+		this.multiple = multiple;
+	}
+
+	/**
+	 * @param units the units to set
+	 */
+	public void setUnits(Double units) {
+		this.units = units;
 	}
 
 }

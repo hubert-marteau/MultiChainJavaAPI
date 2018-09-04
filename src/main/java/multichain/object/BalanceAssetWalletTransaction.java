@@ -15,6 +15,7 @@ public class BalanceAssetWalletTransaction {
 	String name = null;
 	String assetref = null;
 	Double qty = null;
+	String type = null;
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -63,6 +64,27 @@ public class BalanceAssetWalletTransaction {
 	 * @param qty the qty to set
 	 */
 	public void setQty(double qty) {
+		this.qty = qty;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	/**
+	 * @param qty the qty to set
+	 */
+	public void setQty(Double qty) {
 		this.qty = qty;
 	}
 
