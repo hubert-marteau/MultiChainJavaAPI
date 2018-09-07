@@ -16,11 +16,11 @@ import multichain.object.formatters.BalanceFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.13
+ * @version 4.15
  */
 public class BalanceCommand extends QueryBuilderBalance {
-	public BalanceCommand(String ip, String port, String login, String password) {
-		initialize(ip, port, login, password);
+	public BalanceCommand(String ip, String port, String login, String password, RuntimeParameters runtimeparameters) {
+		initialize(ip, port, login, password, runtimeparameters);
 	}
 
 	/**

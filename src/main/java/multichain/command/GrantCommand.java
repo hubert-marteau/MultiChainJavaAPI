@@ -17,7 +17,7 @@ import multichain.object.formatters.GrantFormatter;
 
 /**
  * @author Ub - H. MARTEAU & Jagrut KOSTI
- * @version 3.1
+ * @version 4.15
  */
 public class GrantCommand extends QueryBuilderGrant {
 
@@ -33,8 +33,8 @@ public class GrantCommand extends QueryBuilderGrant {
 	public static int WALLET = QueryBuilderGrant.WALLET;
 	public static int WALLET_ISSUE = QueryBuilderGrant.WALLET_ISSUE;
 
-	public GrantCommand(String ip, String port, String login, String password) {
-		initialize(ip, port, login, password);
+	public GrantCommand(String ip, String port, String login, String password, RuntimeParameters runtimeparameters) {
+		initialize(ip, port, login, password, runtimeparameters);
 	}
 
 	/**

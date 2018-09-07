@@ -21,12 +21,12 @@ import multichain.object.queryobjects.TxIdVout;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.13
+ * @version 4.15
  */
 public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 
-	public RAWTransactionCommand(String ip, String port, String login, String password) {
-		initialize(ip, port, login, password);
+	public RAWTransactionCommand(String ip, String port, String login, String password, RuntimeParameters runtimeparameters) {
+		initialize(ip, port, login, password, runtimeparameters);
 	}
 
 	/**

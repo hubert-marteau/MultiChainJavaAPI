@@ -1,13 +1,24 @@
+/*
+ * Copyright (C) 2017 Worldline, Inc.
+ *
+ * MultiChainJavaAPI code distributed under the GPLv3 license, see COPYING file.
+ * https://github.com/SimplyUb/MultiChainJavaAPI/blob/master/LICENSE
+ *
+ */
 package multichain.command;
 
 import multichain.command.MultichainException;
 import multichain.command.builders.QueryBuilderMessaging;
 import multichain.object.Address;
 
+/**
+ * @author Ub - H. MARTEAU
+ * @version 4.15
+ */
 public class MessagingCommand extends QueryBuilderMessaging {
 
-	public MessagingCommand(String ip, String port, String login, String password) {
-		initialize(ip, port, login, password);
+	public MessagingCommand(String ip, String port, String login, String password, RuntimeParameters runtimeparameters) {
+		initialize(ip, port, login, password, runtimeparameters);
 	}
 
 	/**

@@ -18,12 +18,12 @@ import multichain.object.queryobjects.CustomParamString;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.4
+ * @version 4.15
  */
 public class IssueCommand extends QueryBuilderIssue {
 
-	public IssueCommand(String ip, String port, String login, String password) {
-		initialize(ip, port, login, password);
+	public IssueCommand(String ip, String port, String login, String password, RuntimeParameters runtimeparameters) {
+		initialize(ip, port, login, password, runtimeparameters);
 	}
 
 	/**

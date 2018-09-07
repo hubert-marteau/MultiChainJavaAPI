@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.14
+ * @version 4.15
  */
 public class AssetWalletTransaction extends BalanceAssetWalletTransaction {
 	Long multiple = null;

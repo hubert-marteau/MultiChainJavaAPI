@@ -21,12 +21,12 @@ import multichain.object.formatters.StreamFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.8
+ * @version 4.15
  */
 public class StreamCommand extends QueryBuilderStream {
 
-	public StreamCommand(String ip, String port, String login, String password) {
-		initialize(ip, port, login, password);
+	public StreamCommand(String ip, String port, String login, String password, RuntimeParameters runtimeparameters) {
+		initialize(ip, port, login, password, runtimeparameters);
 	}
 
 	/**

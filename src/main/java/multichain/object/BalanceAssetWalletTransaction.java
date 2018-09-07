@@ -9,7 +9,7 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.14
+ * @version 4.15
  */
 public class BalanceAssetWalletTransaction {
 	String name = null;

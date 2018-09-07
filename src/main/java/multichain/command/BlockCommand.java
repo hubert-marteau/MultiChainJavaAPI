@@ -17,12 +17,12 @@ import multichain.object.formatters.BlockFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.8
+ * @version 4.15
  */
 public class BlockCommand extends QueryBuilderBlock {
 
-	public BlockCommand(String ip, String port, String login, String password) {
-		initialize(ip, port, login, password);
+	public BlockCommand(String ip, String port, String login, String password, RuntimeParameters runtimeparameters) {
+		initialize(ip, port, login, password, runtimeparameters);
 	}
 
 	/**

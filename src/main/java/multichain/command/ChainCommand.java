@@ -11,12 +11,12 @@ import multichain.command.builders.QueryBuilderChain;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.13
+ * @version 4.15
  */
 public class ChainCommand extends QueryBuilderChain {
 
-	public ChainCommand(String ip, String port, String login, String password) {
-		initialize(ip, port, login, password);
+	public ChainCommand(String ip, String port, String login, String password, RuntimeParameters runtimeparameters) {
+		initialize(ip, port, login, password, runtimeparameters);
 	}
 
 	/**
@@ -57,6 +57,9 @@ public class ChainCommand extends QueryBuilderChain {
 	 */
 	public String getInfo() throws MultichainException {
 		return executeGetInfo();
+	}
+	public String getInfo(String arg) throws MultichainException {
+		return executeGetInfo(arg);
 	}
 	
 	/**

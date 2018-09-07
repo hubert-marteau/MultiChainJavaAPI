@@ -9,7 +9,7 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.14
+ * @version 4.15
  */
 public class BalanceAsset {
 	String name = null;
@@ -21,6 +21,8 @@ public class BalanceAsset {
 	Object details = null;
 	Double qty = null;
 	Long raw = null;
+	Double issueqty = null;
+	Long issueraw = null;
 	Boolean subscribed = null;
 	String type = null;
 
@@ -31,7 +33,7 @@ public class BalanceAsset {
 	public String toString() {
 		return "BalanceAsset [name=" + name + ", issuetxid=" + issuetxid + ", assetref=" + assetref + ", multiple="
 				+ multiple + ", units=" + units + ", open=" + open + ", details=" + details + ", qty=" + qty
-				+ ", raw=" + raw + ", subscribed=" + subscribed + "]";
+				+ ", raw=" + raw + ", issueqty=" + issueqty + ", issueraw=" + issueraw + ", subscribed=" + subscribed + "]";
 	}
 
 	/**
@@ -241,6 +243,34 @@ public class BalanceAsset {
 	 */
 	public void setUnits(Double units) {
 		this.units = units;
+	}
+
+	/**
+	 * @return the issueqty
+	 */
+	public Double getIssueqty() {
+		return issueqty;
+	}
+
+	/**
+	 * @param issueqty the issueqty to set
+	 */
+	public void setIssueqty(Double issueqty) {
+		this.issueqty = issueqty;
+	}
+
+	/**
+	 * @return the issueraw
+	 */
+	public Long getIssueraw() {
+		return issueraw;
+	}
+
+	/**
+	 * @param issueraw the issueraw to set
+	 */
+	public void setIssueraw(Long issueraw) {
+		this.issueraw = issueraw;
 	}
 
 }

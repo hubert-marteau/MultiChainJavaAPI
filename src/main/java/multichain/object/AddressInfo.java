@@ -9,7 +9,7 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.14
+ * @version 4.15
  */
 public class AddressInfo {
 
@@ -19,6 +19,8 @@ public class AddressInfo {
     Boolean isscript = null;
     String pubkey = null;
     Boolean iscompressed = null;
+    String account = null;
+    
 	/**
 	 * @return the isvalid
 	 */
@@ -99,6 +101,18 @@ public class AddressInfo {
 	public String toString() {
 		return "Address [isvalid=" + isvalid + ", ismine=" + ismine + ", iswatchonly=" + iswatchonly + ", isscript=" + isscript
 				+ ", pubkey=" + pubkey + ", iscompressed=" + iscompressed + "]";
+	}
+	/**
+	 * @return the account
+	 */
+	public String getAccount() {
+		return account;
+	}
+	/**
+	 * @param account the account to set
+	 */
+	public void setAccount(String account) {
+		this.account = account;
 	}
 
 }

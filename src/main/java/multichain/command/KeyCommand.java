@@ -7,21 +7,15 @@
  */
 package multichain.command;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import multichain.command.builders.QueryBuilderBalance;
 import multichain.command.builders.QueryBuilderKey;
-import multichain.object.BalanceAsset;
-import multichain.object.formatters.BalanceFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 3.0
+ * @version 4.15
  */
 public class KeyCommand extends QueryBuilderKey {
-	public KeyCommand(String ip, String port, String login, String password) {
-		initialize(ip, port, login, password);
+	public KeyCommand(String ip, String port, String login, String password, RuntimeParameters runtimeparameters) {
+		initialize(ip, port, login, password, runtimeparameters);
 	}
 
 	public Object getPrivkey(String privkey) throws MultichainException {

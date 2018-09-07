@@ -20,12 +20,12 @@ import multichain.object.formatters.BalanceFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.13
+ * @version 4.15
  */
 public class AddressCommand extends QueryBuilderAddress {
 
-	public AddressCommand(String ip, String port, String login, String password) {
-		initialize(ip, port, login, password);
+	public AddressCommand(String ip, String port, String login, String password, RuntimeParameters runtimeparameters) {
+		initialize(ip, port, login, password, runtimeparameters);
 	}
 
 	/**
@@ -204,6 +204,16 @@ public class AddressCommand extends QueryBuilderAddress {
 
 		return addresses;
 	}
+	public final List<Address> getAddressesList(boolean verbose) throws MultichainException {
+		List<Address> addresses = new ArrayList<Address>();
+
+		Object objectAddresses = executeGetAddresses(verbose);
+		if (verifyInstance(objectAddresses, ArrayList.class) && verifyInstanceofList((ArrayList<Object>) objectAddresses, Address.class)) {
+			addresses = AddressFormatter.formatAddressesList((ArrayList<Object>) objectAddresses);
+		}
+
+		return addresses;
+	}	
 
 	/**
 	 * Returns a list of balances of all addresses in this node’s wallet
@@ -360,15 +370,23 @@ public class AddressCommand extends QueryBuilderAddress {
 	 * @throws MultichainException
 	 */
 	public final String getNewAddress() throws MultichainException {
+		return getNewAddress(null);
+	}
+	public final String getNewAddress(String label) throws MultichainException {
 		String stringAddress = "";
-
-		Object objectAddress = executeGetNewAddress();
+		
+		Object objectAddress = null;
+		if (label == null || label.isEmpty()) {
+			objectAddress = executeGetNewAddress();
+		} else {
+			objectAddress = executeGetNewAddress(label);
+		}
 		if (verifyInstance(objectAddress, String.class)) {
 			stringAddress = (String) objectAddress;
 		}
 
 		return stringAddress;
-	}
+	}	
 
 	/**
 	 * 
@@ -390,9 +408,17 @@ public class AddressCommand extends QueryBuilderAddress {
 	 * @throws MultichainException
 	 */
 	public final Address getNewAddressFilled() throws MultichainException {
+		return getNewAddressFilled(null);
+	}
+	public final Address getNewAddressFilled(String label) throws MultichainException {
 		Address address = new Address();
 
-		Object objectAddress = executeGetNewAddress();
+		Object objectAddress = null;
+		if (label == null || label.isEmpty()) {
+			objectAddress = executeGetNewAddress();
+		} else {
+			objectAddress = executeGetNewAddress(label);
+		}
 		if (verifyInstance(objectAddress, String.class)) {
 			String stringAddress = (String) objectAddress;
 
@@ -400,7 +426,7 @@ public class AddressCommand extends QueryBuilderAddress {
 		}
 
 		return address;
-	}
+	}	
 
 	/**
 	 * Adds address to the wallet, without an associated private key, to create
@@ -429,6 +455,26 @@ public class AddressCommand extends QueryBuilderAddress {
 	public void importAddress(String address, String label, boolean rescan) throws MultichainException {
 		/* String systemMessage = */executeImportAddress(address, label, rescan);
 	}
+	
+	/**
+	 * setaccount "address" "account"
+	 * 
+	 * Sets the account associated with the given address.
+	 * 
+	 * Arguments:
+	 * 1. "address"                        (string, required) The address to be associated with an account.
+	 * 2. "account"                        (string, required) The account to assign the address to.
+	 * 
+	 * @param address
+	 * @param label
+	 * @return
+	 * @throws MultichainException
+	 * 
+	 * !!!!! Accounts are not supported with scalable wallet - if you need accounts, run multichaind -walletdbversion=1 -rescan, but the wallet will perform worse
+	 */
+	public void setAccount(String address, String label) throws MultichainException {
+		executeSetAccount(address, label);
+	}	
 
 	/**
 	 * Get information about an address

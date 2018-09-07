@@ -22,12 +22,12 @@ import multichain.object.formatters.WalletTransactionFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.13
+ * @version 4.15
  */
 public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 
-	public WalletTransactionCommand(String ip, String port, String login, String password) {
-		initialize(ip, port, login, password);
+	public WalletTransactionCommand(String ip, String port, String login, String password, RuntimeParameters runtimeparameters) {
+		initialize(ip, port, login, password, runtimeparameters);
 	}
 
 	/**

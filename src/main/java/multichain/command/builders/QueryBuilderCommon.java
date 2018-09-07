@@ -34,17 +34,19 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 
 import multichain.command.MultichainException;
+import multichain.command.RuntimeParameters;
 import multichain.object.MultiChainRPCAnswer;
 import multichain.object.formatters.GsonFormatters;
 
 /**
  * @author Ub - H. MARTEAU & Jagrut KOSTI
- * @version 4.8
+ * @version 4.15
  */
 abstract class QueryBuilderCommon extends GsonFormatters {
 
 	private CloseableHttpClient httpclient = null;
 	private HttpPost httppost = null;
+	private RuntimeParameters queryParameters = null;
 
 	protected enum CommandEnum {
 								ADDMULTISIGADDRESS,
@@ -129,6 +131,7 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 								SENDTOADDRESS,
 								SENDWITHMETADATA,
 								SENDWITHMETADATAFROM,
+								SETACCOUNT,
 								SETLASTBLOCK,
 								SIGNMESSAGE,
 								SIGNRAWTRANSACTION,
@@ -141,17 +144,18 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 								SENDWITHDATAFROM
 	}
 
-	protected void initialize(String ip, String port, String login, String password) {
+	protected void initialize(String ip, String port, String login, String password, RuntimeParameters queryParameter) {
 		httppost = new HttpPost("http://" + ip + ":" + port);
 
 		CredentialsProvider provider = new BasicCredentialsProvider();
 		UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(login, password);
 		provider.setCredentials(AuthScope.ANY, credentials);
+		queryParameters = queryParameter;
 
 		httpclient = HttpClientBuilder.create().setDefaultCredentialsProvider(provider).build();
 
 	}
-
+	
 	/**
 	 * 
 	 * @param command
@@ -170,7 +174,7 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 		if (httpclient != null && httppost != null) {
 			try {
 				// Generate Mapping of calling arguments
-				Map<String, Object> entityValues = prepareMap(command, parameters);
+				Map<String, Object> entityValues = prepareMap(this.queryParameters, command, parameters);
 				// Generate the entity and initialize request
 				StringEntity rpcEntity = prepareRpcEntity(entityValues);
 				httppost.setEntity(rpcEntity);
@@ -187,6 +191,7 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 
 		}
 	}
+	
 
 	protected StringEntity prepareRpcEntity(Map<String, Object> entityValues) throws UnsupportedEncodingException {
 		return new StringEntity(formatJson(entityValues));
@@ -217,15 +222,23 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 		}
 	}
 
-	private Map<String, Object> prepareMap(CommandEnum command, Object... parameters) {
+	private Map<String, Object> prepareMap(RuntimeParameters queryparameter, CommandEnum command, Object... parameters) {
 		Map<String, Object> entityValues = new HashMap<String, Object>();
 		entityValues.put("id", UUID.randomUUID().toString());
+		if (queryparameter != null) {
+			if (queryparameter.getDatadir() != null && !queryparameter.getDatadir().isEmpty()) {
+				entityValues.put("datadir", queryparameter.getDatadir());
+			}
+			if (queryparameter.getRpcport() != null && !queryparameter.getRpcport().isEmpty()) {
+				entityValues.put("rpcport", queryparameter.getRpcport());
+			}
+		}
 		entityValues.put("method", command.toString().toLowerCase());
 		List<Object> paramList = new ArrayList<Object>(Arrays.asList(parameters));
 		entityValues.put("params", paramList);
 		return entityValues;
 	}
-
+	
 	@SuppressWarnings("rawtypes")
 	protected boolean verifyInstance(Object obj, Class TheClass) {
 		return TheClass.isInstance(obj);

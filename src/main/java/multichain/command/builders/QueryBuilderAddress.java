@@ -16,7 +16,7 @@ import multichain.command.tools.MultichainTestParameter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.6
+ * @version 4.15
  */
 public class QueryBuilderAddress extends QueryBuilderCommon {
 
@@ -240,7 +240,9 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 	protected Object executeGetNewAddress() throws MultichainException {
 		return execute(CommandEnum.GETNEWADDRESS);
 	}
-
+	protected Object executeGetNewAddress(String label) throws MultichainException {
+		return execute(CommandEnum.GETNEWADDRESS, label);
+	}
 	/**
 	 * Adds address to the wallet, without an associated private key, to create
 	 * a watch-only address. This is an address whose activity and balance can
@@ -269,6 +271,28 @@ public class QueryBuilderAddress extends QueryBuilderCommon {
 	protected Object executeImportAddress(String address, String label, boolean rescan) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		return execute(CommandEnum.IMPORTADDRESS, address, label, rescan);
+	}
+	
+	
+	/**
+	 * setaccount "address" "account"
+	 * 
+	 * Sets the account associated with the given address.
+	 * 
+	 * Arguments:
+	 * 1. "address"                        (string, required) The address to be associated with an account.
+	 * 2. "account"                        (string, required) The account to assign the address to.
+	 * 
+	 * @param address
+	 * @param label
+	 * @return
+	 * @throws MultichainException
+	 */
+	protected Object executeSetAccount(String address, String label) throws MultichainException {
+		MultichainTestParameter.isNotNullOrEmpty("address", address);
+		MultichainTestParameter.isNotNullOrEmpty("label", label);
+		return execute(CommandEnum.SETACCOUNT, address, label);
+		
 	}
 
 	/**
