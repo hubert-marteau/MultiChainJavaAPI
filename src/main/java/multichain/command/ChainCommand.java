@@ -58,9 +58,6 @@ public class ChainCommand extends QueryBuilderChain {
 	public String getInfo() throws MultichainException {
 		return executeGetInfo();
 	}
-	public String getInfo(String arg) throws MultichainException {
-		return executeGetInfo(arg);
-	}
 	
 	/**
 	 * help ( command )
