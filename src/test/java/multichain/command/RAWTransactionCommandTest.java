@@ -7,26 +7,26 @@
  */
 package multichain.command;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.junit.Test;
-
 import junit.framework.TestCase;
 import multichain.object.AddressBalance;
 import multichain.object.AddressBalanceAsset;
 import multichain.object.AddressBalanceCurrency;
+import multichain.object.AddressBalanceIssue;
 import multichain.object.BalanceAssetGeneral;
 import multichain.object.SignedTransactionRAW;
+import multichain.object.queryobjects.CustomParamString;
+import multichain.object.queryobjects.DataParam;
+import multichain.object.queryobjects.DataParamHex;
+import multichain.object.queryobjects.DataParamIssue;
+import multichain.object.queryobjects.ParamIssue;
 import multichain.object.queryobjects.TxIdVout;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.13
+ * @version 4.16
  */
 public class RAWTransactionCommandTest extends TestCase {
 	
@@ -90,21 +90,21 @@ public class RAWTransactionCommandTest extends TestCase {
 	public void testcreateRawTransaction() {
 //		MultiChainCommand multiChainCommand = new MultiChainCommand(TestConst.MULTICHAIN_SERVER_IP,
 //				TestConst.MULTICHAIN_SERVER_PORT, TestConst.MULTICHAIN_SERVER_LOGIN, TestConst.MULTICHAIN_SERVER_PWD);
-//		String testAddress = "1STvDuNXGJxs3EcHwhVMRQjxU9weHh8pudwPnx";
+//		String testAddress = "19bF9s2vYLEPAGKr4dduB8Muzj2avgVrrtR6WJ";
 //		
-//		String assetName = "TestRAWCreation";
+//		String assetName = "TestClosed";
 //		
 //		List<TxIdVout> listTxIdVout = new ArrayList<>();
 //		
 //		TxIdVout txIdVout01 = new TxIdVout();
 //		//Existing transaction in Test BlockChain
-//		txIdVout01.setTxId("9ca1ea54d2de7dceba8abbb52fedc5f65610a4dfef38aedd4b79c5a4540d35c9");
+//		txIdVout01.setTxId("4fe42e431f0339e4e78605bc20c0866d7db1ce1794f68ce4f36a708cb5ea60bb");
 //		txIdVout01.setvOut(0);
 //		listTxIdVout.add(txIdVout01);
 //		
 //		TxIdVout txIdVout02 = new TxIdVout();
 //		//Existing transaction in Test BlockChain
-//		txIdVout02.setTxId("64faee5a6d0c338c6e8162264f752c83913fd85227247a2ae157812411056ecd");
+//		txIdVout02.setTxId("a9bac94e5c84b3a4b788d09bcecb53a8efc8a52957c77ac1a4428851db70f2aa");
 //		txIdVout02.setvOut(0);
 //		listTxIdVout.add(txIdVout02);
 //		
@@ -118,16 +118,20 @@ public class RAWTransactionCommandTest extends TestCase {
 //			listAddressBalance01.add(addressBalanceCurrency);
 //			
 //			String hextrans01 = multiChainCommand.getRawTransactionCommand().createRawTransaction(listTxIdVout, listAddressBalance01);
+//			SignedTransactionRAW hextrans01Signed = multiChainCommand.getRawTransactionCommand().signRawTransaction(hextrans01);
 //			
 //			assertNotNull(hextrans01);
 //			assertTrue(hextrans01.length() > 100);
+//			assertNotNull(hextrans01Signed);
+//			assertTrue(hextrans01Signed.isComplete());
+//			
 //			
 //			
 //			//TEST WITH ASSET
-//			BalanceAssetBase balanceAssetBase = new BalanceAssetBase();
+//			BalanceAssetGeneral balanceAssetBase = new BalanceAssetGeneral();
 //			balanceAssetBase.setName(assetName);
 //			balanceAssetBase.setQty(1);
-//			List<BalanceAssetBase> listBalanceAssetBase = new ArrayList<>();
+//			List<BalanceAssetGeneral> listBalanceAssetBase = new ArrayList<>();
 //			listBalanceAssetBase.add(balanceAssetBase);
 //			
 //			AddressBalanceAsset addressBalanceAsset = new AddressBalanceAsset();
@@ -138,30 +142,72 @@ public class RAWTransactionCommandTest extends TestCase {
 //			listAddressBalance02.add(addressBalanceAsset);
 //			
 //			String hextrans02 = multiChainCommand.getRawTransactionCommand().createRawTransaction(listTxIdVout, listAddressBalance02);
+//            SignedTransactionRAW hextrans02Signed = multiChainCommand.getRawTransactionCommand().signRawTransaction(hextrans02);
 //			
 //			assertNotNull(hextrans02);
 //			assertTrue(hextrans02.length() > 100);
+//            assertNotNull(hextrans02Signed);
+//            assertTrue(hextrans02Signed.isComplete());
 //			
+//            
+//            
 //			//TEST WITH CURRENCY & ASSET 
 //			List<AddressBalance> listAddressBalance03 = new ArrayList<>();
 //			listAddressBalance03.add(addressBalanceCurrency);
 //			listAddressBalance03.add(addressBalanceAsset);
 //			
 //			String hextrans03 = multiChainCommand.getRawTransactionCommand().createRawTransaction(listTxIdVout, listAddressBalance03);
+//            SignedTransactionRAW hextrans03Signed = multiChainCommand.getRawTransactionCommand().signRawTransaction(hextrans03);
 //			
 //			assertNotNull(hextrans03);
 //			assertTrue(hextrans03.length() > 100);
+//            assertNotNull(hextrans03Signed);
+//            assertTrue(hextrans03Signed.isComplete());
+//            
+//            
 //			
 //			//TEST WITH CURRENCY & ASSET & METADATA
-//			List<String> hexData = new ArrayList<>();
-//			hexData.add("0123456789ABCDEF");
-//			hexData.add("0123456789");
-//			hexData.add("ABCDEF");
+//			List<DataParam> hexData = new ArrayList<>();
+//			hexData.add(new DataParamHex("0123456789ABCDEF"));
+//			hexData.add(new DataParamHex("0123456789"));
+//			hexData.add(new DataParamHex("ABCDEF"));
 //			
 //			String hextrans04 = multiChainCommand.getRawTransactionCommand().createRawTransaction(listTxIdVout, listAddressBalance03, hexData);
+//            SignedTransactionRAW hextrans04Signed = multiChainCommand.getRawTransactionCommand().signRawTransaction(hextrans04);
 //			
 //			assertNotNull(hextrans04);
 //			assertTrue(hextrans04.length() > 100);
+//            assertNotNull(hextrans04Signed);
+//            assertTrue(hextrans04Signed.isComplete());
+//            
+//            
+//            
+//            //TEST WITH ISSUE
+//            AddressBalanceIssue addressBalanceIssue = new AddressBalanceIssue();
+//            addressBalanceIssue.setAddress(testAddress);
+//            ParamIssue paramIssue = new ParamIssue(new Long(420));
+//            addressBalanceIssue.setIssue(paramIssue);
+//            
+//            List<AddressBalance> listAddressBalance04 = new ArrayList<>();
+//            listAddressBalance04.add(addressBalanceIssue);
+//            
+//            List<DataParam> issueData = new ArrayList<>();
+//            DataParamIssue issueDataParam = new DataParamIssue();
+//            issueDataParam.setName("testcreateRawTransaction");
+//            issueDataParam.setMultiple(new Long(10));
+//            issueDataParam.setOpen(true);
+//            issueDataParam.addDetails(new CustomParamString("test", "is running"));
+//            issueDataParam.addDetails(new CustomParamString("this value", "is an Issue definition value"));
+//            issueData.add(issueDataParam);
+//            
+//            String hextrans05 = multiChainCommand.getRawTransactionCommand().createRawTransaction(listTxIdVout, listAddressBalance04, issueData);
+//            SignedTransactionRAW hextrans05Signed = multiChainCommand.getRawTransactionCommand().signRawTransaction(hextrans05);
+//            
+//            assertNotNull(hextrans05);
+//            assertTrue(hextrans05.length() > 100);
+//            assertNotNull(hextrans05Signed);
+//            assertTrue(hextrans05Signed.isComplete());
+//            
 //		} catch (MultichainException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
@@ -181,5 +227,4 @@ public class RAWTransactionCommandTest extends TestCase {
 	      assertTrue(true);
 	   }
 	
-
 }

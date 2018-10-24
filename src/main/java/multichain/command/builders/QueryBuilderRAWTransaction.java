@@ -7,6 +7,7 @@
  */
 package multichain.command.builders;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,12 +15,13 @@ import java.util.Map;
 import multichain.command.MultichainException;
 import multichain.command.tools.MultichainTestParameter;
 import multichain.object.AddressBalance;
+import multichain.object.queryobjects.DataParam;
 import multichain.object.queryobjects.RawParam;
 import multichain.object.queryobjects.TxIdVout;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.13
+ * @version 4.16
  */
 public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 
@@ -284,7 +286,7 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected Object executeCreateRawTransaction(List<TxIdVout> inputs, List<AddressBalance> addessBalances, List<String> hexMetaData)
+	protected Object executeCreateRawTransaction(List<TxIdVout> inputs, List<AddressBalance> addessBalances, List<DataParam> data)
 			throws MultichainException {
 		if (inputs == null || inputs.isEmpty()) {
 			throw new MultichainException("inputs", "inputs needed to create a RAW Transaction");
@@ -302,8 +304,12 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 			mapOuput.put(addessBalance.getAddress(), addessBalance.getValue());
 		}
 		
-		if (hexMetaData != null) {
-			return execute(CommandEnum.CREATERAWTRANSACTION, inputs, mapOuput, hexMetaData);
+		if (data != null) {
+		    List<Object> dataObject = new ArrayList<>();
+		    for (DataParam param : data) {
+		      dataObject.add(param.getFormatedvalue());
+		    }
+			return execute(CommandEnum.CREATERAWTRANSACTION, inputs, mapOuput, dataObject);
 		} else {
 			return execute(CommandEnum.CREATERAWTRANSACTION, inputs, mapOuput);
 		}

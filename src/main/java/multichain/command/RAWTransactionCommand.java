@@ -16,12 +16,13 @@ import multichain.object.AddressBalance;
 import multichain.object.SignedTransactionRAW;
 import multichain.object.TransactionRAW;
 import multichain.object.formatters.RAWTransactionFormatter;
+import multichain.object.queryobjects.DataParam;
 import multichain.object.queryobjects.RawParam;
 import multichain.object.queryobjects.TxIdVout;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.15
+ * @version 4.16
  */
 public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 
@@ -449,11 +450,11 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String createRawTransaction(List<TxIdVout> inputs, List<AddressBalance> addessBalances, List<String> hexMetaData)
+	public String createRawTransaction(List<TxIdVout> inputs, List<AddressBalance> addessBalances, List<DataParam> data)
 			throws MultichainException {
 		String createTransactionRAW = new String();
 
-		Object objectTransactionRAW = executeCreateRawTransaction(inputs, addessBalances, hexMetaData);
+		Object objectTransactionRAW = executeCreateRawTransaction(inputs, addessBalances, data);
 		if (verifyInstance(objectTransactionRAW, String.class)) {
 			createTransactionRAW = (String) objectTransactionRAW;
 		}
