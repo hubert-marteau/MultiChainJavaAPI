@@ -21,7 +21,7 @@ import multichain.object.queryobjects.TxIdVout;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.16
+ * @version 4.17
  */
 public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 
@@ -295,13 +295,16 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
 			input.isFilled();
 		}
 
-		if (addessBalances == null || addessBalances.isEmpty()) {
-			throw new MultichainException("Address Balance", "Address Balance needed to create a RAW Transaction");
-		}
+//		if (addessBalances == null || addessBalances.isEmpty()) {
+//			throw new MultichainException("Address Balance", "Address Balance needed to create a RAW Transaction");
+//		}
+		//addessBalances can be null or empty in case of call for Stream Creation : only data is present
 		Map<String, Object> mapOuput = new HashMap<String, Object>();
-		for (AddressBalance addessBalance : addessBalances) {
-			addessBalance.isFilled();
-			mapOuput.put(addessBalance.getAddress(), addessBalance.getValue());
+		if (addessBalances != null && !addessBalances.isEmpty()) {
+    		for (AddressBalance addessBalance : addessBalances) {
+    			addessBalance.isFilled();
+    			mapOuput.put(addessBalance.getAddress(), addessBalance.getValue());
+    		}
 		}
 		
 		if (data != null) {
