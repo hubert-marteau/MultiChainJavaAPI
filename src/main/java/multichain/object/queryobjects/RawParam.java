@@ -15,11 +15,11 @@ import multichain.object.formatters.GsonFormatters;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.7
+ * @version 4.17 
  */
 public class RawParam extends GsonFormatters {
 	String address;
-	float amount = 0;
+	float amount = -1;
 	List<AssetQuantity> assets;
 
 	/**
@@ -48,7 +48,7 @@ public class RawParam extends GsonFormatters {
 		if (address == null || "".equals(address)) {
 			return false;
 		}
-		if (amount != 0.0) {
+		if (amount >= 0) {
 			return true;
 		} else {
 			if (assets == null || assets.size() == 0) {
@@ -64,18 +64,18 @@ public class RawParam extends GsonFormatters {
 	}
 
 	public Object getValue() {
-		if (amount != 0.0) {
-			return amount;
-		} else {
-			Map<String, Float> filledAssets = new HashMap<String, Float>();
-			if (assets != null && assets.size() != 0) {
-				for (AssetQuantity asset : assets) {
-					if (asset.isFilled()) {
-						filledAssets.put(asset.getName(), new Float(asset.getQuantity()));
-					}
+		Map<String, Float> filledAssets = new HashMap<String, Float>();
+		if (assets != null && assets.size() != 0) {
+			for (AssetQuantity asset : assets) {
+				if (asset.isFilled()) {
+					filledAssets.put(asset.getName(), new Float(asset.getQuantity()));
 				}
 			}
+		}
+		if (filledAssets.size() > 0) {
 			return filledAssets;
+		} else {
+		  return amount;
 		}
 	}
 
