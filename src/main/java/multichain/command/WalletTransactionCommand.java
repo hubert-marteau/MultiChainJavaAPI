@@ -11,11 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import multichain.command.builders.QueryBuilderWalletTransaction;
+import multichain.object.AssetTransaction;
 import multichain.object.BalanceAssetGeneral;
 import multichain.object.Transaction;
 import multichain.object.TransactionWallet;
 import multichain.object.TransactionWalletDetailed;
 import multichain.object.TxOut;
+import multichain.object.formatters.AssetTransactionFormatter;
 import multichain.object.formatters.TransactionFormatter;
 import multichain.object.formatters.TxOutFormatter;
 import multichain.object.formatters.WalletTransactionFormatter;
@@ -376,6 +378,76 @@ public class WalletTransactionCommand extends QueryBuilderWalletTransaction {
 	 */
 	public List<TransactionWallet> listAddressTransactions(String address) throws MultichainException {
 		return listAddressTransactionsWithoutDetail(address, 10, 0, false);
+	}
+
+  /**
+   * {@link #listAssetTransactions(String, boolean) with verbose at false}
+   * @param assetIdentifier
+   * @return
+   * @throws MultichainException
+   */
+  public List<AssetTransaction> listAssetTransactions(String assetIdentifier) throws MultichainException {
+    return listAssetTransactions(assetIdentifier, false, 10, 0, false);
+  }
+
+  /**
+   * {@link #listAssetTransactions(String, boolean, long)} with count at 10}
+   * @param assetIdentifier
+   * @return
+   * @throws MultichainException
+   */
+  public List<AssetTransaction> listAssetTransactions(String assetIdentifier, boolean verbose) throws MultichainException {
+    return listAssetTransactions(assetIdentifier, verbose, 10, 0, false);
+  }
+
+  /**
+   * {@link #listAssetTransactions(String, boolean, long, long, boolean)}  with start at 0 and localOrdering at false}
+   * @param assetIdentifier
+   * @return
+   * @throws MultichainException
+   */
+  public List<AssetTransaction> listAssetTransactions(String assetIdentifier, boolean verbose, long count) throws MultichainException {
+		return listAssetTransactions(assetIdentifier, verbose, count, 0, false);
+	}
+
+  /**
+   *
+   * lisassettransactions "asset-identifier" (verbose count start local-ordering)
+   *
+   * Returns up to 'count' most recent transactions skipping the first 'from'
+   * transactions for account 'account'.
+   *
+   * Arguments: 1. "address" (string, required) Address to list transactions
+   * for. 2. count (numeric, optional, default=10) The number of transactions
+   * to return 3. skip (numeric, optional, default=0) The number of
+   * transactions to skip 4. verbose (bool, optional, default=false) If true,
+   * returns detailed array of inputs and outputs and raw hex of transactions
+   *
+   * Lists transactions involving asset.
+   *
+   * Arguments:
+   * 1. "asset-identifier"               (string, required) Asset identifier - one of the following: asset txid, asset reference, asset name.
+   * 2. verbose                          (boolean, optional, default=false) If true, returns information about transaction
+   * 3. count                            (number, optional, default=10) The number of transactions to display
+   * 4. start                            (number, optional, default=-count - last) Start from specific transaction, 0 based, if negative - from the end
+   * 5. local-ordering                   (boolean, optional, default=false) If true, transactions appear in the order they were processed by the wallet,
+   *                                                                        if false - in the order they appear in blockchain
+   *
+   * Result:
+   * "stream-items"                      (array) List of transactions.
+   *
+   * @param assetIdentifier
+   * @param verbose
+   * @param count
+   * @param start
+   * @param localOrdering
+   * @return
+   * @throws MultichainException
+   */
+	public List<AssetTransaction> listAssetTransactions(String assetIdentifier, boolean verbose, long count, long start, boolean localOrdering) throws MultichainException {
+		Object objectAssetTransaction = executeListAssetTransactions(assetIdentifier, verbose, count, start, localOrdering);
+		List<AssetTransaction> listAssetTransaction = AssetTransactionFormatter.formatListAssetTransaction((List<Object>) objectAssetTransaction);
+		return listAssetTransaction;
 	}
 
 	/**

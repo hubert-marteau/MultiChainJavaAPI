@@ -257,6 +257,46 @@ public class QueryBuilderWalletTransaction extends QueryBuilderCommon {
 	}
 
 	/**
+	 *
+	 * lisassettransactions "asset-identifier" (verbose count start local-ordering)
+	 *
+	 * Returns up to 'count' most recent transactions skipping the first 'from'
+	 * transactions for account 'account'.
+	 *
+	 * Arguments: 1. "address" (string, required) Address to list transactions
+	 * for. 2. count (numeric, optional, default=10) The number of transactions
+	 * to return 3. skip (numeric, optional, default=0) The number of
+	 * transactions to skip 4. verbose (bool, optional, default=false) If true,
+	 * returns detailed array of inputs and outputs and raw hex of transactions
+	 *
+	 * Lists transactions involving asset.
+	 *
+	 * Arguments:
+	 * 1. "asset-identifier"               (string, required) Asset identifier - one of the following: asset txid, asset reference, asset name.
+	 * 2. verbose                          (boolean, optional, default=false) If true, returns information about transaction
+	 * 3. count                            (number, optional, default=10) The number of transactions to display
+	 * 4. start                            (number, optional, default=-count - last) Start from specific transaction, 0 based, if negative - from the end
+	 * 5. local-ordering                   (boolean, optional, default=false) If true, transactions appear in the order they were processed by the wallet,
+	 *                                                                        if false - in the order they appear in blockchain
+	 *
+	 * Result:
+	 * "stream-items"                      (array) List of transactions.
+	 *
+ 	 * @param assetIdentifier
+	 * @param verbose
+	 * @param count
+	 * @param start
+	 * @param localOrdering
+	 * @return
+	 * @throws MultichainException
+	 */
+	protected Object executeListAssetTransactions(String assetIdentifier, boolean verbose, long count, long start, boolean localOrdering) throws MultichainException {
+		MultichainTestParameter.isNotNullOrEmpty("assetIdentifier", assetIdentifier);
+		MultichainTestParameter.valueIsPositive("count", count);
+		return execute(CommandEnum.LISTASSETTRANSACTIONS, assetIdentifier, verbose, count, start, localOrdering);
+	}
+
+	/**
 	 * 
 	 * listwallettransactions ( count skip includeWatchonly verbose)
 	 * 
