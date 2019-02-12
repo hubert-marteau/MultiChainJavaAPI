@@ -101,6 +101,7 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 								ISSUEMORE,
 								ISSUEMOREFROM,
 								LISTADDRESSTRANSACTIONS,
+								LISTASSETTRANSACTIONS,
 								LISTASSETS,
 								LISTLOCKUNPSENT,
 								LISTPERMISSIONS,
