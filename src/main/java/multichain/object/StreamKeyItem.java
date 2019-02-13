@@ -11,11 +11,12 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.14
+ * @version 5.01
  */
 public class StreamKeyItem {
 	List<String> publishers;
 	String key = null;
+	List<String> keys;
 	String data = null;
 	Long confirmations = null;
 	String blockhash = null;
@@ -34,7 +35,7 @@ public class StreamKeyItem {
 	 */
 	@Override
 	public String toString() {
-		return "StreamKeyItem [publishers=" + publishers.toString() + ",\n key=" + key + ",\n data=" + data
+		return "StreamKeyItem [publishers=" + publishers.toString() + ",\n key=" + key + ",\n keys=" + keys.toString() + ",\n data=" + data
 				+ ",\n confirmations=" + confirmations + ",\n blockhash=" + blockhash + ",\n blockindex=" + blockindex
 				+ ",\n blocktime=" + blocktime + ",\n txid=" + txid + ",\n vout=" + vout + ",\n valid=" + valid
 				+ ",\n time=" + time + ",\n timereceived=" + timereceived + "]";
@@ -218,6 +219,20 @@ public class StreamKeyItem {
 	 */
 	public void setTimereceived(long timereceived) {
 		this.timereceived = timereceived;
+	}
+
+	/**
+	 * @return the keys
+	 */
+	public List<String> getKeys() {
+		return keys;
+	}
+
+	/**
+	 * @param keys the keys to set
+	 */
+	public void setKeys(List<String> keys) {
+		this.keys = keys;
 	}
 
 }
