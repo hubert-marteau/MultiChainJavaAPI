@@ -620,6 +620,53 @@ public class IssueCommand extends QueryBuilderIssue {
 	}
 
 	/**
+	 * Issues qty additional units of asset, sending them to address. The asset
+	 * can be specified using its name, ref or issuance txid
+	 *
+	 * issuemorefrom "from-address" "to-address" asset-identifier quantity (
+	 * native-amount custom-fields )
+	 *
+	 * Create more units for asset from specific address
+	 *
+	 * Arguments: 1. "from-address" (string, required) Address used for issuing.
+	 * 2. "to-address" (string, required) The address to send newly created
+	 * asset to. 3. "asset-identifier" (string, required) Asset identifier - one
+	 * of the following: issue txid. asset reference, asset name. 4. "quantity"
+	 * (numeric, required) The asset total amount in display units. eg. 1234.56
+	 * 5. "native-amount" (numeric, optional) native currency amount to send. eg
+	 * 0.1, Default: minimum-per-output. 6 "custom-fields" (object, optional) a
+	 * json object with custom fields { "param-name": "param-value" (strings,
+	 * required) The key is the parameter name, the value is parameter value
+	 * ,... }
+	 *
+	 * Result: "transactionid" (string) The transaction id.
+	 *
+	 * @param fromAddress
+	 * @param toAddress
+	 * @param assetName
+	 * @param quantity
+	 * @param customFields
+	 * @return
+	 * @throws MultichainException
+	 */
+	public String issueMoreFrom(String fromAddress,
+			String toAddress,
+			String assetName,
+			int quantity,
+			int nativeAmount,
+			List<CustomParamString> customFields) throws MultichainException {
+		String issueMoreFrom = "";
+
+		Object objectIssueMoreFrom = executeIssueMoreFrom(fromAddress, toAddress, assetName, quantity,
+				nativeAmount, customFields);
+		if (verifyInstance(objectIssueMoreFrom, String.class)) {
+			issueMoreFrom = (String) objectIssueMoreFrom;
+		}
+
+		return issueMoreFrom;
+	}
+
+	/**
 	 * 
 	 * listassets ("asset-identifier" verbose) 1. "asset-identifier" (string,
 	 * optional) Asset identifier - one of the following: issue txid, asset
