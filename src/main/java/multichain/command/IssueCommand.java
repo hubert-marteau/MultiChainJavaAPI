@@ -652,8 +652,8 @@ public class IssueCommand extends QueryBuilderIssue {
 	public String issueMoreFrom(String fromAddress,
 			String toAddress,
 			String assetName,
-			int quantity,
-			int nativeAmount,
+			float quantity,
+			float nativeAmount,
 			List<CustomParamString> customFields) throws MultichainException {
 		String issueMoreFrom = "";
 

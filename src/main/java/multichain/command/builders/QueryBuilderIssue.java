@@ -399,7 +399,7 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 	protected Object executeIssueMoreFrom(String fromAddress,
 		String toAddress,
 		String assetName,
-		int quantity,
+		float quantity,
 		float nativeAmount,
 		List<CustomParamString> customFields) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
