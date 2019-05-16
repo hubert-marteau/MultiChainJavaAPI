@@ -379,7 +379,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	public String issueFrom(String fromAddress,
 							String toAddress,
 							String assetName,
-							int quantity,
+							float quantity,
 							float unit) throws MultichainException {
 		return issueFrom(fromAddress, toAddress, assetName, quantity, unit, 0, null);
 	}
@@ -425,7 +425,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	public String issueFrom(String fromAddress,
 							String toAddress,
 							String assetName,
-							int quantity,
+							float quantity,
 							float unit,
 							float amount,
 							List<CustomParamString> customFields) throws MultichainException {
@@ -566,7 +566,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public String issueMore(String address, String assetName, int quantity) throws MultichainException {
+	public String issueMore(String address, String assetName, float quantity) throws MultichainException {
 		String issueMore = "";
 
 		Object objectIssueMore = executeIssueMore(address, assetName, quantity);
@@ -608,7 +608,7 @@ public class IssueCommand extends QueryBuilderIssue {
 	public String issueMoreFrom(String fromAddress,
 								String toAddress,
 								String assetName,
-								int quantity) throws MultichainException {
+								float quantity) throws MultichainException {
 		String issueMoreFrom = "";
 
 		Object objectIssueMoreFrom = executeIssueMoreFrom(fromAddress, toAddress, assetName, quantity);
