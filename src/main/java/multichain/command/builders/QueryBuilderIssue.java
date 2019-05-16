@@ -210,7 +210,7 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 	protected Object executeIssueFrom(	String fromAddress,
 										String toAddress,
 										String assetName,
-										int quantity,
+										float quantity,
 										float unit,
 										float amount,
 										List<CustomParamString> customFields) throws MultichainException {
@@ -320,7 +320,7 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 	 * @return
 	 * @throws MultichainException
 	 */
-	protected Object executeIssueMore(String address, String assetName, int quantity) throws MultichainException {
+	protected Object executeIssueMore(String address, String assetName, float quantity) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("address", address);
 		MultichainTestParameter.isNotNullOrEmpty("assetName", assetName);
 		MultichainTestParameter.valueIsPositive("quantity", quantity);
@@ -358,7 +358,7 @@ public class QueryBuilderIssue extends QueryBuilderCommon {
 	protected Object executeIssueMoreFrom(	String fromAddress,
 											String toAddress,
 											String assetName,
-											int quantity) throws MultichainException {
+											float quantity) throws MultichainException {
 		MultichainTestParameter.isNotNullOrEmpty("toAddress", toAddress);
 		MultichainTestParameter.isNotNullOrEmpty("fromAddress", fromAddress);
 		MultichainTestParameter.isNotNullOrEmpty("assetName", assetName);
