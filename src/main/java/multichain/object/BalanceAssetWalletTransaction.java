@@ -9,84 +9,87 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.15
+ * @version 2.0.1
  */
 public class BalanceAssetWalletTransaction {
-	String name = null;
-	String assetref = null;
-	Double qty = null;
-	String type = null;
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "BalanceWalletTransaction [name=" + name + ", assetref=" + assetref + ", qty=" + qty + "]";
-	}
+  String name = null;
+  String assetref = null;
+  Double qty = null;
+  String type = null;
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "BalanceWalletTransaction [name=" + name + ", assetref=" + assetref + ", qty=" + qty
+        + "]";
+  }
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+  /**
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
 
-	/**
-	 * @return the assetref
-	 */
-	public String getAssetref() {
-		return assetref;
-	}
+  /**
+   * @param name the name to set
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	/**
-	 * @param assetref the assetref to set
-	 */
-	public void setAssetref(String assetref) {
-		this.assetref = assetref;
-	}
+  /**
+   * @return the assetref
+   */
+  public String getAssetref() {
+    return assetref;
+  }
 
-	/**
-	 * @return the qty
-	 */
-	public double getQty() {
-		return qty;
-	}
+  /**
+   * @param assetref the assetref to set
+   */
+  public void setAssetref(String assetref) {
+    this.assetref = assetref;
+  }
 
-	/**
-	 * @param qty the qty to set
-	 */
-	public void setQty(double qty) {
-		this.qty = qty;
-	}
+  /**
+   * @return the qty
+   */
+  public double getQty() {
+    return qty;
+  }
 
-	/**
-	 * @return the type
-	 */
-	public String getType() {
-		return type;
-	}
+  /**
+   * @param qty the qty to set
+   */
+  public void setQty(double qty) {
+    this.qty = qty;
+  }
 
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
+  /**
+   * @return the type
+   */
+  public String getType() {
+    return type;
+  }
 
-	/**
-	 * @param qty the qty to set
-	 */
-	public void setQty(Double qty) {
-		this.qty = qty;
-	}
+  /**
+   * @param type the type to set
+   */
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  /**
+   * @param qty the qty to set
+   */
+  public void setQty(Double qty) {
+    this.qty = qty;
+  }
 
 
 }

@@ -12,22 +12,23 @@ import java.util.Map;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.17
+ * @version 2.0.1
  */
 public class DataParamCreate implements DataParam {
-//    "create" : stream               (string,required) stream
-//    "name" : stream-name            (string,optional) Stream name
-//    "open" : true|false             (string,optional, default: false) If true, anyone can publish
-//    "details" :                     (object,optional) a json object with custom fields
-//      {
-//        "param-name": "param-value" (strings, required) The key is the parameter name, the value is parameter value
-//        ,...
-//      }
+  // "create" : stream (string,required) stream
+  // "name" : stream-name (string,optional) Stream name
+  // "open" : true|false (string,optional, default: false) If true, anyone can publish
+  // "details" : (object,optional) a json object with custom fields
+  // {
+  // "param-name": "param-value" (strings, required) The key is the parameter name, the value is
+  // parameter value
+  // ,...
+  // }
 
   private String create = "stream";
   private String name = null;
   private Boolean open = null;
-  private Map<String, String> details  = null;
+  private Map<String, String> details = null;
 
   @Override
   public DataParamCreate getFormatedvalue() {
@@ -114,6 +115,6 @@ public class DataParamCreate implements DataParam {
     details.put(detail.getName(), detail.getValue());
   }
 
-  
-  
+
+
 }

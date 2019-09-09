@@ -9,66 +9,63 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.14
+ * @version 2.0.1
  */
 public class KeyPairs {
-	String address = null;
-	String pubkey = null;
-	String privkey = null;
+  String address = null;
+  String pubkey = null;
+  String privkey = null;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "KeyPairs [address=" + address + ", pubkey=" + pubkey + ", privkey=" + privkey + "]";
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "KeyPairs [address=" + address + ", pubkey=" + pubkey + ", privkey=" + privkey + "]";
+  }
 
-	/**
-	 * @return the address
-	 */
-	public String getAddress() {
-		return address;
-	}
+  /**
+   * @return the address
+   */
+  public String getAddress() {
+    return address;
+  }
 
-	/**
-	 * @param address
-	 *            the address to set
-	 */
-	public void setAddress(String address) {
-		this.address = address;
-	}
+  /**
+   * @param address the address to set
+   */
+  public void setAddress(String address) {
+    this.address = address;
+  }
 
-	/**
-	 * @return the pubkey
-	 */
-	public String getPubkey() {
-		return pubkey;
-	}
+  /**
+   * @return the pubkey
+   */
+  public String getPubkey() {
+    return pubkey;
+  }
 
-	/**
-	 * @param pubkey
-	 *            the pubkey to set
-	 */
-	public void setPubkey(String pubkey) {
-		this.pubkey = pubkey;
-	}
+  /**
+   * @param pubkey the pubkey to set
+   */
+  public void setPubkey(String pubkey) {
+    this.pubkey = pubkey;
+  }
 
-	/**
-	 * @return the privkey
-	 */
-	public String getPrivkey() {
-		return privkey;
-	}
+  /**
+   * @return the privkey
+   */
+  public String getPrivkey() {
+    return privkey;
+  }
 
-	/**
-	 * @param privkey
-	 *            the privkey to set
-	 */
-	public void setPrivkey(String privkey) {
-		this.privkey = privkey;
-	}
+  /**
+   * @param privkey the privkey to set
+   */
+  public void setPrivkey(String privkey) {
+    this.privkey = privkey;
+  }
 
 }

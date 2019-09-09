@@ -12,311 +12,399 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.14
+ * @version 2.0.1
  */
 public class TransactionWallet {
-	BalanceWalletTransaction balance = null;
-	List<String> myaddresses;
-	List<String> addresses;
-	List<PermissionDetailed> permissions;
-	Create create = null;
-	AssetWalletTransaction issue = null;
-	List<Item> items;
-	List<String> data;
-	Long confirmations = null;
-	String blockhash = null;
-	Long blockindex = null;
-	Long blocktime = null;
-	String txid = null;
-	Boolean valid = null;
-	Long time = null;
-	Long timereceived = null;
-	
+  BalanceWalletTransaction balance = null;
+  List<String> myaddresses = null;
+  List<String> addresses = null;
+  List<PermissionDetailed> permissions = null;
+  Create create = null;
+  AssetWalletTransaction issue = null;
+  List<Item> items = null;
+  List<String> data = null;
+  Long confirmations = null;
+  String blockhash = null;
+  Long blockindex = null;
+  Long blocktime = null;
+  String txid = null;
+  Boolean valid = null;
+  Long time = null;
+  Long timereceived = null;
+  List<TransactionWalletVin> vin = null;
+  List<TransactionWalletVout> vout = null;
+  String hex = null;
 
-	/**
-	 *
-	 */
-	public TransactionWallet() {
-		super();
-		balance = new BalanceWalletTransaction();
-		myaddresses = new ArrayList<String>();
-		addresses = new ArrayList<String>();
-		permissions = new ArrayList<PermissionDetailed>();
-		create = null;
-		issue = null;
-		data = new ArrayList<String>();
-		items = new ArrayList<>();
-	}
+  /**
+   *
+   */
+  public TransactionWallet() {
+    super();
+    vin = new ArrayList<TransactionWalletVin>();
+    vout = new ArrayList<TransactionWalletVout>();
+    balance = new BalanceWalletTransaction();
+    myaddresses = new ArrayList<String>();
+    addresses = new ArrayList<String>();
+    permissions = new ArrayList<PermissionDetailed>();
+    issue = null;
+    data = new ArrayList<String>();
+    items = new ArrayList<>();
 
-	public TransactionWallet(TransactionWallet transaction) {
-		balance = transaction.getBalance();
-		myaddresses = transaction.getAddresses();
-		addresses = transaction.getAddresses();
-		permissions = transaction.getPermissions();
-		create = transaction.getCreate();
-		issue = transaction.getIssue();
-		data = transaction.getData();
-		items = transaction.getItems();
-	}
+  }
 
-	/**
-	 * @return the issue
-	 */
-	public AssetWalletTransaction getIssue() {
-		return issue;
-	}
+  /**
+   * @param base
+   */
+  public TransactionWallet(TransactionWallet wallet) {
+    super();
+    vin = new ArrayList<TransactionWalletVin>();
+    vout = new ArrayList<TransactionWalletVout>();
+    balance = wallet.getBalance();
+    myaddresses = wallet.getAddresses();
+    addresses = wallet.getAddresses();
+    permissions = wallet.getPermissions();
+    issue = wallet.getIssue();
+    data = wallet.getData();
+    items = wallet.getItems();
+  }
 
-	/**
-	 * @param issue
-	 *            the issue to set
-	 */
-	public void setIssue(AssetWalletTransaction issue) {
-		this.issue = issue;
-	}
+  public TransactionWallet getTransactionWallet() {
+    TransactionWallet wallet = new TransactionWallet();
+    wallet.setBalance(balance);
+    wallet.setAddresses(myaddresses);
+    wallet.setAddresses(addresses);
+    wallet.setPermissions(permissions);
+    wallet.setIssue(issue);
+    wallet.setData(data);
+    wallet.setItems(items);
 
-	/**
-	 * @return the balance
-	 */
-	public BalanceWalletTransaction getBalance() {
-		return balance;
-	}
+    return wallet;
+  }
 
-	/**
-	 * @param balance
-	 *            the balance to set
-	 */
-	public void setBalance(BalanceWalletTransaction balance) {
-		this.balance = balance;
-	}
 
-	/**
-	 * @return the permissions
-	 */
-	public List<PermissionDetailed> getPermissions() {
-		return permissions;
-	}
 
-	/**
-	 * @param permissions
-	 *            the permissions to set
-	 */
-	public void setPermissions(List<PermissionDetailed> permissions) {
-		this.permissions = permissions;
-	}
+  /**
+   * @return the vin
+   */
+  public List<TransactionWalletVin> getVin() {
+    return vin;
+  }
 
-	/**
-	 * @param permission
-	 *            to add
-	 */
-	public void addPermission(PermissionDetailed permission) {
-		this.permissions.add(permission);
-	}
+  /**
+   * @param vin the vin to set
+   */
+  public void setVin(List<TransactionWalletVin> vin) {
+    this.vin = vin;
+  }
 
-	/**
-	 * @return the data
-	 */
-	public List<String> getData() {
-		return data;
-	}
+  public void addVin(TransactionWalletVin vin) {
+    this.vin.add(vin);
+  }
 
-	/**
-	 *
-	 * @return data in 1 String
-	 */
-	public String getDataString() {
-		String returnedString = "";
-		if (data != null) {
-			for (String dat : data) {
-				returnedString += dat + "\r\n";
-			}
-		}
-		return returnedString;
-	}
+  /**
+   * @return the vout
+   */
+  public List<TransactionWalletVout> getVout() {
+    return vout;
+  }
 
-	/**
-	 * @param data
-	 *            the data to set
-	 */
-	public void setData(List<String> data) {
-		this.data = data;
-	}
+  /**
+   * @param vout the vout to set
+   */
+  public void setVout(List<TransactionWalletVout> vout) {
+    this.vout = vout;
+  }
 
-	/**
-	 * @param data
-	 *            to add
-	 */
-	public void addData(String dataStr) {
-		this.data.add(dataStr);
-	}
+  public void addVout(TransactionWalletVout vout) {
+    this.vout.add(vout);
+  }
 
-	/**
-	 * @return the myaddresses
-	 */
-	public List<String> getMyaddresses() {
-		return myaddresses;
-	}
+  /**
+   * @return the hex
+   */
+  public String getHex() {
+    return hex;
+  }
 
-	/**
-	 * @param myaddresses
-	 *            the myaddresses to set
-	 */
-	public void setMyaddresses(List<String> myaddresses) {
-		this.myaddresses = myaddresses;
-	}
+  /**
+   * @param hex the hex to set
+   */
+  public void setHex(String hex) {
+    this.hex = hex;
+  }
 
-	/**
-	 * @return the addresses
-	 */
-	public List<String> getAddresses() {
-		return addresses;
-	}
+  /**
+   * @return the balance
+   */
+  public BalanceWalletTransaction getBalance() {
+    return balance;
+  }
 
-	/**
-	 * @param addresses
-	 *            the addresses to set
-	 */
-	public void setAddresses(List<String> addresses) {
-		this.addresses = addresses;
-	}
+  /**
+   * @param balance the balance to set
+   */
+  public void setBalance(BalanceWalletTransaction balance) {
+    this.balance = balance;
+  }
 
-	/**
-	 * @return the items
-	 */
-	public List<Item> getItems() {
-		return items;
-	}
+  /**
+   * @return the myaddresses
+   */
+  public List<String> getMyaddresses() {
+    return myaddresses;
+  }
 
-	/**
-	 * @param items
-	 *            the items to set
-	 */
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
+  /**
+   * @param myaddresses the myaddresses to set
+   */
+  public void setMyaddresses(List<String> myaddresses) {
+    this.myaddresses = myaddresses;
+  }
 
-	/**
-	 * @return the confirmations
-	 */
-	public long getConfirmations() {
-		return confirmations;
-	}
+  /**
+   * @return the addresses
+   */
+  public List<String> getAddresses() {
+    return addresses;
+  }
 
-	/**
-	 * @param confirmations the confirmations to set
-	 */
-	public void setConfirmations(long confirmations) {
-		this.confirmations = confirmations;
-	}
+  /**
+   * @param addresses the addresses to set
+   */
+  public void setAddresses(List<String> addresses) {
+    this.addresses = addresses;
+  }
 
-	/**
-	 * @return the blockhash
-	 */
-	public String getBlockhash() {
-		return blockhash;
-	}
+  /**
+   * @return the permissions
+   */
+  public List<PermissionDetailed> getPermissions() {
+    return permissions;
+  }
 
-	/**
-	 * @param blockhash the blockhash to set
-	 */
-	public void setBlockhash(String blockhash) {
-		this.blockhash = blockhash;
-	}
+  /**
+   * @param permissions the permissions to set
+   */
+  public void setPermissions(List<PermissionDetailed> permissions) {
+    this.permissions = permissions;
+  }
 
-	/**
-	 * @return the blockindex
-	 */
-	public long getBlockindex() {
-		return blockindex;
-	}
+  /**
+   * @return the issue
+   */
+  public AssetWalletTransaction getIssue() {
+    return issue;
+  }
 
-	/**
-	 * @param blockindex the blockindex to set
-	 */
-	public void setBlockindex(long blockindex) {
-		this.blockindex = blockindex;
-	}
+  /**
+   * @param issue the issue to set
+   */
+  public void setIssue(AssetWalletTransaction issue) {
+    this.issue = issue;
+  }
 
-	/**
-	 * @return the blocktime
-	 */
-	public long getBlocktime() {
-		return blocktime;
-	}
+  /**
+   * @return the items
+   */
+  public List<Item> getItems() {
+    return items;
+  }
 
-	/**
-	 * @param blocktime the blocktime to set
-	 */
-	public void setBlocktime(long blocktime) {
-		this.blocktime = blocktime;
-	}
+  /**
+   * @param items the items to set
+   */
+  public void setItems(List<Item> items) {
+    this.items = items;
+  }
 
-	/**
-	 * @return the txid
-	 */
-	public String getTxid() {
-		return txid;
-	}
+  /**
+   * @return the data
+   */
+  public List<String> getData() {
+    return data;
+  }
 
-	/**
-	 * @param txid the txid to set
-	 */
-	public void setTxid(String txid) {
-		this.txid = txid;
-	}
+  /**
+   * @param data the data to set
+   */
+  public void setData(List<String> data) {
+    this.data = data;
+  }
 
-	/**
-	 * @return the valid
-	 */
-	public boolean isValid() {
-		return valid;
-	}
+  /**
+   * @return the confirmations
+   */
+  public long getConfirmations() {
+    return confirmations;
+  }
 
-	/**
-	 * @param valid the valid to set
-	 */
-	public void setValid(boolean valid) {
-		this.valid = valid;
-	}
+  /**
+   * @param confirmations the confirmations to set
+   */
+  public void setConfirmations(long confirmations) {
+    this.confirmations = confirmations;
+  }
 
-	/**
-	 * @return the time
-	 */
-	public long getTime() {
-		return time;
-	}
+  /**
+   * @return the blockhash
+   */
+  public String getBlockhash() {
+    return blockhash;
+  }
 
-	/**
-	 * @param time the time to set
-	 */
-	public void setTime(long time) {
-		this.time = time;
-	}
+  /**
+   * @param blockhash the blockhash to set
+   */
+  public void setBlockhash(String blockhash) {
+    this.blockhash = blockhash;
+  }
 
-	/**
-	 * @return the timereceived
-	 */
-	public long getTimereceived() {
-		return timereceived;
-	}
+  /**
+   * @return the blockindex
+   */
+  public long getBlockindex() {
+    return blockindex;
+  }
 
-	/**
-	 * @param timereceived the timereceived to set
-	 */
-	public void setTimereceived(long timereceived) {
-		this.timereceived = timereceived;
-	}
+  /**
+   * @param blockindex the blockindex to set
+   */
+  public void setBlockindex(long blockindex) {
+    this.blockindex = blockindex;
+  }
 
-	/**
-	 * @return the create
-	 */
-	public Create getCreate() {
-		return create;
-	}
+  /**
+   * @return the blocktime
+   */
+  public long getBlocktime() {
+    return blocktime;
+  }
 
-	/**
-	 * @param create the create to set
-	 */
-	public void setCreate(Create create) {
-		this.create = create;
-	}
+  /**
+   * @param blocktime the blocktime to set
+   */
+  public void setBlocktime(long blocktime) {
+    this.blocktime = blocktime;
+  }
+
+  /**
+   * @return the txid
+   */
+  public String getTxid() {
+    return txid;
+  }
+
+  /**
+   * @param txid the txid to set
+   */
+  public void setTxid(String txid) {
+    this.txid = txid;
+  }
+
+  /**
+   * @return the valid
+   */
+  public boolean isValid() {
+    return valid;
+  }
+
+  /**
+   * @param valid the valid to set
+   */
+  public void setValid(boolean valid) {
+    this.valid = valid;
+  }
+
+  /**
+   * @return the time
+   */
+  public long getTime() {
+    return time;
+  }
+
+  /**
+   * @param time the time to set
+   */
+  public void setTime(long time) {
+    this.time = time;
+  }
+
+  /**
+   * @return the timereceived
+   */
+  public long getTimereceived() {
+    return timereceived;
+  }
+
+  /**
+   * @param timereceived the timereceived to set
+   */
+  public void setTimereceived(long timereceived) {
+    this.timereceived = timereceived;
+  }
+
+  /**
+   * @return the create
+   */
+  public Create getCreate() {
+    return create;
+  }
+
+  /**
+   * @param create the create to set
+   */
+  public void setCreate(Create create) {
+    this.create = create;
+  }
+
+  /**
+   * @return the valid
+   */
+  public Boolean getValid() {
+    return valid;
+  }
+
+  /**
+   * @param valid the valid to set
+   */
+  public void setValid(Boolean valid) {
+    this.valid = valid;
+  }
+
+  /**
+   * @param confirmations the confirmations to set
+   */
+  public void setConfirmations(Long confirmations) {
+    this.confirmations = confirmations;
+  }
+
+  /**
+   * @param blockindex the blockindex to set
+   */
+  public void setBlockindex(Long blockindex) {
+    this.blockindex = blockindex;
+  }
+
+  /**
+   * @param blocktime the blocktime to set
+   */
+  public void setBlocktime(Long blocktime) {
+    this.blocktime = blocktime;
+  }
+
+  /**
+   * @param time the time to set
+   */
+  public void setTime(Long time) {
+    this.time = time;
+  }
+
+  /**
+   * @param timereceived the timereceived to set
+   */
+  public void setTimereceived(Long timereceived) {
+    this.timereceived = timereceived;
+  }
+
+
 }

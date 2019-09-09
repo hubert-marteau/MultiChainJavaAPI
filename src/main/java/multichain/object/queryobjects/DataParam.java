@@ -9,7 +9,7 @@ package multichain.object.queryobjects;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.16
+ * @version 2.0.1
  */
 public interface DataParam {
   Object getFormatedvalue();

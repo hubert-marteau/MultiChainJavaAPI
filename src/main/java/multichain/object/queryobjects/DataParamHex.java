@@ -9,11 +9,11 @@ package multichain.object.queryobjects;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.16
+ * @version 2.0.1
  */
 public class DataParamHex implements DataParam {
   private String hexValue = null;
-  
+
   @Override
   public String getFormatedvalue() {
     return getHexValue();
@@ -47,5 +47,5 @@ public class DataParamHex implements DataParam {
     this.hexValue = hexValue;
   }
 
-  
+
 }

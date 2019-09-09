@@ -12,19 +12,21 @@ import java.util.Map;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.16
+ * @version 2.0.1
  */
 public class DataParamIssueMore implements DataParam {
-//  "update" : asset-identifier     (string,required) Asset identifier - one of the following: asset txid, asset reference, asset name.
-//  "details" :                     (object, optional)  a json object with custom fields
-//    {
-//      "param-name": "param-value" (strings, required) The key is the parameter name, the value is parameter value
-//      ,...
-//    }
-  
+  // "update" : asset-identifier (string,required) Asset identifier - one of the following: asset
+  // txid, asset reference, asset name.
+  // "details" : (object, optional) a json object with custom fields
+  // {
+  // "param-name": "param-value" (strings, required) The key is the parameter name, the value is
+  // parameter value
+  // ,...
+  // }
+
   private String update = null;
-  private Map<String, String> details  = null;
-  
+  private Map<String, String> details = null;
+
   @Override
   public DataParamIssueMore getFormatedvalue() {
     return this;
@@ -78,5 +80,5 @@ public class DataParamIssueMore implements DataParam {
     details.put(detail.getName(), detail.getValue());
   }
 
-  
+
 }

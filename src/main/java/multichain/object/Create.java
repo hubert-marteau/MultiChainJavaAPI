@@ -9,24 +9,24 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.14
+ * @version 2.0.1
  */
 public class Create extends Stream {
-	String type = null;
+  String type = null;
 
-	/**
-	 * @return the type
-	 */
-	public String getType() {
-		return type;
-	}
+  /**
+   * @return the type
+   */
+  public String getType() {
+    return type;
+  }
 
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
+  /**
+   * @param type the type to set
+   */
+  public void setType(String type) {
+    this.type = type;
+  }
 
-	
+
 }

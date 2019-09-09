@@ -9,107 +9,102 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.14
+ * @version 2.0.1
  */
 public class StreamKey {
-	String key = null;
-	Long items = null;
-	Long confirmed = null;
-	StreamKeyInfo first = null;
-	StreamKeyInfo last = null;
+  String key = null;
+  Long items = null;
+  Long confirmed = null;
+  StreamKeyInfo first = null;
+  StreamKeyInfo last = null;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		String value = "StreamKey [key=" + key + ", items=" + items + ", confirmed=" + confirmed;
-		if (first != null) {
-			value += ", first=" + first.toString();
-		}
-		if (last != null) {
-			value += ", last=" + last.toString();
-		}
-		value += "]";
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    String value = "StreamKey [key=" + key + ", items=" + items + ", confirmed=" + confirmed;
+    if (first != null) {
+      value += ", first=" + first.toString();
+    }
+    if (last != null) {
+      value += ", last=" + last.toString();
+    }
+    value += "]";
 
-		return value;
-	}
+    return value;
+  }
 
-	/**
-	 * @return the key
-	 */
-	public String getKey() {
-		return key;
-	}
+  /**
+   * @return the key
+   */
+  public String getKey() {
+    return key;
+  }
 
-	/**
-	 * @param key
-	 *            the key to set
-	 */
-	public void setKey(String key) {
-		this.key = key;
-	}
+  /**
+   * @param key the key to set
+   */
+  public void setKey(String key) {
+    this.key = key;
+  }
 
-	/**
-	 * @return the items
-	 */
-	public long getItems() {
-		return items;
-	}
+  /**
+   * @return the items
+   */
+  public long getItems() {
+    return items;
+  }
 
-	/**
-	 * @param items
-	 *            the items to set
-	 */
-	public void setItems(long items) {
-		this.items = items;
-	}
+  /**
+   * @param items the items to set
+   */
+  public void setItems(long items) {
+    this.items = items;
+  }
 
-	/**
-	 * @return the confirmed
-	 */
-	public long getConfirmed() {
-		return confirmed;
-	}
+  /**
+   * @return the confirmed
+   */
+  public long getConfirmed() {
+    return confirmed;
+  }
 
-	/**
-	 * @param confirmed
-	 *            the confirmed to set
-	 */
-	public void setConfirmed(long confirmed) {
-		this.confirmed = confirmed;
-	}
+  /**
+   * @param confirmed the confirmed to set
+   */
+  public void setConfirmed(long confirmed) {
+    this.confirmed = confirmed;
+  }
 
-	/**
-	 * @return the first
-	 */
-	public StreamKeyInfo getFirst() {
-		return first;
-	}
+  /**
+   * @return the first
+   */
+  public StreamKeyInfo getFirst() {
+    return first;
+  }
 
-	/**
-	 * @param first
-	 *            the first to set
-	 */
-	public void setFirst(StreamKeyInfo first) {
-		this.first = first;
-	}
+  /**
+   * @param first the first to set
+   */
+  public void setFirst(StreamKeyInfo first) {
+    this.first = first;
+  }
 
-	/**
-	 * @return the last
-	 */
-	public StreamKeyInfo getLast() {
-		return last;
-	}
+  /**
+   * @return the last
+   */
+  public StreamKeyInfo getLast() {
+    return last;
+  }
 
-	/**
-	 * @param last
-	 *            the last to set
-	 */
-	public void setLast(StreamKeyInfo last) {
-		this.last = last;
-	}
+  /**
+   * @param last the last to set
+   */
+  public void setLast(StreamKeyInfo last) {
+    this.last = last;
+  }
 
 }

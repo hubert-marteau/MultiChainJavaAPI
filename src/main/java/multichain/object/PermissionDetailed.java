@@ -11,197 +11,197 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.14
+ * @version 2.0.1
  */
 public class PermissionDetailed {
 
-	Boolean connect = null;
-	Boolean send = null;
-	Boolean receive = null;
-	Boolean create = null;
-	Boolean issue = null;
-	Boolean mine = null;
-	Boolean admin = null;
-	Boolean activate = null;
-	Long startblock = null;
-	Long endblock = null;
-	Long timestamp = null;
-	List<String> addresses = null;
-	
-	/**
-	 *
-	 */
-	public PermissionDetailed() {
-		super();
-	}
+  Boolean connect = null;
+  Boolean send = null;
+  Boolean receive = null;
+  Boolean create = null;
+  Boolean issue = null;
+  Boolean mine = null;
+  Boolean admin = null;
+  Boolean activate = null;
+  Long startblock = null;
+  Long endblock = null;
+  Long timestamp = null;
+  List<String> addresses = null;
 
-	/**
-	 * @return the addresses
-	 */
-	public List<String> getAddresses() {
-		return addresses;
-	}
+  /**
+   *
+   */
+  public PermissionDetailed() {
+    super();
+  }
 
-	/**
-	 * @param addresses the addresses to set
-	 */
-	public void setAddresses(List<String> addresses) {
-		this.addresses = addresses;
-	}
+  /**
+   * @return the addresses
+   */
+  public List<String> getAddresses() {
+    return addresses;
+  }
 
-	/**
-	 * @return the connect
-	 */
-	public Boolean getConnect() {
-		return connect;
-	}
+  /**
+   * @param addresses the addresses to set
+   */
+  public void setAddresses(List<String> addresses) {
+    this.addresses = addresses;
+  }
 
-	/**
-	 * @param connect the connect to set
-	 */
-	public void setConnect(Boolean connect) {
-		this.connect = connect;
-	}
+  /**
+   * @return the connect
+   */
+  public Boolean getConnect() {
+    return connect;
+  }
 
-	/**
-	 * @return the send
-	 */
-	public Boolean getSend() {
-		return send;
-	}
+  /**
+   * @param connect the connect to set
+   */
+  public void setConnect(Boolean connect) {
+    this.connect = connect;
+  }
 
-	/**
-	 * @param send the send to set
-	 */
-	public void setSend(Boolean send) {
-		this.send = send;
-	}
+  /**
+   * @return the send
+   */
+  public Boolean getSend() {
+    return send;
+  }
 
-	/**
-	 * @return the receive
-	 */
-	public Boolean getReceive() {
-		return receive;
-	}
+  /**
+   * @param send the send to set
+   */
+  public void setSend(Boolean send) {
+    this.send = send;
+  }
 
-	/**
-	 * @param receive the receive to set
-	 */
-	public void setReceive(Boolean receive) {
-		this.receive = receive;
-	}
+  /**
+   * @return the receive
+   */
+  public Boolean getReceive() {
+    return receive;
+  }
 
-	/**
-	 * @return the create
-	 */
-	public Boolean getCreate() {
-		return create;
-	}
+  /**
+   * @param receive the receive to set
+   */
+  public void setReceive(Boolean receive) {
+    this.receive = receive;
+  }
 
-	/**
-	 * @param create the create to set
-	 */
-	public void setCreate(Boolean create) {
-		this.create = create;
-	}
+  /**
+   * @return the create
+   */
+  public Boolean getCreate() {
+    return create;
+  }
 
-	/**
-	 * @return the issue
-	 */
-	public Boolean getIssue() {
-		return issue;
-	}
+  /**
+   * @param create the create to set
+   */
+  public void setCreate(Boolean create) {
+    this.create = create;
+  }
 
-	/**
-	 * @param issue the issue to set
-	 */
-	public void setIssue(Boolean issue) {
-		this.issue = issue;
-	}
+  /**
+   * @return the issue
+   */
+  public Boolean getIssue() {
+    return issue;
+  }
 
-	/**
-	 * @return the mine
-	 */
-	public Boolean getMine() {
-		return mine;
-	}
+  /**
+   * @param issue the issue to set
+   */
+  public void setIssue(Boolean issue) {
+    this.issue = issue;
+  }
 
-	/**
-	 * @param mine the mine to set
-	 */
-	public void setMine(Boolean mine) {
-		this.mine = mine;
-	}
+  /**
+   * @return the mine
+   */
+  public Boolean getMine() {
+    return mine;
+  }
 
-	/**
-	 * @return the admin
-	 */
-	public Boolean getAdmin() {
-		return admin;
-	}
+  /**
+   * @param mine the mine to set
+   */
+  public void setMine(Boolean mine) {
+    this.mine = mine;
+  }
 
-	/**
-	 * @param admin the admin to set
-	 */
-	public void setAdmin(Boolean admin) {
-		this.admin = admin;
-	}
+  /**
+   * @return the admin
+   */
+  public Boolean getAdmin() {
+    return admin;
+  }
 
-	/**
-	 * @return the activate
-	 */
-	public Boolean getActivate() {
-		return activate;
-	}
+  /**
+   * @param admin the admin to set
+   */
+  public void setAdmin(Boolean admin) {
+    this.admin = admin;
+  }
 
-	/**
-	 * @param activate the activate to set
-	 */
-	public void setActivate(Boolean activate) {
-		this.activate = activate;
-	}
+  /**
+   * @return the activate
+   */
+  public Boolean getActivate() {
+    return activate;
+  }
 
-	/**
-	 * @return the startblock
-	 */
-	public Long getStartblock() {
-		return startblock;
-	}
+  /**
+   * @param activate the activate to set
+   */
+  public void setActivate(Boolean activate) {
+    this.activate = activate;
+  }
 
-	/**
-	 * @param startblock the startblock to set
-	 */
-	public void setStartblock(Long startblock) {
-		this.startblock = startblock;
-	}
+  /**
+   * @return the startblock
+   */
+  public Long getStartblock() {
+    return startblock;
+  }
 
-	/**
-	 * @return the endblock
-	 */
-	public Long getEndblock() {
-		return endblock;
-	}
+  /**
+   * @param startblock the startblock to set
+   */
+  public void setStartblock(Long startblock) {
+    this.startblock = startblock;
+  }
 
-	/**
-	 * @param endblock the endblock to set
-	 */
-	public void setEndblock(Long endblock) {
-		this.endblock = endblock;
-	}
+  /**
+   * @return the endblock
+   */
+  public Long getEndblock() {
+    return endblock;
+  }
 
-	/**
-	 * @return the timestamp
-	 */
-	public Long getTimestamp() {
-		return timestamp;
-	}
+  /**
+   * @param endblock the endblock to set
+   */
+  public void setEndblock(Long endblock) {
+    this.endblock = endblock;
+  }
 
-	/**
-	 * @param timestamp the timestamp to set
-	 */
-	public void setTimestamp(Long timestamp) {
-		this.timestamp = timestamp;
-	}
-	
-	
+  /**
+   * @return the timestamp
+   */
+  public Long getTimestamp() {
+    return timestamp;
+  }
+
+  /**
+   * @param timestamp the timestamp to set
+   */
+  public void setTimestamp(Long timestamp) {
+    this.timestamp = timestamp;
+  }
+
+
 }

@@ -9,10 +9,11 @@ package multichain.object.queryobjects;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.16
+ * @version 2.0.1
  */
 public class ParamIssueMore extends ParamIssue {
   private String asset = null;
+
   /**
    * 
    */
@@ -20,19 +21,19 @@ public class ParamIssueMore extends ParamIssue {
     super();
     // TODO Auto-generated constructor stub
   }
-  
+
   public boolean isFilled() {
     boolean filled = true;
-    
+
     filled = super.isFilled();
-    
+
     if (asset == null || asset.isEmpty()) {
-      filled = filled  && false;
+      filled = filled && false;
     }
-    
+
     return filled;
   }
-  
+
   /**
    * @param raw
    * @param asset
@@ -41,18 +42,20 @@ public class ParamIssueMore extends ParamIssue {
     super(raw);
     this.asset = asset;
   }
+
   /**
    * @return the asset
    */
   public String getAsset() {
     return asset;
   }
+
   /**
    * @param asset the asset to set
    */
   public void setAsset(String asset) {
     this.asset = asset;
   }
-  
-  
+
+
 }

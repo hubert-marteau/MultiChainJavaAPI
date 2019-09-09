@@ -9,36 +9,39 @@ package multichain.object;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.14
+ * @version 2.0.1
  */
 public class ScriptSig {
-    String asm = null;
-    String hex = null;
+  String asm = null;
+  String hex = null;
 
-	/**
-	 * @return the asm
-	 */
-	public String getAsm() {
-		return asm;
-	}
-	/**
-	 * @param asm the asm to set
-	 */
-	public void setAsm(String asm) {
-		this.asm = asm;
-	}
-	/**
-	 * @return the hex
-	 */
-	public String getHex() {
-		return hex;
-	}
-	/**
-	 * @param hex the hex to set
-	 */
-	public void setHex(String hex) {
-		this.hex = hex;
-	}
+  /**
+   * @return the asm
+   */
+  public String getAsm() {
+    return asm;
+  }
+
+  /**
+   * @param asm the asm to set
+   */
+  public void setAsm(String asm) {
+    this.asm = asm;
+  }
+
+  /**
+   * @return the hex
+   */
+  public String getHex() {
+    return hex;
+  }
+
+  /**
+   * @param hex the hex to set
+   */
+  public void setHex(String hex) {
+    this.hex = hex;
+  }
 
 
 }

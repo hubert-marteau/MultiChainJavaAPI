@@ -12,26 +12,27 @@ import java.util.Map;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.17
+ * @version 2.0.1
  */
 public class DataParamStreamItem implements DataParam {
-//  "for" : stream-identifier       (string,required) Stream identifier - one of the following: stream txid, stream reference, stream name.
-//  "key" : key                     (string,optional, default: "") Item key
-//  "data" : data-hex               (string,optional, default: "") Data hex string
+  // "for" : stream-identifier (string,required) Stream identifier - one of the following: stream
+  // txid, stream reference, stream name.
+  // "key" : key (string,optional, default: "") Item key
+  // "data" : data-hex (string,optional, default: "") Data hex string
 
   private String for_;
   private String key;
   private String data;
-  
+
 
   @Override
   public Map<String, String> getFormatedvalue() {
     Map<String, String> value = new HashMap<>();
-    
+
     value.put("for", for_);
     value.put("key", key);
     value.put("data", data);
-    
+
     return value;
   }
 
@@ -95,7 +96,7 @@ public class DataParamStreamItem implements DataParam {
   public void setData(String data) {
     this.data = data;
   }
-  
-  
-  
+
+
+
 }

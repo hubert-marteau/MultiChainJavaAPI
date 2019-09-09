@@ -12,50 +12,55 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.14
+ * @version 2.0.1
  */
-public class TransactionWalletVout extends TransactionWalletVInfo{
-	Long n = null;
-	List<Item> items;
+public class TransactionWalletVout extends TransactionWalletVInfo {
+  Long n = null;
+  List<Item> items;
 
-	/**
-	 *
-	 */
-	public TransactionWalletVout() {
-		super();
-		items = new ArrayList<Item>();
-	}
-	/**
-	 * @param info
-	 */
-	public TransactionWalletVout(TransactionWalletVInfo info) {
-		super(info);
-		items = new ArrayList<Item>();
-	}
-	/**
-	 * @return the n
-	 */
-	public long getN() {
-		return n;
-	}
-	/**
-	 * @param n the n to set
-	 */
-	public void setN(long n) {
-		this.n = n;
-	}
-	/**
-	 * @return the items
-	 */
-	public List<Item> getItems() {
-		return items;
-	}
-	/**
-	 * @param items the items to set
-	 */
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
+  /**
+   *
+   */
+  public TransactionWalletVout() {
+    super();
+    items = new ArrayList<Item>();
+  }
+
+  /**
+   * @param info
+   */
+  public TransactionWalletVout(TransactionWalletVInfo info) {
+    super(info);
+    items = new ArrayList<Item>();
+  }
+
+  /**
+   * @return the n
+   */
+  public long getN() {
+    return n;
+  }
+
+  /**
+   * @param n the n to set
+   */
+  public void setN(long n) {
+    this.n = n;
+  }
+
+  /**
+   * @return the items
+   */
+  public List<Item> getItems() {
+    return items;
+  }
+
+  /**
+   * @param items the items to set
+   */
+  public void setItems(List<Item> items) {
+    this.items = items;
+  }
 
 
 }
