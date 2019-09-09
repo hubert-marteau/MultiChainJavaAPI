@@ -17,4 +17,3 @@ hs_err_pid*
 /target
 /.settings
 *.iml
-/src/test
