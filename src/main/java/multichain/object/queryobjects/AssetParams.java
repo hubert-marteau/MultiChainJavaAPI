@@ -14,15 +14,32 @@ package multichain.object.queryobjects;
 public class AssetParams {
   String name;
   boolean open;
+  String restrict;
 
   /**
    * @param name
    * @param open
    */
-  public AssetParams(String name, boolean open) {
+  public AssetParams(String name, boolean open, String restrict) {
     super();
     this.name = name;
     this.open = open;
+    this.restrict = restrict;
+  }
+
+  /**
+   * @return the restrict
+   */
+  public String getRestrict() {
+    return restrict;
+  }
+
+  /**
+   * set the restrict
+   * @param restrict
+   */
+  public void setRestrict(String restrict) {
+    this.restrict = restrict;
   }
 
   /**

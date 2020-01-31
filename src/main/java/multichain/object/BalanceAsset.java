@@ -21,6 +21,7 @@ public class BalanceAsset {
   Double units = null;
   Boolean open = null;
   Map<String, String> details = null;
+  Map<String, String> restrict = null;
   Double qty = null;
   Long raw = null;
   Double issueqty = null;
@@ -36,9 +37,26 @@ public class BalanceAsset {
   @Override
   public String toString() {
     return "BalanceAsset [name=" + name + ", issuetxid=" + issuetxid + ", assetref=" + assetref
-        + ", multiple=" + multiple + ", units=" + units + ", open=" + open + ", details=" + details
-        + ", qty=" + qty + ", raw=" + raw + ", issueqty=" + issueqty + ", issueraw=" + issueraw
-        + ", subscribed=" + subscribed + "]";
+            + ", multiple=" + multiple + ", units=" + units + ", open=" + open + ", details=" + details
+            + ", restrict=" + restrict
+            + ", qty=" + qty + ", raw=" + raw + ", issueqty=" + issueqty + ", issueraw=" + issueraw
+            + ", subscribed=" + subscribed + "]";
+  }
+
+  /**
+   * get restrict
+   * @return
+   */
+  public Map<String, String> getRestrict() {
+    return restrict;
+  }
+
+  /**
+   * set restrict
+   * @param restrict
+   */
+  public void setRestrict(Map<String, String> restrict) {
+    this.restrict = restrict;
   }
 
   /**
