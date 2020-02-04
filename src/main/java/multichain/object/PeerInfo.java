@@ -23,7 +23,7 @@ public class PeerInfo {
   Long bytessent = null;
   Long bytesrecv = null;
   Long conntime = null;
-  Long pingtime = null;
+  Double pingtime = null;
   Long pingwait = null;
   Long version = null;
   String subver = null;
@@ -165,14 +165,14 @@ public class PeerInfo {
   /**
    * @return the pingtime
    */
-  public Long getPingtime() {
+  public Double getPingtime() {
     return pingtime;
   }
 
   /**
    * @param pingtime the pingtime to set
    */
-  public void setPingtime(Long pingtime) {
+  public void setPingtime(Double pingtime) {
     this.pingtime = pingtime;
   }
 
