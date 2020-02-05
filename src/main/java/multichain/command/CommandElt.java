@@ -104,7 +104,7 @@ public enum CommandElt {
   GETBLOCKCHAININFO("getblockchaininfo", null, new Class<?>[] {BlockchainInfo.class}),
   GETBLOCKCHAINPARAMS("getblockchainparams", null,
       new Class<?>[] {(new HashMap<String, String>()).getClass()}),
-  GETBLOCKCOUNT("getblockcount", null, new Class<?>[] {Long.class}),
+  GETBLOCKCOUNT("getblockcount", null, new Class<?>[] {Double.class}),
   GETBLOCKHASH("getblockhash", null, new Class<?>[] {String.class}),
   GETBLOCKTEMPLATE("getblocktemplate", null, new Class<?>[] {BlockTemplate.class}),
   GETCHAINTIPS("getchaintips", null, new Class<?>[] {ChainTip.class}, true),
