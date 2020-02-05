@@ -7,14 +7,15 @@
  */
 package multichain.object;
 
+
 /**
  * @author Ub - H. MARTEAU
  * @version 2.0.1
  */
 public class NetworkInfoNetwork {
   String name = null;
-  Long limited = null;
-  Long reachable = null;
+  Boolean limited = null;
+  Boolean reachable = null;
   String proxy = null;
 
   /**
@@ -34,28 +35,28 @@ public class NetworkInfoNetwork {
   /**
    * @return the limited
    */
-  public Long getLimited() {
+  public Boolean getLimited() {
     return limited;
   }
 
   /**
    * @param limited the limited to set
    */
-  public void setLimited(Long limited) {
+  public void setLimited(Boolean limited) {
     this.limited = limited;
   }
 
   /**
    * @return the reachable
    */
-  public Long getReachable() {
+  public Boolean getReachable() {
     return reachable;
   }
 
   /**
    * @param reachable the reachable to set
    */
-  public void setReachable(Long reachable) {
+  public void setReachable(Boolean reachable) {
     this.reachable = reachable;
   }
 
