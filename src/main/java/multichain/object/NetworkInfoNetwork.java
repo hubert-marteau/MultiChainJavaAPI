@@ -1,8 +1,7 @@
 /*
  * Copyright (C) 2017 Worldline, Inc.
  *
- * MultiChainJavaAPI code distributed under the GPLv3 license, see COPYING file.
- * https://github.com/SimplyUb/MultiChainJavaAPI/blob/master/LICENSE
+ * MultiChainJavaAPI code distributed under the GPLv3 license, see COPYING file. https://github.com/SimplyUb/MultiChainJavaAPI/blob/master/LICENSE
  *
  */
 package multichain.object;
@@ -12,66 +11,89 @@ package multichain.object;
  * @version 2.0.1
  */
 public class NetworkInfoNetwork {
-  String name = null;
-  Long limited = null;
-  Long reachable = null;
-  String proxy = null;
 
-  /**
-   * @return the name
-   */
-  public String getName() {
-    return name;
-  }
+	String name = null;
+	Boolean limited = null;
+	Boolean reachable = null;
+	String proxy = null;
 
-  /**
-   * @param name the name to set
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
+	/**
+	 * @return the name
+	 */
+	public String getName() {
 
-  /**
-   * @return the limited
-   */
-  public Long getLimited() {
-    return limited;
-  }
+		return name;
+	}
 
-  /**
-   * @param limited the limited to set
-   */
-  public void setLimited(Long limited) {
-    this.limited = limited;
-  }
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(final String name) {
 
-  /**
-   * @return the reachable
-   */
-  public Long getReachable() {
-    return reachable;
-  }
+		this.name = name;
+	}
 
-  /**
-   * @param reachable the reachable to set
-   */
-  public void setReachable(Long reachable) {
-    this.reachable = reachable;
-  }
+	/**
+	 * @return the limited
+	 */
+	public Boolean getLimited() {
 
-  /**
-   * @return the proxy
-   */
-  public String getProxy() {
-    return proxy;
-  }
+		return limited;
+	}
 
-  /**
-   * @param proxy the proxy to set
-   */
-  public void setProxy(String proxy) {
-    this.proxy = proxy;
-  }
+	/**
+	 * @param limited
+	 *            the limited to set
+	 */
+	public void setLimited(final Boolean limited) {
 
+		this.limited = limited;
+	}
+
+	/**
+	 * @return the reachable
+	 */
+	public Boolean getReachable() {
+
+		return reachable;
+	}
+
+	/**
+	 * @param reachable
+	 *            the reachable to set
+	 */
+	public void setReachable(final Boolean reachable) {
+
+		this.reachable = reachable;
+	}
+
+	/**
+	 * @return the proxy
+	 */
+	public String getProxy() {
+
+		return proxy;
+	}
+
+	/**
+	 * @param proxy
+	 *            the proxy to set
+	 */
+	public void setProxy(final String proxy) {
+
+		this.proxy = proxy;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+
+		return String.format("NetworkInfoNetwork [name=%s, limited=%s, reachable=%s, proxy=%s]", name, limited, reachable, proxy);
+	}
 
 }
