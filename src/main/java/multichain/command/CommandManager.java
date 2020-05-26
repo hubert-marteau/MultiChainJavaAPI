@@ -51,7 +51,8 @@ public class CommandManager extends QueryBuilderCommon {
       throws MultichainException {
 
     // Input Management
-    Object commandParameters = command.getCommandParameters();
+    @SuppressWarnings("unused")
+	Object commandParameters = command.getCommandParameters();
     boolean controlValue = true; // Will be done in 6.02
 
     if (controlValue) {

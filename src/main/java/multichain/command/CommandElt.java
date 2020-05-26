@@ -124,7 +124,7 @@ public enum CommandElt {
   GETNETWORKHASHPS("getnetworkhashps", null, new Class<?>[] {Long.class}),
   GETNETWORKINFO("getnetworkinfo", null, new Class<?>[] {NetworkInfo.class}),
   GETNEWADDRESS("getnewaddress", null, new Class<?>[] {String.class}),
-  GETPEERINFO("getpeerinfo", null, new Class<?>[]{PeerInfo.class}, true),
+  GETPEERINFO("getpeerinfo", null, new Class<?>[] {PeerInfo.class}),
   GETRAWCHANGEADDRESS("getrawchangeaddress", null, new Class<?>[] {String.class}),
   GETRAWMEMPOOL("getrawmempool", null,
       new Class<?>[] {String.class, (new HashMap<String, RawMemPoolTransaction>()).getClass()},

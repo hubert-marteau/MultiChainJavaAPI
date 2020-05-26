@@ -45,7 +45,7 @@ public class GenericOutputFormatter {
   }
 
 
-  private static final <T> T format(Object jsonValue, Class<T> valueType) {
+  public static final <T> T format(Object jsonValue, Class<T> valueType) {
     T returnedValue = null;
 
     if (jsonValue != null
