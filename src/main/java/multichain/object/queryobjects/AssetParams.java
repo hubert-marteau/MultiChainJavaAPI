@@ -9,16 +9,27 @@ package multichain.object.queryobjects;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 2.0.1
+ * @version 2.0.2
  */
 public class AssetParams {
   String name;
   boolean open;
-  String restrict;
+  String restrict = null;
 
   /**
    * @param name
    * @param open
+   */
+  public AssetParams(String name, boolean open) {
+    super();
+    this.name = name;
+    this.open = open;
+  }
+
+  /**
+   * @param name
+   * @param open
+   * @param restrict
    */
   public AssetParams(String name, boolean open, String restrict) {
     super();

@@ -26,7 +26,7 @@ public class StreamDataJson extends StreamData {
   }
 
   /**
-   * @param text
+   * @param json
    */
   public StreamDataJson(JsonObject json) {
     super();
