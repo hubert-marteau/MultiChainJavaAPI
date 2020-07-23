@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 2.0.1
+ * @version 2.0.2
  */
 public class StreamKeyItem {
   List<String> publishers;

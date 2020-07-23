@@ -21,7 +21,8 @@ import multichain.command.CommandElt;
  */
 public class GenericOutputFormatterTest {
 
-  @Test
+  @SuppressWarnings("unchecked")
+@Test
   public void testFormatBlock() {
     String blockJsonValue =
         "{\"hash\": \"00cd11ab4a7146236595c29f52a874521845cb2a417da4e938266e1a3a1f3bb2\","
@@ -48,7 +49,8 @@ public class GenericOutputFormatterTest {
 
   }
 
-  @Test
+@SuppressWarnings("rawtypes")
+@Test
   public void testFormatAddressesSimple() {
     String addresseJsonValue01 = "\"11ADDRESSE01ADDRESSE01ADDRESSE01111111\"";
     String addresseJsonValue02 = "\"22ADDRESSE02ADDRESSE02ADDRESSE02222222\"";
@@ -81,7 +83,7 @@ public class GenericOutputFormatterTest {
   }
 
 
-
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   @Test
   public void testFormatAddressesVerbose() {
     String addresseJsonValue01 =

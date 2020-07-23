@@ -11,12 +11,12 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 2.0.1
+ * @version 2.0.2
  */
 public class StreamKeyInfo {
   List<String> publishers;
   String key = null;
-  String data = null;
+  Object data = null;
   Long confirmations = null;
   String blockhash = null;
   Long blockindex = null;
@@ -71,14 +71,14 @@ public class StreamKeyInfo {
   /**
    * @return the data
    */
-  public String getData() {
+  public Object getData() {
     return data;
   }
 
   /**
    * @param data the data to set
    */
-  public void setData(String data) {
+  public void setData(Object data) {
     this.data = data;
   }
 
