@@ -6,12 +6,12 @@
  */
 package multichain.object;
 
+
 /**
  * @author Ub - H. MARTEAU
  * @version 2.0.1
  */
 public class NetworkInfoNetwork {
-
 	String name = null;
 	Boolean limited = null;
 	Boolean reachable = null;
