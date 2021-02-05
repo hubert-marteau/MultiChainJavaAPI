@@ -22,7 +22,7 @@ public class TransactionWallet {
   Create create = null;
   AssetWalletTransaction issue = null;
   List<Item> items = null;
-  List<String> data = null;
+  Object data = null;
   Long confirmations = null;
   String blockhash = null;
   Long blockindex = null;
@@ -47,7 +47,7 @@ public class TransactionWallet {
     addresses = new ArrayList<String>();
     permissions = new ArrayList<PermissionDetailed>();
     issue = null;
-    data = new ArrayList<String>();
+    data = new Object();
     items = new ArrayList<>();
 
   }
@@ -220,14 +220,14 @@ public class TransactionWallet {
   /**
    * @return the data
    */
-  public List<String> getData() {
+  public Object getData() {
     return data;
   }
 
   /**
    * @param data the data to set
    */
-  public void setData(List<String> data) {
+  public void setData(Object data) {
     this.data = data;
   }
 
